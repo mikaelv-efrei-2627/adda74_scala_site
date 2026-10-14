@@ -4,42 +4,66 @@
     "href": "tp3.html",
     "title": "TP3 - Liste chaînée",
     "section": "",
-    "text": "Dans cet exercice, vous allez implémenter progressivement une liste chaînée simple en Scala 3."
+    "text": "Dans cet exercice, vous allez implémenter progressivement une liste chaînée simple en Scala 3.",
+    "crumbs": [
+      "TPs",
+      "TP3 - Liste chaînée"
+    ]
   },
   {
     "objectID": "tp3.html#objectif",
     "href": "tp3.html#objectif",
     "title": "TP3 - Liste chaînée",
     "section": "",
-    "text": "Dans cet exercice, vous allez implémenter progressivement une liste chaînée simple en Scala 3."
+    "text": "Dans cet exercice, vous allez implémenter progressivement une liste chaînée simple en Scala 3.",
+    "crumbs": [
+      "TPs",
+      "TP3 - Liste chaînée"
+    ]
   },
   {
     "objectID": "tp3.html#contexte",
     "href": "tp3.html#contexte",
     "title": "TP3 - Liste chaînée",
     "section": "2 Contexte",
-    "text": "2 Contexte\nUne liste chaînée est une structure de données linéaire où chaque élément pointe vers le suivant. En programmation fonctionnelle, nous utilisons des structures de données immutables."
+    "text": "2 Contexte\nUne liste chaînée est une structure de données linéaire où chaque élément pointe vers le suivant. En programmation fonctionnelle, nous utilisons des structures de données immutables.",
+    "crumbs": [
+      "TPs",
+      "TP3 - Liste chaînée"
+    ]
   },
   {
     "objectID": "tp3.html#liste-dentiers-avec-sealed-trait",
     "href": "tp3.html#liste-dentiers-avec-sealed-trait",
     "title": "TP3 - Liste chaînée",
     "section": "3 Liste d’entiers avec sealed trait",
-    "text": "3 Liste d’entiers avec sealed trait\nCommençons par une approche classique avec une liste qui ne contient que des entiers :\n\n3.1 Définition de base\nsealed trait IntList\ncase object Empty extends IntList\ncase class Cons(head: Int, tail: IntList) extends IntList\nQuestions :\n\nQue signifie sealed ?\nPourquoi utilise-t-on case object pour Empty et case class pour Cons ?\n\n\n\n3.2 Premières méthodes\nImplémentez ces méthodes :\n \nsealed trait IntList:\n  // TODO : Ajouter un élément en tête\n  def prepend(element: Int): IntList\n  \n  // TODO : Calculer la longueur \n  def length: Int\n\nobject IntList:\n  // TODO : Créer une liste vide\n  def empty: IntList = ???\n\n\n3.3 Test de base\n@main def testIntList1(): Unit =\n  val empty = IntList.empty\n  val list1 = empty.prepend(1)\n  val list2 = list1.prepend(2)\n  println(s\"Liste : $list2\")\n  println(s\"Longueur : ${list2.length}\")\n\n\n3.4 Méthodes plus avancées\nsealed trait IntList:\n  // ... (méthodes précédentes) ...\n  \n  // TODO : Vérifier si la liste contient un élément. Utiliser la récursion\n  def contains(element: Int): Boolean = ???\n  \n  // TODO : conserver uniquement les éléments qui vérifient la fonction predicate\n  def filter(predicate: Int =&gt; Boolean): IntList = ???\n  \n  // TODO : transformer en chaîne\n  def mkString: String = ???"
+    "text": "3 Liste d’entiers avec sealed trait\nCommençons par une approche classique avec une liste qui ne contient que des entiers :\n\n3.1 Définition de base\nsealed trait IntList\ncase object Empty extends IntList\ncase class Cons(head: Int, tail: IntList) extends IntList\nQuestions :\n\nQue signifie sealed ?\nPourquoi utilise-t-on case object pour Empty et case class pour Cons ?\n\n\n\n3.2 Premières méthodes\nImplémentez ces méthodes :\n \nsealed trait IntList:\n  // TODO : Ajouter un élément en tête\n  def prepend(element: Int): IntList\n  \n  // TODO : Calculer la longueur \n  def length: Int\n\nobject IntList:\n  // TODO : Créer une liste vide\n  def empty: IntList = ???\n\n\n3.3 Test de base\n@main def testIntList1(): Unit =\n  val empty = IntList.empty\n  val list1 = empty.prepend(1)\n  val list2 = list1.prepend(2)\n  println(s\"Liste : $list2\")\n  println(s\"Longueur : ${list2.length}\")\n\n\n3.4 Méthodes plus avancées\nsealed trait IntList:\n  // ... (méthodes précédentes) ...\n  \n  // TODO : Vérifier si la liste contient un élément. Utiliser la récursion\n  def contains(element: Int): Boolean = ???\n  \n  // TODO : conserver uniquement les éléments qui vérifient la fonction predicate\n  def filter(predicate: Int =&gt; Boolean): IntList = ???\n  \n  // TODO : transformer en chaîne\n  def mkString: String = ???",
+    "crumbs": [
+      "TPs",
+      "TP3 - Liste chaînée"
+    ]
   },
   {
     "objectID": "tp3.html#opérations-fonctionnelles",
     "href": "tp3.html#opérations-fonctionnelles",
     "title": "TP3 - Liste chaînée",
     "section": "4 Opérations fonctionnelles",
-    "text": "4 Opérations fonctionnelles\n\n4.1 Transformation et réduction\nsealed trait IntList:\n  // ... (méthodes précédentes) ...\n\n  // TODO : Multiplier chaque élément par 2\n  def double: IntList\n  \n  // TODO : généralise le cas précédent. transformation des éléments\n  def map(transfo: Int =&gt; Int): IntList\n  \n // TODO : Calculer la somme de tous les éléments\n  def sum: Int\n\n\n4.2 Test des opérations\nÉcrivez vos propres tests pour vérifier votre implémentation."
+    "text": "4 Opérations fonctionnelles\n\n4.1 Transformation et réduction\nsealed trait IntList:\n  // ... (méthodes précédentes) ...\n\n  // TODO : Multiplier chaque élément par 2\n  def double: IntList\n  \n  // TODO : généralise le cas précédent. transformation des éléments\n  def map(transfo: Int =&gt; Int): IntList\n  \n // TODO : Calculer la somme de tous les éléments\n  def sum: Int\n\n\n4.2 Test des opérations\nÉcrivez vos propres tests pour vérifier votre implémentation.",
+    "crumbs": [
+      "TPs",
+      "TP3 - Liste chaînée"
+    ]
   },
   {
     "objectID": "tp3.html#tail-recursion",
     "href": "tp3.html#tail-recursion",
     "title": "TP3 - Liste chaînée",
     "section": "5 Tail recursion",
-    "text": "5 Tail recursion\n\nImplémentez les méthodes précédentes en utilisant l’annotation @tailrec."
+    "text": "5 Tail recursion\n\nImplémentez les méthodes précédentes en utilisant l’annotation @tailrec.",
+    "crumbs": [
+      "TPs",
+      "TP3 - Liste chaînée"
+    ]
   },
   {
     "objectID": "index-bdml.html",
@@ -419,118 +443,6 @@
     "text": "10 Exemples de ce projet\n\n10.1 Lire depuis un socket\nfor\n  msg &lt;- SocketUtils.read[WorkerMessage](driverSocket)\n  _ &lt;- ZIO.logInfo(s\"Received: $msg\")\nyield ()\n\n\n10.2 Diffuser à plusieurs sockets\nval sockets = workers.map(_.socket)\nSocketUtils.broadcast(WorkerMessage.StartShuffle(stageId, n), sockets)\n\n\n10.3 Collecter les réponses de tous les workers\nSocketUtils.readAll[DriverMessage, Map[Int, List[Any]]](sockets) {\n  case DriverMessage.ShuffleData(_, _, partitions) =&gt; ZIO.succeed(partitions)\n}"
   },
   {
-    "objectID": "cm3.html",
-    "href": "cm3.html",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "",
-    "text": "Scala collections"
-  },
-  {
-    "objectID": "cm3.html#récursion-stack-unsafe",
-    "href": "cm3.html#récursion-stack-unsafe",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "2.1 Récursion stack-unsafe",
-    "text": "2.1 Récursion stack-unsafe\ndef somme(n: Int): Int =\n  if n &lt;= 0 then\n    0\n  else\n    n + somme(n - 1)\n\nproblème : chaque appel consomme de la mémoire dans la pile.\nOK jusqu’à une centaine d’appels\nsomme(100000) =&gt; StackOverFlowError"
-  },
-  {
-    "objectID": "cm3.html#récursion-stack-safe",
-    "href": "cm3.html#récursion-stack-safe",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "2.2 Récursion stack-safe",
-    "text": "2.2 Récursion stack-safe\n\nLorsque l’appel récursif est le dernier appel de la fonction, le compilateur peut transformer l’appel en une boucle itérative.\nl’appel est en dit en “tail position”\non peut annoter la fonction @tailrec pour garantir que l’optimisation a lieu. Le compilateur génèrera une erreur s’il ne peut pas optimiser.\n\n@tailrec\ndef somme(n: Int): Int =\n  if n &lt;= 0 then\n    0\n  else\n    n + somme(n - 1)\n/*\n6 |    n + somme(n - 1)\n  |        ^^^^^^^^^^^^\n  |        Cannot rewrite recursive call: it is not in tail position\n*/ \n\nle dernier appel n’est pas somme mais +.\nil faut introduire une fonction loop interne\n\ndef somme(n: Int): Int = \n  @tailrec\n  def loop(acc: Int, i: Int): Int =\n    if i &lt;= 0 then // condition de sortie\n      acc // renvoie la donnée accumulée\n    else \n      loop(acc + i, i - 1)\n    \n  loop(0, n)    \nLa fonction est optimisée avec une boucle semblable à ceci :\ndef sommeImperative(n: Int): Int =\n  var acc = 0\n  var i = n\n  while !(i &lt;= 0) do\n    acc = acc + i\n    i = i - 1\n  acc"
-  },
-  {
-    "objectID": "cm3.html#collections-mutable",
-    "href": "cm3.html#collections-mutable",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "3.1 Collections Mutable",
-    "text": "3.1 Collections Mutable\n\npackage scala.collection.mutable\nOn privilégie le style fonctionnel\n\n=&gt; à éviter, sauf pour optimiser les performances\n\nArray[T] est représenté comme un tableau Java\n\nval arr = Array(1, 2, 3)\narr(0) = 2\nprintln(arr(0)) // 2\nprintln(arr.length) // 3\n\nmutable.ArraySeq[T] implémente Seq. Taille fixe. En cas d’ajouts/suppression, une copie est effectuée\nmutable.ArrayBuffer[T] se comporte comme un ArrayList en Java\nmutable.ListBuffer[T] se comporte comme une LinkedList en Java\nmutable.HashMap[K, V] se comporte comme une HashMap en Java"
-  },
-  {
-    "objectID": "cm3.html#collections-immuable",
-    "href": "cm3.html#collections-immuable",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "3.2 Collections Immuable",
-    "text": "3.2 Collections Immuable\n\npackage scala.collection.immutable\nImportées par défaut si on n’importe pas les collections mutables.\nles méthodes qui modifient la collection renvoient une nouvelle collection\nce sont des collections persistantes\n\nelles préservent la version précédente lorsqu’elles sont modifiées\n\nles implémentations sont efficaces et ne dupliquent pas complètement les données"
-  },
-  {
-    "objectID": "cm3.html#séquences-immuables---implémentations",
-    "href": "cm3.html#séquences-immuables---implémentations",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "3.3 Séquences Immuables - implémentations",
-    "text": "3.3 Séquences Immuables - implémentations\n\nList est une liste chaînée.\npar défaut, lorsqu’on construit une Seq, on a une List\nVector est un arbre large et peu profond\n\nperformant pour la plupart des opérations\nradix-balanced finger tree of width 32\n\n\nval seq = Seq(1, 2, 3) // val seq: Seq[Int] = List(1, 2, 3)\n\n\n\n\n\nclassDiagram\n    class `Seq[T]` {\n        &lt;&lt;interface&gt;&gt;\n    }\n    \n    class `List[T]` {\n        par défaut\n        liste chaînée\n    }\n    \n    class `Vector[T]` {\n        arbre\n    }\n    \n    class `ArraySeq[T]` {\n        tableau\n    }\n    \n\n   `Seq[T]` &lt;|.. `List[T]`: implements\n   `Seq[T]` &lt;|.. `Vector[T]` : implements\n   `Seq[T]` &lt;|.. `ArraySeq[T]` : implements\n\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nUtiliser Seq pour le code standard avec moins de 1000 éléments. Basculer sur Vector ou List en fonction des usages."
-  },
-  {
-    "objectID": "cm3.html#sets-immuables---implémentations",
-    "href": "cm3.html#sets-immuables---implémentations",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "3.4 Sets immuables - implémentations",
-    "text": "3.4 Sets immuables - implémentations\n\nSet(1, 2, 3) =&gt; utilise HashSet par défaut\nTreeSet pour conserver un ordre\n\n\n\n\n\n\nclassDiagram\n  class `Set[T]` {\n    &lt;&lt;interface&gt;&gt;\n  }\n\n  class `HashSet[T]` {\n      par défaut\n  }\n\n  class `TreeSet[T]` {\n      conserve l'ordre\n  }\n\n  `Set[T]` &lt;|.. `HashSet[T]`: implements\n  `Set[T]` &lt;|.. `TreeSet[T]` : implements"
-  },
-  {
-    "objectID": "cm3.html#dictionnaires-immuables---implémentations",
-    "href": "cm3.html#dictionnaires-immuables---implémentations",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "3.5 Dictionnaires immuables - implémentations",
-    "text": "3.5 Dictionnaires immuables - implémentations\n\nMap =&gt; utilise HashMap par défaut (sauf pour moins de 5 clés)\nListMap conserve l’ordre d’insertion\nSortedMap garde les clés triées, et est implémentée par TreeMap\n\n\n\n\n\n\nclassDiagram\n  class `Map[K, V]` {\n    &lt;&lt;interface&gt;&gt;\n  }\n\n  class `HashMap[K, V]` {\n      par défaut\n  }\n\n  class `TreeMap[K, V]` {\n      conserve l'ordre\n  }\n\n  class `ListMap[K, V]` {\n    conserve l'ordre d'insertion\n  }\n        \n\n  `Map[K, V]` &lt;|.. `HashMap[K, V]`: implements\n  `Map[K, V]` &lt;|.. `TreeMap[K, V]` : implements\n  `Map[K, V]` &lt;|.. `ListMap[K, V]` : implements"
-  },
-  {
-    "objectID": "cm3.html#performance",
-    "href": "cm3.html#performance",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "3.6 Performance",
-    "text": "3.6 Performance\nScala Collections Performance Characteristics\n\n3.6.1 Séquences Immuables\n\n\n\n\n\n\n\n\n\n\nCollection\nAccès (apply)\nAjout début\nAjout fin\nMise à jour\n\n\n\n\nList\nO(n)\nO(1)\nO(n)\nO(n)\n\n\nVector\nO(1)eff\nO(1)eff\nO(1)eff\nO(1)eff\n\n\nArraySeq\nO(1)\nO(n)\nO(n)\nO(n)\n\n\n\n\n\n3.6.2 Séquences Mutables\n\n\n\n\n\n\n\n\n\n\nCollection\nAccès (apply)\nAjout début\nAjout fin\nMise à jour\n\n\n\n\nArrayBuffer\nO(1)\nO(n)\nO(1)am\nO(1)\n\n\nListBuffer\nO(n)\nO(1)\nO(1)\nO(n)\n\n\nArray\nO(1)\n-\n-\nO(1)\n\n\n\n\n\n3.6.3 Sets et Maps (Immuables)\n\n\n\nCollection\nRecherche\nAjout\nSuppression\n\n\n\n\nHashSet/HashMap\nO(1)eff\nO(1)eff\nO(1)eff\n\n\nTreeSet/TreeMap\nO(log n)\nO(log n)\nO(log n)\n\n\nListMap\nO(n)\nO(n)\nO(n)\n\n\n\n\n\n3.6.4 Sets et Maps (Mutables)\n\n\n\nCollection\nRecherche\nAjout\nSuppression\n\n\n\n\nHashSet/HashMap\nO(1)eff\nO(1)eff\nO(1)eff\n\n\nTreeSet\nO(log n)\nO(log n)\nO(log n)\n\n\n\n\n\n3.6.5 Légende\n\nO(1) = Temps constant\nO(1)eff = Temps effectivement constant (comme le log32 n de Vector)\nO(1)am = Temps constant amorti (occasionnellement plus lent, mais constant en moyenne)\nO(log n) = Temps logarithmique\nO(n) = Temps linéaire\n- = Opération non supportée\n\n\n\n3.6.6 Guide de décision rapide\n\n\n\n\n\n\nTip\n\n\n\nBesoin d’accès aléatoire rapide ? → Vector ou ArrayBuffer\nBeaucoup d’ajouts en début ? → List ou ListBuffer\nBeaucoup d’ajouts en fin ? → ArrayBuffer ou Vector\nRecherche clé-valeur ? → HashMap (immuable ou mutable)\nBesoin d’ordre trié ? → TreeSet ou TreeMap"
-  },
-  {
-    "objectID": "cm3.html#collections---opérations",
-    "href": "cm3.html#collections---opérations",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "3.7 Collections - opérations",
-    "text": "3.7 Collections - opérations\n\n3.7.1 Création et Ajout\nval seq = Seq(1, 2, 3)\nval seq2 = seq :+ 4 // seq.appended(4) =&gt; Seq(1, 2, 3, 4)\nval seq3 = 0 +: seq // seq.prepended(0) =&gt; Seq(0, 1, 2, 3, 4)\nval seq4 = seq3 ++ Seq(5, 6) // Seq(0, 1, 2, 3, 4, 5, 6)\n\n// syntaxe tuple: (clé, valeur) ou clé -&gt; valeur\nval map = Map(\"a\" -&gt; 65, \"b\" -&gt; 66, \"c\" -&gt; 67)\nval map2 = map + ((\"d\", 68)) // Map(a -&gt; 65, b -&gt; 66, c -&gt; 67, d -&gt; 68)\n\ncomment se rappeler de +: et :+ ?\n\nle : est du côté du Seq\n\n\n\n\n3.7.2 Suppression\nval seq = Seq(1, 2, 3)\nseq.tail // Seq(2, 3)\n\nval set = Set(1, 2, 3, 3, 1)\nset - 1 // Set(2, 3)\n\nval map = Map(\"a\" -&gt; 1, \"b\" -&gt; 2, \"c\" -&gt; 3)\nmap - \"b\" // Map(a -&gt; 1, c -&gt; 3) \n\nseq.take(2) // Seq(1, 2)\nseq.drop(2) // Seq(3)\n\n\n3.7.3 Accès\nval seq = Seq(\"début\", \"milieu\", \"fin\")\nseq.head // \"début\"\nseq.last // \"fin\"\nseq(1)   // \"milieu\"\nseq.size // 3\n\nval myMap = Map(\"a\" -&gt; 65, \"b\" -&gt; 66, \"c\" -&gt; 67)\nmyMap(\"a\") // 65\nmyMap(\"d\") // NoSuchElementException\n// Il vaut mieux utiliser .getOrElse ou .get \nmyMap.getOrElse(\"a\", 0) // 0\n// nous verrons le type Option[T] au CM4\nmyMap.get(\"a\") // Option[Int] = Some(65)\nmyMap.get(\"d\") // Option[Int] = None\n\n\n3.7.4 Comparaison\nSeq(1, 2, 3) == Seq(1, 2) :+ 3    // true\n// same category\nVector(1, 2, 3) == List(1, 2, 3) // true\nSet(1, 2, 3) == List(1, 2, 3)    // false, compiler warning"
-  },
-  {
-    "objectID": "cm3.html#collections---higher-order-functions",
-    "href": "cm3.html#collections---higher-order-functions",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "3.8 Collections - higher order functions",
-    "text": "3.8 Collections - higher order functions\n\n3.8.1 Function as value\n\n!! Le mot-clé def définit une méthode\nUne fonction est une valeur qui peut être affectée à une variable, ou passée en paramètre.\nSon type est de la forme :\n\nParamType =&gt; ResultType\n(Param1Type, Param2Type, ...) =&gt; ResultType\nParam1Type =&gt; Param2Type =&gt; ... =&gt; ResultType : currying\n\nLe type peut être inféré si le compilateur a assez d’informations\nSa définition prend les formes suivantes :\n\nparam =&gt; Body lorsque ParamType peut être inféré\n(param: ParamType) =&gt; Body\n(param1, param2, ...) =&gt; Body lorsque Param1Type et Param2Type peuvent être inférés\n(param1: Param1Type, param2: Param2Type, ...) =&gt; Body\n(param1: Param1Type) =&gt; (param2: Param2Type) =&gt; ... =&gt; Body : currying\nBody contenant des caractères _. Chaque _ correspond à un paramètre\n\n\n// le type de la variable \"mult\" est inféré\nval mult                  = (x: Int) =&gt; x * 2  // val mult: Int =&gt; Int \n// le type du paramètre x est inféré à l'aide du type de la variable \"multInfer\"\nval multInfer: Int =&gt; Int = x =&gt; x * 2         // val multInfer: Int =&gt; Int \nval multShort: Int =&gt; Int =      _ * 2         // val multShort: Int =&gt; Int \n\nval addXY                         = (x: Int, y: Int) =&gt; x + y     // val addXY: (Int, Int) =&gt; Int\nval addXYInfer: (Int, Int) =&gt; Int = (x, y) =&gt; x + y               // val addXYInfer: (Int, Int) =&gt; Int\nval addXYShort: (Int, Int) =&gt; Int = _ + _                         // val addXYShort: (Int, Int) =&gt; Int\n\n// currying : fonction qui renvoie une fonction qui renvoie un résultat\nval addXYCurry                       = (x: Int) =&gt; (y: Int) =&gt; x + y // val addXYCurry: Int =&gt; Int =&gt; Int\nval addXYCurryInf: Int =&gt; Int =&gt; Int = x =&gt; y =&gt; x + y               // val addXYCurryInf: Int =&gt; Int =&gt; Int\n\n// appel d'une fonction \"curried\"\naddXYCurry(2)(3) // 5\n// la fonction est partiellement appliquée, pour le paramètre x uniquement\nval addY = addXYCurry(2) // val addY: Int =&gt; Int \naddY(3) // 5\n\n\n3.8.2 Transformation\nTransformation de Seq ou Set :\nval seq = Seq(1, 2, 3)\nseq.map(x =&gt; x * 2) // List(2, 4, 6)\nseq.map(_ + 1) // List(2, 3, 4)\n\nseq.filter(_ % 2 == 0) // List(2)\n// les valeurs sont filtrées à la demande (lazy evaluation)\nval seq2 = seq.withFilter(_ % 2 == 0) // seq2: WithFilter[Int, Seq] = ...\n// il faut appeler map pour forcer l'évaluation\nseq2.map(x =&gt; x) // List(2)\n\n// aplatir après transformation\nseq.flatMap(x =&gt; Seq(x, x * 2))     // List(1, 2, 2, 4, 3, 6)\nseq.map(x =&gt; Seq(x, x * 2)).flatten // List(1, 2, 2, 4, 3, 6)\n\n// collect = filter + map\nseq.collect:\n  case x if x % 2 == 0 =&gt; x * 2\nTransformation de Map :\nval m = Map(\"a\" -&gt; 1, \"b\" -&gt; 2, \"c\" -&gt; 3)\n// les valeurs sont transformées à la demande (lazy evaluation)\nval m2 = m.view.mapValues(v =&gt; v * 2) // scala.collection.MapView[String, Int]\n// force la création d'une nouvelle map\nval m3 = m2.toMap // Map[String, Int] = Map(a -&gt; 2, b -&gt; 4, c -&gt; 6)\n\n// transforme les clés et les valeurs\nm.map((k, v) =&gt; k + k -&gt; v * 2) // Map(aa -&gt; 2, bb -&gt; 4, cc -&gt; 6)\n\n\n3.8.3 Réduction\nval sum = seq.reduce(_ + _) // !! exception si collection vide\nval product = seq.foldLeft(1)(_ * _)\n\nval words = Seq(\"Hello\", \"Scala\", \"World\")\nwords.foldLeft(\"\")((acc, word) =&gt; acc + \", \" + word) // \", Hello, Scala, World\"\n\n\n3.8.4 Tri\nval unsorted = Seq(5, 2, 8, 1, 9)\nunsorted.sorted         // List(1, 2, 5, 8, 9) \nunsorted.sorted.reverse // List(9, 8, 5, 2, 1)\n\ncase class Person(name: String, age: Int)\nval persons = Seq(Person(\"John\", 40), Person(\"Bob\", 20), Person(\"Alice\", 30))\npersons.sortBy(_.age)                           \n// List(Person(Bob,20), Person(Alice,30), Person(John,40))\npersons.sortWith((p1, p2) =&gt; p1.name &lt; p2.name) \n// List(Person(Alice,30), Person(Bob,20), Person(John,40))\n\n\n3.8.5 Autres fonctions\nval words = Seq(\"groupBy\", \"regroupe\", \"par\", \"critère\")\nval sizeToWord = words.groupBy(_.length) \n// HashMap(7 -&gt; List(groupBy, critère), \n//         3 -&gt; List(par), \n//         8 -&gt; List(regroupe))\n\nval seq = Seq(1, 2, 3)\nseq.sum // 6\nseq.max // 3\nseq.min // 1"
-  },
-  {
-    "objectID": "cm3.html#foreach",
-    "href": "cm3.html#foreach",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "4.1 foreach",
-    "text": "4.1 foreach\nval nums = Seq(1,2,3)\nfor n &lt;- nums do\n  print(n.toString + \"; \") // 1; 2; 3\n  \n// équivalent \"desugared\" \nnums.foreach(n =&gt; n.toString + \"; \")"
-  },
-  {
-    "objectID": "cm3.html#foreach---générateurs",
-    "href": "cm3.html#foreach---générateurs",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "4.2 foreach - générateurs",
-    "text": "4.2 foreach - générateurs\nfor\n  i &lt;- 1 to 2\n  j &lt;- 'a' to 'b'\n  k &lt;- 1 to 10 by 5\ndo\n  println(s\"i = $i, j = $j, k = $k\")"
-  },
-  {
-    "objectID": "cm3.html#for-yield",
-    "href": "cm3.html#for-yield",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "4.3 for-yield",
-    "text": "4.3 for-yield\nval list =\n  for i &lt;- 10 to 12\n  yield i * 2\n// Vector(20, 22, 24)\n    \n// desugared\nval list2 = (10 to 12).map(i =&gt; i * 2)\nval result = \n  for \n    x &lt;- List(1, 2, 3)\n    y &lt;- List(10, 20)\n  yield x + y\n\n// desugared\nval result2 = List(1, 2, 3).flatMap(x =&gt; List(10, 20).map(y =&gt; x + y)"
-  },
-  {
-    "objectID": "cm3.html#for-yield-avec-if",
-    "href": "cm3.html#for-yield-avec-if",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "4.4 for-yield avec if",
-    "text": "4.4 for-yield avec if\nfor\n  i &lt;- 1 to 10\n  if i &gt; 3\n  if i &lt; 6\nyield i \n// Vector(4, 5)\n\n// desugared\n(1 to 10).withFilter(_ &gt; 3).withFilter(_ &lt; 6).map(x =&gt; x)"
-  },
-  {
-    "objectID": "cm3.html#while",
-    "href": "cm3.html#while",
-    "title": "CM3 - Collections, Fonctions, Boucles",
-    "section": "4.5 while",
-    "text": "4.5 while\nvar i = 0\n\nwhile i &lt; 3 do\n  println(i)\n  i += 1"
-  },
-  {
     "objectID": "tp7.html",
     "href": "tp7.html",
     "title": "TP7 - Classes de type",
@@ -627,6 +539,189 @@
     "title": "TP7 - Classes de type",
     "section": "3.6 (Bonus - Difficile) Dérivation automatique pour case classes avec macros",
     "text": "3.6 (Bonus - Difficile) Dérivation automatique pour case classes avec macros\nL’approche précédente avec Product n’est pas satisfaisante. En effet, si notre case class possède des attributs d’un type que nous ne savons pas encoder, le programme compilera quand même.\nIl serait préférable de tout valider à la compilation. Scala 3 offre un mécanisme permettant de séparer les composants d’un ADT avec la classe Mirror. Lisez cet article et implémentez la dérivation automatique de case class pour YamlEncoder :\nType Class Derivation in Scala 3"
+  },
+  {
+    "objectID": "cm3.html",
+    "href": "cm3.html",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "",
+    "text": "Scala collections",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#récursion-stack-unsafe",
+    "href": "cm3.html#récursion-stack-unsafe",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "2.1 Récursion stack-unsafe",
+    "text": "2.1 Récursion stack-unsafe\ndef somme(n: Int): Int =\n  if n &lt;= 0 then\n    0\n  else\n    n + somme(n - 1)\n\nproblème : chaque appel consomme de la mémoire dans la pile.\nOK jusqu’à une centaine d’appels\nsomme(100000) =&gt; StackOverFlowError",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#récursion-stack-safe",
+    "href": "cm3.html#récursion-stack-safe",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "2.2 Récursion stack-safe",
+    "text": "2.2 Récursion stack-safe\n\nLorsque l’appel récursif est le dernier appel de la fonction, le compilateur peut transformer l’appel en une boucle itérative.\nl’appel est en dit en “tail position”\non peut annoter la fonction @tailrec pour garantir que l’optimisation a lieu. Le compilateur génèrera une erreur s’il ne peut pas optimiser.\n\n@tailrec\ndef somme(n: Int): Int =\n  if n &lt;= 0 then\n    0\n  else\n    n + somme(n - 1)\n/*\n6 |    n + somme(n - 1)\n  |        ^^^^^^^^^^^^\n  |        Cannot rewrite recursive call: it is not in tail position\n*/ \n\nle dernier appel n’est pas somme mais +.\nil faut introduire une fonction loop interne\n\ndef somme(n: Int): Int = \n  @tailrec\n  def loop(acc: Int, i: Int): Int =\n    if i &lt;= 0 then // condition de sortie\n      acc // renvoie la donnée accumulée\n    else \n      loop(acc + i, i - 1)\n    \n  loop(0, n)    \nLa fonction est optimisée avec une boucle semblable à ceci :\ndef sommeImperative(n: Int): Int =\n  var acc = 0\n  var i = n\n  while !(i &lt;= 0) do\n    acc = acc + i\n    i = i - 1\n  acc",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#collections-mutable",
+    "href": "cm3.html#collections-mutable",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "3.1 Collections Mutable",
+    "text": "3.1 Collections Mutable\n\npackage scala.collection.mutable\nOn privilégie le style fonctionnel\n\n=&gt; à éviter, sauf pour optimiser les performances\n\nArray[T] est représenté comme un tableau Java\n\nval arr = Array(1, 2, 3)\narr(0) = 2\nprintln(arr(0)) // 2\nprintln(arr.length) // 3\n\nmutable.ArraySeq[T] implémente Seq. Taille fixe. En cas d’ajouts/suppression, une copie est effectuée\nmutable.ArrayBuffer[T] se comporte comme un ArrayList en Java\nmutable.ListBuffer[T] se comporte comme une LinkedList en Java\nmutable.HashMap[K, V] se comporte comme une HashMap en Java",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#collections-immuable",
+    "href": "cm3.html#collections-immuable",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "3.2 Collections Immuable",
+    "text": "3.2 Collections Immuable\n\npackage scala.collection.immutable\nImportées par défaut si on n’importe pas les collections mutables.\nles méthodes qui modifient la collection renvoient une nouvelle collection\nce sont des collections persistantes\n\nelles préservent la version précédente lorsqu’elles sont modifiées\n\nles implémentations sont efficaces et ne dupliquent pas complètement les données",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#séquences-immuables---implémentations",
+    "href": "cm3.html#séquences-immuables---implémentations",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "3.3 Séquences Immuables - implémentations",
+    "text": "3.3 Séquences Immuables - implémentations\n\nList est une liste chaînée.\npar défaut, lorsqu’on construit une Seq, on a une List\nVector est un arbre large et peu profond\n\nperformant pour la plupart des opérations\nradix-balanced finger tree of width 32\n\n\nval seq = Seq(1, 2, 3) // val seq: Seq[Int] = List(1, 2, 3)\n\n\n\n\n\nclassDiagram\n    class `Seq[T]` {\n        &lt;&lt;interface&gt;&gt;\n    }\n    \n    class `List[T]` {\n        par défaut\n        liste chaînée\n    }\n    \n    class `Vector[T]` {\n        arbre\n    }\n    \n    class `ArraySeq[T]` {\n        tableau\n    }\n    \n\n   `Seq[T]` &lt;|.. `List[T]`: implements\n   `Seq[T]` &lt;|.. `Vector[T]` : implements\n   `Seq[T]` &lt;|.. `ArraySeq[T]` : implements\n\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nUtiliser Seq pour le code standard avec moins de 1000 éléments. Basculer sur Vector ou List en fonction des usages.",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#sets-immuables---implémentations",
+    "href": "cm3.html#sets-immuables---implémentations",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "3.4 Sets immuables - implémentations",
+    "text": "3.4 Sets immuables - implémentations\n\nSet(1, 2, 3) =&gt; utilise HashSet par défaut\nTreeSet pour conserver un ordre\n\n\n\n\n\n\nclassDiagram\n  class `Set[T]` {\n    &lt;&lt;interface&gt;&gt;\n  }\n\n  class `HashSet[T]` {\n      par défaut\n  }\n\n  class `TreeSet[T]` {\n      conserve l'ordre\n  }\n\n  `Set[T]` &lt;|.. `HashSet[T]`: implements\n  `Set[T]` &lt;|.. `TreeSet[T]` : implements",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#dictionnaires-immuables---implémentations",
+    "href": "cm3.html#dictionnaires-immuables---implémentations",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "3.5 Dictionnaires immuables - implémentations",
+    "text": "3.5 Dictionnaires immuables - implémentations\n\nMap =&gt; utilise HashMap par défaut (sauf pour moins de 5 clés)\nListMap conserve l’ordre d’insertion\nSortedMap garde les clés triées, et est implémentée par TreeMap\n\n\n\n\n\n\nclassDiagram\n  class `Map[K, V]` {\n    &lt;&lt;interface&gt;&gt;\n  }\n\n  class `HashMap[K, V]` {\n      par défaut\n  }\n\n  class `TreeMap[K, V]` {\n      conserve l'ordre\n  }\n\n  class `ListMap[K, V]` {\n    conserve l'ordre d'insertion\n  }\n        \n\n  `Map[K, V]` &lt;|.. `HashMap[K, V]`: implements\n  `Map[K, V]` &lt;|.. `TreeMap[K, V]` : implements\n  `Map[K, V]` &lt;|.. `ListMap[K, V]` : implements",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#performance",
+    "href": "cm3.html#performance",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "3.6 Performance",
+    "text": "3.6 Performance\nScala Collections Performance Characteristics\n\n3.6.1 Séquences Immuables\n\n\n\n\n\n\n\n\n\n\nCollection\nAccès (apply)\nAjout début\nAjout fin\nMise à jour\n\n\n\n\nList\nO(n)\nO(1)\nO(n)\nO(n)\n\n\nVector\nO(1)eff\nO(1)eff\nO(1)eff\nO(1)eff\n\n\nArraySeq\nO(1)\nO(n)\nO(n)\nO(n)\n\n\n\n\n\n3.6.2 Séquences Mutables\n\n\n\n\n\n\n\n\n\n\nCollection\nAccès (apply)\nAjout début\nAjout fin\nMise à jour\n\n\n\n\nArrayBuffer\nO(1)\nO(n)\nO(1)am\nO(1)\n\n\nListBuffer\nO(n)\nO(1)\nO(1)\nO(n)\n\n\nArray\nO(1)\n-\n-\nO(1)\n\n\n\n\n\n3.6.3 Sets et Maps (Immuables)\n\n\n\nCollection\nRecherche\nAjout\nSuppression\n\n\n\n\nHashSet/HashMap\nO(1)eff\nO(1)eff\nO(1)eff\n\n\nTreeSet/TreeMap\nO(log n)\nO(log n)\nO(log n)\n\n\nListMap\nO(n)\nO(n)\nO(n)\n\n\n\n\n\n3.6.4 Sets et Maps (Mutables)\n\n\n\nCollection\nRecherche\nAjout\nSuppression\n\n\n\n\nHashSet/HashMap\nO(1)eff\nO(1)eff\nO(1)eff\n\n\nTreeSet\nO(log n)\nO(log n)\nO(log n)\n\n\n\n\n\n3.6.5 Légende\n\nO(1) = Temps constant\nO(1)eff = Temps effectivement constant (comme le log32 n de Vector)\nO(1)am = Temps constant amorti (occasionnellement plus lent, mais constant en moyenne)\nO(log n) = Temps logarithmique\nO(n) = Temps linéaire\n- = Opération non supportée\n\n\n\n3.6.6 Guide de décision rapide\n\n\n\n\n\n\nTip\n\n\n\nBesoin d’accès aléatoire rapide ? → Vector ou ArrayBuffer\nBeaucoup d’ajouts en début ? → List ou ListBuffer\nBeaucoup d’ajouts en fin ? → ArrayBuffer ou Vector\nRecherche clé-valeur ? → HashMap (immuable ou mutable)\nBesoin d’ordre trié ? → TreeSet ou TreeMap",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#collections---opérations",
+    "href": "cm3.html#collections---opérations",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "3.7 Collections - opérations",
+    "text": "3.7 Collections - opérations\n\n3.7.1 Création et Ajout\nval seq = Seq(1, 2, 3)\nval seq2 = seq :+ 4 // seq.appended(4) =&gt; Seq(1, 2, 3, 4)\nval seq3 = 0 +: seq // seq.prepended(0) =&gt; Seq(0, 1, 2, 3, 4)\nval seq4 = seq3 ++ Seq(5, 6) // Seq(0, 1, 2, 3, 4, 5, 6)\n\n// syntaxe tuple: (clé, valeur) ou clé -&gt; valeur\nval map = Map(\"a\" -&gt; 65, \"b\" -&gt; 66, \"c\" -&gt; 67)\nval map2 = map + ((\"d\", 68)) // Map(a -&gt; 65, b -&gt; 66, c -&gt; 67, d -&gt; 68)\n\ncomment se rappeler de +: et :+ ?\n\nle : est du côté du Seq\n\n\n\n\n3.7.2 Suppression\nval seq = Seq(1, 2, 3)\nseq.tail // Seq(2, 3)\n\nval set = Set(1, 2, 3, 3, 1)\nset - 1 // Set(2, 3)\n\nval map = Map(\"a\" -&gt; 1, \"b\" -&gt; 2, \"c\" -&gt; 3)\nmap - \"b\" // Map(a -&gt; 1, c -&gt; 3) \n\nseq.take(2) // Seq(1, 2)\nseq.drop(2) // Seq(3)\n\n\n3.7.3 Accès\nval seq = Seq(\"début\", \"milieu\", \"fin\")\nseq.head // \"début\"\nseq.last // \"fin\"\nseq(1)   // \"milieu\"\nseq.size // 3\n\nval myMap = Map(\"a\" -&gt; 65, \"b\" -&gt; 66, \"c\" -&gt; 67)\nmyMap(\"a\") // 65\nmyMap(\"d\") // NoSuchElementException\n// Il vaut mieux utiliser .getOrElse ou .get \nmyMap.getOrElse(\"a\", 0) // 0\n// nous verrons le type Option[T] au CM4\nmyMap.get(\"a\") // Option[Int] = Some(65)\nmyMap.get(\"d\") // Option[Int] = None\n\n\n3.7.4 Comparaison\nSeq(1, 2, 3) == Seq(1, 2) :+ 3    // true\n// same category\nVector(1, 2, 3) == List(1, 2, 3) // true\nSet(1, 2, 3) == List(1, 2, 3)    // false, compiler warning",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#collections---higher-order-functions",
+    "href": "cm3.html#collections---higher-order-functions",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "3.8 Collections - higher order functions",
+    "text": "3.8 Collections - higher order functions\n\n3.8.1 Function as value\n\n!! Le mot-clé def définit une méthode\nUne fonction est une valeur qui peut être affectée à une variable, ou passée en paramètre.\nSon type est de la forme :\n\nParamType =&gt; ResultType\n(Param1Type, Param2Type, ...) =&gt; ResultType\nParam1Type =&gt; Param2Type =&gt; ... =&gt; ResultType : currying\n\nLe type peut être inféré si le compilateur a assez d’informations\nSa définition prend les formes suivantes :\n\nparam =&gt; Body lorsque ParamType peut être inféré\n(param: ParamType) =&gt; Body\n(param1, param2, ...) =&gt; Body lorsque Param1Type et Param2Type peuvent être inférés\n(param1: Param1Type, param2: Param2Type, ...) =&gt; Body\n(param1: Param1Type) =&gt; (param2: Param2Type) =&gt; ... =&gt; Body : currying\nBody contenant des caractères _. Chaque _ correspond à un paramètre\n\n\n// le type de la variable \"mult\" est inféré\nval mult                  = (x: Int) =&gt; x * 2  // val mult: Int =&gt; Int \n// le type du paramètre x est inféré à l'aide du type de la variable \"multInfer\"\nval multInfer: Int =&gt; Int = x =&gt; x * 2         // val multInfer: Int =&gt; Int \nval multShort: Int =&gt; Int =      _ * 2         // val multShort: Int =&gt; Int \n\nval addXY                         = (x: Int, y: Int) =&gt; x + y     // val addXY: (Int, Int) =&gt; Int\nval addXYInfer: (Int, Int) =&gt; Int = (x, y) =&gt; x + y               // val addXYInfer: (Int, Int) =&gt; Int\nval addXYShort: (Int, Int) =&gt; Int = _ + _                         // val addXYShort: (Int, Int) =&gt; Int\n\n// currying : fonction qui renvoie une fonction qui renvoie un résultat\nval addXYCurry                       = (x: Int) =&gt; (y: Int) =&gt; x + y // val addXYCurry: Int =&gt; Int =&gt; Int\nval addXYCurryInf: Int =&gt; Int =&gt; Int = x =&gt; y =&gt; x + y               // val addXYCurryInf: Int =&gt; Int =&gt; Int\n\n// appel d'une fonction \"curried\"\naddXYCurry(2)(3) // 5\n// la fonction est partiellement appliquée, pour le paramètre x uniquement\nval addY = addXYCurry(2) // val addY: Int =&gt; Int \naddY(3) // 5\n\n\n3.8.2 Transformation\nTransformation de Seq ou Set :\nval seq = Seq(1, 2, 3)\nseq.map(x =&gt; x * 2) // List(2, 4, 6)\nseq.map(_ + 1) // List(2, 3, 4)\n\nseq.filter(_ % 2 == 0) // List(2)\n// les valeurs sont filtrées à la demande (lazy evaluation)\nval seq2 = seq.withFilter(_ % 2 == 0) // seq2: WithFilter[Int, Seq] = ...\n// il faut appeler map pour forcer l'évaluation\nseq2.map(x =&gt; x) // List(2)\n\n// aplatir après transformation\nseq.flatMap(x =&gt; Seq(x, x * 2))     // List(1, 2, 2, 4, 3, 6)\nseq.map(x =&gt; Seq(x, x * 2)).flatten // List(1, 2, 2, 4, 3, 6)\n\n// collect = filter + map\nseq.collect:\n  case x if x % 2 == 0 =&gt; x * 2\nTransformation de Map :\nval m = Map(\"a\" -&gt; 1, \"b\" -&gt; 2, \"c\" -&gt; 3)\n// les valeurs sont transformées à la demande (lazy evaluation)\nval m2 = m.view.mapValues(v =&gt; v * 2) // scala.collection.MapView[String, Int]\n// force la création d'une nouvelle map\nval m3 = m2.toMap // Map[String, Int] = Map(a -&gt; 2, b -&gt; 4, c -&gt; 6)\n\n// transforme les clés et les valeurs\nm.map((k, v) =&gt; k + k -&gt; v * 2) // Map(aa -&gt; 2, bb -&gt; 4, cc -&gt; 6)\n\n\n3.8.3 Réduction\nval sum = seq.reduce(_ + _) // !! exception si collection vide\nval product = seq.foldLeft(1)(_ * _)\n\nval words = Seq(\"Hello\", \"Scala\", \"World\")\nwords.foldLeft(\"\")((acc, word) =&gt; acc + \", \" + word) // \", Hello, Scala, World\"\n\n\n3.8.4 Tri\nval unsorted = Seq(5, 2, 8, 1, 9)\nunsorted.sorted         // List(1, 2, 5, 8, 9) \nunsorted.sorted.reverse // List(9, 8, 5, 2, 1)\n\ncase class Person(name: String, age: Int)\nval persons = Seq(Person(\"John\", 40), Person(\"Bob\", 20), Person(\"Alice\", 30))\npersons.sortBy(_.age)                           \n// List(Person(Bob,20), Person(Alice,30), Person(John,40))\npersons.sortWith((p1, p2) =&gt; p1.name &lt; p2.name) \n// List(Person(Alice,30), Person(Bob,20), Person(John,40))\n\n\n3.8.5 Autres fonctions\nval words = Seq(\"groupBy\", \"regroupe\", \"par\", \"critère\")\nval sizeToWord = words.groupBy(_.length) \n// HashMap(7 -&gt; List(groupBy, critère), \n//         3 -&gt; List(par), \n//         8 -&gt; List(regroupe))\n\nval seq = Seq(1, 2, 3)\nseq.sum // 6\nseq.max // 3\nseq.min // 1",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#foreach",
+    "href": "cm3.html#foreach",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "4.1 foreach",
+    "text": "4.1 foreach\nval nums = Seq(1,2,3)\nfor n &lt;- nums do\n  print(n.toString + \"; \") // 1; 2; 3\n  \n// équivalent \"desugared\" \nnums.foreach(n =&gt; n.toString + \"; \")",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#foreach---générateurs",
+    "href": "cm3.html#foreach---générateurs",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "4.2 foreach - générateurs",
+    "text": "4.2 foreach - générateurs\nfor\n  i &lt;- 1 to 2\n  j &lt;- 'a' to 'b'\n  k &lt;- 1 to 10 by 5\ndo\n  println(s\"i = $i, j = $j, k = $k\")",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#for-yield",
+    "href": "cm3.html#for-yield",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "4.3 for-yield",
+    "text": "4.3 for-yield\nval list =\n  for i &lt;- 10 to 12\n  yield i * 2\n// Vector(20, 22, 24)\n    \n// desugared\nval list2 = (10 to 12).map(i =&gt; i * 2)\nval result = \n  for \n    x &lt;- List(1, 2, 3)\n    y &lt;- List(10, 20)\n  yield x + y\n\n// desugared\nval result2 = List(1, 2, 3).flatMap(x =&gt; List(10, 20).map(y =&gt; x + y)",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#for-yield-avec-if",
+    "href": "cm3.html#for-yield-avec-if",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "4.4 for-yield avec if",
+    "text": "4.4 for-yield avec if\nfor\n  i &lt;- 1 to 10\n  if i &gt; 3\n  if i &lt; 6\nyield i \n// Vector(4, 5)\n\n// desugared\n(1 to 10).withFilter(_ &gt; 3).withFilter(_ &lt; 6).map(x =&gt; x)",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "cm3.html#while",
+    "href": "cm3.html#while",
+    "title": "CM3 - Collections, Fonctions, Boucles",
+    "section": "4.5 while",
+    "text": "4.5 while\nvar i = 0\n\nwhile i &lt; 3 do\n  println(i)\n  i += 1",
+    "crumbs": [
+      "Cours",
+      "CM3 - Collections, Fonctions, Boucles"
+    ]
+  },
+  {
+    "objectID": "seance3.html",
+    "href": "seance3.html",
+    "title": "ADDA74 Functional Programming with Scala",
+    "section": "",
+    "text": "correction liste chaînée\nfin CM3 sucre\nTP4 collections 1h30\nCM4 30’\nTP5 30’"
   },
   {
     "objectID": "tp2.html",
