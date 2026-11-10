@@ -386,6 +386,55 @@
     "text": "LavaStatus=0 XM\u0002\u0004�\u0002\u0001\u0001\u0001\f�\u0002e \u0001�\u0002e\u0001T^\u0002\u0001(z�8-6W�\u0001\u0002\u001f\u0004\u0004\u001b�\u0006&lt;2\u00014G\u0015\u0003[2\u00014\u0016,\u00012\u0001J�\u0001.\u00012\u0001�\u0001vexercices-scala-option.qmdfirefox.exehttps://claude.ai/api/organizations/2aa66844-452f-4abd-8afa-a5d4fba443b9/conversations/5ac4aab2-b56c-4658-837f-ae9912e7dfb4/wiggle/download-file?path=%2Fmnt%2Fuser-data%2Foutputs%2Fexercices-scala-option.qmdhttps://claude.ai/chat/5ac4aab2-b56c-4658-837f-ae9912e7dfb4ܩ\u0018�"
   },
   {
+    "objectID": "projet_lsi_2627.html",
+    "href": "projet_lsi_2627.html",
+    "title": "Projet Conduit",
+    "section": "",
+    "text": "Le site RealWorld propose différentes implémentations du même logiciel de blogging, Conduit, qui est similaire à Medium. Cela permet de comparer différentes stacks technologiques sur un projet réaliste.\nVous pouvez tester le frontend ici sans installation : Demo Conduit Vue3\nNotre projet consiste à améliorer ce logiciel avec des corrections de bugs et des nouvelles fonctionnalités. Nous utiliserons :\n\nun frontend Vue.js, dérivé de Vue.js + Vite. C’est le même frontend que pour le projet Java Spring Boot (ALTN72).\nun backend Scala 3 / ZIO, dérivé de zio-conduit-doobie\n\nLe backend utilise les bibliothèques suivantes :\n\nZIO : système d’effets fonctionnel, injection de dépendances avec ZLayer\nZIO HTTP : serveur HTTP et routes de l’API REST\nDoobie : accès fonctionnel à la base de données en SQL\nFlyway : migrations du schéma de la base PostgreSQL\nCirce : sérialisation JSON\nZIO Test : tests unitaires et tests par propriétés (générateurs)"
+  },
+  {
+    "objectID": "projet_lsi_2627.html#validation-règles-sur-les-tags",
+    "href": "projet_lsi_2627.html#validation-règles-sur-les-tags",
+    "title": "Projet Conduit",
+    "section": "7.1 VALIDATION : règles sur les tags",
+    "text": "7.1 VALIDATION : règles sur les tags\nCréez un article avec des tags. Aujourd’hui, seul un tag vide est refusé : on peut créer des tags comme Hello World!!! ou scala et Scala, qui sont deux tags différents.\nAjoutez deux règles de validation :\n\nun tag ne contient que des lettres minuscules, des chiffres et des tirets (par exemple cats-effect, scala3)\nun article a au plus 5 tags\n\nCes deux règles ne se placent pas au même endroit dans le code. Cherchez où est faite la vérification du tag vide, puis demandez-vous si la deuxième règle porte sur un tag ou sur un article.\n\nToutes les erreurs doivent être renvoyées en une seule fois : un article avec 6 tags dont un invalide renvoie deux erreurs. Voir Validation.\nTestez vos règles avec des tests unitaires\nVérifiez dans le navigateur que le frontend affiche bien les erreurs.\n\nBONUS : Testez les règles avec des Générateurs : générez des tags valides, vérifiez qu’ils sont acceptés. Générez des tags invalides, vérifiez qu’ils sont rejetés."
+  },
+  {
+    "objectID": "projet_lsi_2627.html#bug-tagrepository",
+    "href": "projet_lsi_2627.html#bug-tagrepository",
+    "title": "Projet Conduit",
+    "section": "7.2 BUG : TagRepository",
+    "text": "7.2 BUG : TagRepository\nDans TagRepositorySpec, le test « Add tags and retrieve them » appelle addTagsAndRetrieveThem avec une liste fixe de deux tags. Modifiez-le avec check pour qu’il vérifie la même chose avec n’importe quelle liste de tags générée. Il vous faudra écrire un générateur de tags.\n\nLancez le test. ZIO Test trouve un contre-exemple qui fait échouer le test : lequel ?\nCorrigez le bug\nRépondez dans le README.md :\n\npourquoi les tests de CommentEntrypointServiceSpec, qui utilisent les repositories en mémoire, n’auraient pas trouvé ce bug ?\nest-ce qu’on peut reproduire ce bug avec l’interface ?\nqu’apporte check par rapport à un test écrit avec quelques exemples choisis à la main ?"
+  },
+  {
+    "objectID": "projet_lsi_2627.html#feature-modifier-un-commentaire",
+    "href": "projet_lsi_2627.html#feature-modifier-un-commentaire",
+    "title": "Projet Conduit",
+    "section": "7.3 FEATURE : Modifier un commentaire",
+    "text": "7.3 FEATURE : Modifier un commentaire\nOn peut créer ou supprimer ses commentaires, mais on ne peut pas les éditer. Modifiez le backend et le frontend pour le permettre. Si vous avez déjà réalisé cette fonctionnalité dans le projet ALTN72, vous pouvez réutiliser votre frontend.\n\nLa route est PUT /api/articles/:slug/comments/:id, avec le même corps JSON que la création\n⚠️ Attention aux droits : seul l’auteur d’un commentaire peut le modifier\nSuivez le parcours d’une requête : chaque couche a quelque chose à ajouter. N’oubliez pas l’implémentation en mémoire du repository.\nAjoutez les tests correspondants\nRépondez dans le README.md : le slug de l’article présent dans l’URL est-il vérifié lors de la suppression d’un commentaire ? Que se passe-t-il si on appelle DELETE /api/articles/un-autre-article/comments/:id ? Faites en sorte que la modification ne présente pas ce problème.\n\nBONUS\nL’utilisateur essaie de modifier le même commentaire en ayant deux navigateurs ouverts.\n\nDécrivez dans le README.md le problème que cela peut poser\nCorrigez le problème"
+  },
+  {
+    "objectID": "projet_lsi_2627.html#feature-rôles",
+    "href": "projet_lsi_2627.html#feature-rôles",
+    "title": "Projet Conduit",
+    "section": "7.4 FEATURE : Rôles",
+    "text": "7.4 FEATURE : Rôles\n\nAjoutez un rôle aux utilisateurs. Ils peuvent avoir l’un de ces rôles :\n\nwriter : rôle par défaut, mêmes droits que maintenant.\nmoderator : writer + peut modifier/supprimer les articles et commentaires de tout le monde.\nadmin : moderator + peut changer les rôles des utilisateurs\n\nModifiez le schéma de la base avec une nouvelle migration Flyway (V2__...sql), et mettez des rôles aux utilisateurs des données d’exemple (R__seed_data.sql)\nAffichez le rôle dans l’écran Settings\nAjoutez un écran de gestion des utilisateurs pour l’admin\n\nl’écran liste tous les utilisateurs\non peut cliquer sur un utilisateur pour aller sur l’écran des settings\ndans Settings, l’admin peut modifier le rôle\n\nLe rôle est enregistré en base de données. Au moment de vérifier les droits d’un utilisateur, faut-il relire son rôle en base, ou le copier dans le token JWT au moment du login (voir TokenAuthenticationService) ?\n\nÉcrivez vos réflexions dans le README.md.\nQue se passe-t-il dans chaque cas quand un admin retire le rôle moderator à un utilisateur connecté ?\n\nModifiez l’UI et les services d’autorisation (domain/service/authorisation) pour autoriser/interdire les opérations correspondant à chaque rôle"
+  },
+  {
+    "objectID": "projet_lsi_2627.html#ressources",
+    "href": "projet_lsi_2627.html#ressources",
+    "title": "Projet Conduit",
+    "section": "8.1 Ressources",
+    "text": "8.1 Ressources\n\nZIO Cheat Sheet : les éléments clés pour comprendre le code du projet\nDocumentation ZIO : en particulier ZIO, ZLayer et ZIO Test\nBook of Doobie\nSpécification de l’API RealWorld"
+  },
+  {
+    "objectID": "projet_lsi_2627.html#faq",
+    "href": "projet_lsi_2627.html#faq",
+    "title": "Projet Conduit",
+    "section": "8.2 FAQ",
+    "text": "8.2 FAQ"
+  },
+  {
     "objectID": "zio_cheatsheet.html",
     "href": "zio_cheatsheet.html",
     "title": "ZIO Cheat Sheet",
@@ -909,6 +958,83 @@
     ]
   },
   {
+    "objectID": "zio_cheatsheet_2627.html",
+    "href": "zio_cheatsheet_2627.html",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "",
+    "text": "Ce document présente les éléments clés pour lire et modifier le code du projet Conduit. Il ne remplace pas la documentation de ZIO : il montre seulement les patterns que vous rencontrerez dans le projet, avec des exemples tirés du code."
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#hiérarchie-des-erreurs",
+    "href": "zio_cheatsheet_2627.html#hiérarchie-des-erreurs",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "3.1 Hiérarchie des erreurs",
+    "text": "3.1 Hiérarchie des erreurs\nToutes les erreurs métier étendent ApplicationError (domain/model/error). Ce ne sont pas des exceptions : on ne les lance pas avec throw, on les renvoie avec ZIO.fail.\ntrait ApplicationError:\n  def message: String\n\nobject ApplicationError:\n  trait NotFoundError     extends ApplicationError\n  trait UnauthorisedError extends ApplicationError\n  trait ValidationError   extends DomainError\n  ...\nLe type E peut être une union d’erreurs : ZIO[R, PersistenceError | NotFound, A].\nDans la couche HTTP, ErrorMiddleware transforme chaque catégorie d’erreur en code HTTP : NotFoundError → 404, UnauthorisedError → 403, InvalidInput (validation) → 400, le reste → 500."
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#opérateurs-sur-les-erreurs",
+    "href": "zio_cheatsheet_2627.html#opérateurs-sur-les-erreurs",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "3.2 Opérateurs sur les erreurs",
+    "text": "3.2 Opérateurs sur les erreurs\neffect.mapError(e =&gt; OtherError(e))      // transforme l'erreur\neffect.someOrFail(NotFound.user(id))     // ZIO[R, E, Option[A]] =&gt; ZIO[R, E | NotFound, A]\neffect.orDie                             // erreur \"impossible\" : transforme l'erreur en défaut (crash)\neffect.flip                              // inverse succès et erreur (utile dans les tests)\nLe projet définit l’opérateur ?! comme raccourci de someOrFail (voir EntrypointDsl) :\narticleId &lt;- permalinks.resolve(slug) ?! NotFound.article(slug)\n// si resolve renvoie None, le programme échoue avec NotFound.article(slug)"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#subtype",
+    "href": "zio_cheatsheet_2627.html#subtype",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "4.1 Subtype",
+    "text": "4.1 Subtype\nPlutôt que des Long et des String partout, le domaine utilise des types dédiés, définis avec Subtype de ZIO Prelude :\ntype CommentId = CommentId.Type\nobject CommentId extends Subtype[Long]\n\nval id: CommentId = CommentId(42L)   // construction\nval n: Long       = id               // un CommentId EST un Long (Subtype)\nLe compilateur empêche alors de passer un ArticleId là où on attend un CommentId. À l’exécution, il n’y a aucun surcoût : un CommentId est un simple Long."
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#validation",
+    "href": "zio_cheatsheet_2627.html#validation",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "4.2 Validation",
+    "text": "4.2 Validation\nValidation[E, A] (ZIO Prelude) ressemble à Either[E, A], mais accumule les erreurs au lieu de s’arrêter à la première. Voir le cours : CM5 - Le type Validation.\nExemple du projet :\nobject CommentBody extends Subtype[String] {\n  def validated(body: String): Validation[Error, CommentBody] =\n    Validation\n      .validate(validateIsNotTooShort(body), validateIsNotTooLong(body))\n      .map(_ =&gt; CommentBody(body))\n}\nLes services de validation (domain/service/validation) transforment une requête brute en données typées. Dans les entrypoints, validOrFail convertit une Validation en ZIO qui échoue avec InvalidInput (la liste de toutes les erreurs) :\nvalidated &lt;- validation.parse(request).validOrFail"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#un-service",
+    "href": "zio_cheatsheet_2627.html#un-service",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "5.1 Un service",
+    "text": "5.1 Un service\nUn service est un trait (l’interface, dans domain/logic) et une classe qui l’implémente (dans domain/service ou infrastructure). Les dépendances sont passées au constructeur. Par exemple, CommentEntrypointService a besoin de plusieurs autres services :\nclass CommentEntrypointService(\n  unitOfWork: UnitOfWork,\n  authorisation: CommentAuthorisation,\n  validation: CommentValidator,\n  comments: CommentRepository,\n  ...\n) extends CommentEntrypoint"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#un-zlayer",
+    "href": "zio_cheatsheet_2627.html#un-zlayer",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "5.2 Un ZLayer",
+    "text": "5.2 Un ZLayer\nUn ZLayer[RIn, E, ROut] est une recette pour construire le service ROut à partir des services RIn. Chaque service a un layer dans son objet compagnon, qui récupère ses dépendances avec ZIO.service puis appelle le constructeur :\nobject CommentEntrypointService:\n  val layer: ZLayer[UnitOfWork & CommentAuthorisation & CommentValidator & CommentRepository & ...,\n                    Nothing,\n                    CommentEntrypointService] =\n    ZLayer {\n      for {\n        unitOfWork    &lt;- ZIO.service[UnitOfWork]            // récupère un service de l'environnement\n        authorisation &lt;- ZIO.service[CommentAuthorisation]\n        validator     &lt;- ZIO.service[CommentValidator]\n        comments      &lt;- ZIO.service[CommentRepository]\n        ...\n      } yield CommentEntrypointService(unitOfWork, authorisation, validator, comments, ...)\n    }\nLe type RIn (UnitOfWork & CommentAuthorisation & ...) liste les dépendances : le layer ne peut être construit que si on lui fournit tous ces services.\nCes dépendances ont elles-mêmes des dépendances. Pour une requête sur les commentaires :\nCommentRoutes ──► CommentEntrypoint ──► CommentAuthorisation ──► CommentRepository\n                        │                                              ▲\n                        ├──► CommentValidator (aucune dépendance)      │\n                        └──► CommentRepository ────────────────────────┘\nUn service sans dépendance utilise ZLayer.succeed :\nobject CommentValidationService:\n  val layer: ZLayer[Any, Nothing, CommentValidator] = ZLayer.succeed(CommentValidationService())"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#assembler-les-layers",
+    "href": "zio_cheatsheet_2627.html#assembler-les-layers",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "5.3 Assembler les layers",
+    "text": "5.3 Assembler les layers\nlayerA ++ layerB     // fournit les services de layerA et de layerB\nlayerA &gt;&gt;&gt; layerB    // layerA fournit les dépendances de layerB\nExemple dans PostgresModule :\nobject PostgresModule {\n  // ZLayer[DatabaseSourceConfig, Nothing, HikariDataSource] : pool de connexions, construit à partir de la configuration,\n  // et fermé automatiquement à l'arrêt de l'application (withFinalizerAuto)\n  val datasource = ZLayer.scoped:\n    ZIO.service[DatabaseSourceConfig].map(config =&gt; new HikariDataSource(config.toHikariConfig)).withFinalizerAuto\n\n  // &gt;&gt;&gt; : le pool de connexions est fourni à PostgresUnitOfWork, qui en a besoin pour ouvrir les transactions\n  val unitOfWork = datasource &gt;&gt;&gt; PostgresUnitOfWork.layer\n\n  // ++ : le module fournit tous les repositories, le UnitOfWork et le pool de connexions\n  val layer      = PostgresRepositoryModule.layer ++ unitOfWork ++ datasource\n}\nEt InMemoryRepositoryModule regroupe tous les repositories en mémoire avec ++ :\nval layer =\n  InMemoryUnitOfWork.layer ++\n    InMemoryUserRepository.layer ++\n    InMemoryCommentRepository.layer ++\n    ...\nEn pratique, on donne simplement la liste des layers à .provide(...) : ZIO trouve tout seul dans quel ordre les construire, et construit une seule instance de chaque service, partagée par tous ceux qui en dépendent (ici, le même CommentRepository pour l’entrypoint et l’autorisation).\nExemple dans CommentEntrypointServiceSpec, où l’ordre des layers n’a pas d’importance :\nspec.provide(\n  CommentEntrypointService.layer,       // a besoin de CommentAuthorisation, CommentValidator, repositories...\n  CommentValidationService.layer,       // aucune dépendance\n  CommentAuthorisationService.layer,    // a besoin de CommentRepository\n  InMemoryRepositoryModule.layer,       // fournit les repositories et UnitOfWork (en mémoire)\n)\nLes modules (DomainServiceModule, PostgresModule, InMemoryModule…) regroupent les layers d’une couche. Les modes de lancement (HttpApplication.dev, inmemory…) les assemblent de la même façon. Pour passer de PostgreSQL à la mémoire, il suffit de remplacer PostgresModule.layer par InMemoryModule.layer : les services du domaine ne changent pas.\nprovide vérifie à la compilation que toutes les dépendances sont fournies. Si vous ajoutez une dépendance à un service, le message d’erreur indique le layer manquant.\nC’est l’équivalent de l’injection de dépendances de Spring, mais vérifié par le compilateur, sans annotations ni réflexion."
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#structure-dun-test",
+    "href": "zio_cheatsheet_2627.html#structure-dun-test",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "10.1 Structure d’un test",
+    "text": "10.1 Structure d’un test\nobject CommentEntrypointServiceSpec extends ZIOSpecDefault {\n\n  def spec = suite(\"CommentEntrypointService\")(\n    test(\"adds a comment to an article\") {\n      for {\n        fixture  &lt;- givenArticle\n        service  &lt;- ZIO.service[CommentEntrypointService]\n        response &lt;- service.addComment(addComment(fixture.profile.id, fixture.slug, \"Nice article!\"))\n      } yield assertTrue(\n        response.comment.body == \"Nice article!\",\n        !response.comment.author.following,\n      )\n    },\n  ).provide(                             // layers fournis aux tests\n    CommentEntrypointService.layer,\n    CommentValidationService.layer,\n    CommentAuthorisationService.layer,\n    InMemoryRepositoryModule.layer,      // repositories en mémoire : rapide, pas de Docker\n  )\n}\n\nUn test est lui-même un ZIO : on utilise une for-comprehension et on termine par assertTrue(...).\nassertTrue accepte plusieurs conditions et affiche clairement celle qui échoue.\nPour tester un cas d’erreur, .flip transforme l’erreur en succès :\n\ntest(\"fails with NotFound when the article does not exist\") {\n  for {\n    service &lt;- ZIO.service[CommentEntrypointService]\n    unknown  = ArticleSlug(\"unknown-article\")\n    error   &lt;- service.addComment(addComment(userId, unknown, \"Nice article!\")).flip\n  } yield assertTrue(error == NotFound.article(unknown))\n}"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#générateurs",
+    "href": "zio_cheatsheet_2627.html#générateurs",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "10.2 Générateurs",
+    "text": "10.2 Générateurs\nGenerator (src/test/scala/.../entity/Generator.scala) produit des données de test aléatoires avec Gen :\ndef userName: Gen[Any, UserName] = Gen.stringBounded(3, 20)(Gen.alphaChar).map(UserName(_))\n\nuserId &lt;- Generator.userId.runHead.someOrFailException   // une seule valeur aléatoire\nOn peut aussi vérifier une propriété sur beaucoup de valeurs générées avec check (tests par propriétés) :\ntest(\"a valid body is accepted\") {\n  check(Gen.stringBounded(3, 500)(Gen.alphaChar)) { body =&gt;\n    assertTrue(CommentBody.fromString(body).toEither.isRight)\n  }\n}"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#tests-des-repositories-postgresql",
+    "href": "zio_cheatsheet_2627.html#tests-des-repositories-postgresql",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "10.3 Tests des repositories PostgreSQL",
+    "text": "10.3 Tests des repositories PostgreSQL\nLes specs de infrastructure/postgres/repository utilisent une vraie base PostgreSQL dans Docker. Chaque test s’exécute dans une transaction (transaction:) sur une base recréée (@@ withMigration) :\ntest(\"Adds a comment and retrieves it\") {\n  transaction:\n    for {\n      ...\n      created &lt;- comments.save(comment)\n      fetched &lt;- comments.find(created.id)\n    } yield assertTrue(fetched.contains(created))\n} @@ withMigration"
+  },
+  {
     "objectID": "syllabus.html",
     "href": "syllabus.html",
     "title": "ADDA74 Functional Programming with Scala",
@@ -1264,91 +1390,143 @@
     "href": "cm5.html",
     "title": "CM5 - Gestion des erreurs",
     "section": "",
-    "text": "Exceptions and error handling\nZIO Validation"
+    "text": "Exceptions and error handling\nZIO Validation",
+    "crumbs": [
+      "Cours",
+      "CM5 - Gestion des erreurs"
+    ]
   },
   {
     "objectID": "cm5.html#throw",
     "href": "cm5.html#throw",
     "title": "CM5 - Gestion des erreurs",
     "section": "2.1 throw",
-    "text": "2.1 throw\n// En Java, cette exception serait \"checked\", car elle hérite d'Exception \n// En Java, les exceptions \"unchecked\" héritent de RuntimeException ou Error\nclass MinorException(s: String) extends Exception(s)\n\ncase class Person(name: String, age: Int)\n\n// pas de déclaration throws, MinorException est unchecked\ndef validateAge(ageStr: String) : Int = \n  val age = ageStr.toInt // peut lancer NumberFormatException\n  if (age &lt; 18)\n    throw new MinorException(\"Age must be &gt;= 18\")"
+    "text": "2.1 throw\n// En Java, cette exception serait \"checked\", car elle hérite d'Exception \n// En Java, les exceptions \"unchecked\" héritent de RuntimeException ou Error\nclass MinorException(s: String) extends Exception(s)\n\ncase class Person(name: String, age: Int)\n\n// pas de déclaration throws, MinorException est unchecked\ndef validateAge(ageStr: String) : Int = \n  val age = ageStr.toInt // peut lancer NumberFormatException\n  if (age &lt; 18)\n    throw new MinorException(\"Age must be &gt;= 18\")",
+    "crumbs": [
+      "Cours",
+      "CM5 - Gestion des erreurs"
+    ]
   },
   {
     "objectID": "cm5.html#trycatchfinally",
     "href": "cm5.html#trycatchfinally",
     "title": "CM5 - Gestion des erreurs",
     "section": "2.2 try/catch/finally",
-    "text": "2.2 try/catch/finally\n\nVous pouvez utiliser try, catch, finally comme en Java.\nla différence est que le block catch utilise le pattern matching, avec des case pour chaque exception\n\nOn peut utiliser NonFatal(e) pour intercepter les exceptions qui ne sont pas “fatales” pour l’application.\nLes exceptions fatales sont par exemple les OutOfMemoryError, StackOverflowError, … (voir le source de scala.util.control.NonFatal)\n\n\n/** @return \"ok\" ou un message d'erreur */\ndef validatePerson(name: String, age: String): String =\n  try\n    age = validateAge(ageStr)\n    \"ok\"\n  catch\n    case e: MinorException =&gt; e.getMessage\n    case e: (IllegalArgumentException | NumberFormatException) =&gt; e.getMessage\n    case NonFatal(e) =&gt;\n      logger.error(\"Not too bad\", e)\n      e.getMessage\n  finally\n    println(\"ce code s'exécute même si une exception n'est pas interceptée\")\n\n\n\n\n\n\nTip\n\n\n\nVous pouvez annoter une méthode avec @throws[MinorException] pour documenter quelles exceptions peuvent être lancées. Le compilateur Scala n’en tiendra pas compte pour valider votre code Scala.\nCependant, le byte-code généré aura une clause throws MinorException. Cela peut être utile si votre code est appelé depuis Java."
+    "text": "2.2 try/catch/finally\n\nVous pouvez utiliser try, catch, finally comme en Java.\nla différence est que le block catch utilise le pattern matching, avec des case pour chaque exception\n\nOn peut utiliser NonFatal(e) pour intercepter les exceptions qui ne sont pas “fatales” pour l’application.\nLes exceptions fatales sont par exemple les OutOfMemoryError, StackOverflowError, … (voir le source de scala.util.control.NonFatal)\n\n\n/** @return \"ok\" ou un message d'erreur */\ndef validatePerson(name: String, age: String): String =\n  try\n    age = validateAge(ageStr)\n    \"ok\"\n  catch\n    case e: MinorException =&gt; e.getMessage\n    case e: (IllegalArgumentException | NumberFormatException) =&gt; e.getMessage\n    case NonFatal(e) =&gt;\n      logger.error(\"Not too bad\", e)\n      e.getMessage\n  finally\n    println(\"ce code s'exécute même si une exception n'est pas interceptée\")\n\n\n\n\n\n\nTip\n\n\n\nVous pouvez annoter une méthode avec @throws[MinorException] pour documenter quelles exceptions peuvent être lancées. Le compilateur Scala n’en tiendra pas compte pour valider votre code Scala.\nCependant, le byte-code généré aura une clause throws MinorException. Cela peut être utile si votre code est appelé depuis Java.",
+    "crumbs": [
+      "Cours",
+      "CM5 - Gestion des erreurs"
+    ]
   },
   {
     "objectID": "cm5.html#option---exemple-dutilisation",
     "href": "cm5.html#option---exemple-dutilisation",
     "title": "CM5 - Gestion des erreurs",
     "section": "3.1 Option - Exemple d’utilisation",
-    "text": "3.1 Option - Exemple d’utilisation\nval myList = List(1, 2, 3)\nval head: Option[Int] = liste.headOption // Some(1)\n\nval myList2 = List.empty\nval head2: Option[Int] = liste.headOption // None\n\nval nameToAge = Map(\"alice\" -&gt; 18, \"bob\" -&gt; 17)\nval name1 = \"bob\"\nval optAge: Option[Int] = nameToAge.get(name1) // Some(17)\n\nval name2 = \"charles\"\nval optAge2: Option[Int] = nameToAge.get(name2) // None\nPour récupérer la valeur, nous utiliserons le pattern matching, ou getOrElse :\noptAge match\n  case Some(age) =&gt; age\n  case None =&gt; -1\n  \n// équivalent\noptAge.getOrElse(-1)\n\n\n\n\n\n\nImportant\n\n\n\nIl existe une méthode Option.get qui lance une NoSuchElementException lorsque l’option est un None.\nIl ne faut pas l’utiliser. Cela équivaut à utiliser un null et risquer des NullPointerException. L’objectif du type Option est justement d’éviter ces exceptions."
+    "text": "3.1 Option - Exemple d’utilisation\nval myList = List(1, 2, 3)\nval head: Option[Int] = liste.headOption // Some(1)\n\nval myList2 = List.empty\nval head2: Option[Int] = liste.headOption // None\n\nval nameToAge = Map(\"alice\" -&gt; 18, \"bob\" -&gt; 17)\nval name1 = \"bob\"\nval optAge: Option[Int] = nameToAge.get(name1) // Some(17)\n\nval name2 = \"charles\"\nval optAge2: Option[Int] = nameToAge.get(name2) // None\nPour récupérer la valeur, nous utiliserons le pattern matching, ou getOrElse :\noptAge match\n  case Some(age) =&gt; age\n  case None =&gt; -1\n  \n// équivalent\noptAge.getOrElse(-1)\n\n\n\n\n\n\nImportant\n\n\n\nIl existe une méthode Option.get qui lance une NoSuchElementException lorsque l’option est un None.\nIl ne faut pas l’utiliser. Cela équivaut à utiliser un null et risquer des NullPointerException. L’objectif du type Option est justement d’éviter ces exceptions.",
+    "crumbs": [
+      "Cours",
+      "CM5 - Gestion des erreurs"
+    ]
   },
   {
     "objectID": "cm5.html#option---remplacer-une-exception",
     "href": "cm5.html#option---remplacer-une-exception",
     "title": "CM5 - Gestion des erreurs",
     "section": "3.2 Option - Remplacer une exception",
-    "text": "3.2 Option - Remplacer une exception\nNous pouvons l’utiliser pour remplacer une gestion d’exception. L’inconvénient est que nous perdons le message d’erreur de l’exception :\ndef parseAge(age: String): Option[Int] =\n  try\n    Some(age.toInt)\n  catch\n    case e: NumberFormatException =&gt; None\n\nparseAge(\"toto\") // None \nparseAge(\"18\")   // Some(18)\nLorsque parseAge renvoie None, nous savons qu’il y a eu un problème, mais nous n’avons pas de message d’erreur.\nNous pouvons également modifier notre autre méthode checkAge pour utiliser Option au lieu de lancer une exception :\ndef checkAge(age: Int) : Option[Int] =\n  if (age &lt; 18) \n    None \n  else \n    Some(age)  \nPour combiner des méthodes qui renvoient une Option, nous pouvons utiliser le pattern matching :\ncase class Person(name: String, age: Int)\n\ndef checkName(name: String): Option[String] =\n  if (name.isEmpty) None else Some(name)\n\ndef validatePerson(name: String, ageStr: String): Option[Person] =\n  checkName(name) match\n    case Some(checkedName) =&gt;\n      parseAge(ageStr) match\n        case Some(age) =&gt;\n          checkAge(age) match\n            case Some(checkedAge) =&gt; Some(Person(checkedName, checkedAge))\n            case None =&gt; None\n        case None =&gt; None\n    case None =&gt; None"
+    "text": "3.2 Option - Remplacer une exception\nNous pouvons l’utiliser pour remplacer une gestion d’exception. L’inconvénient est que nous perdons le message d’erreur de l’exception :\ndef parseAge(age: String): Option[Int] =\n  try\n    Some(age.toInt)\n  catch\n    case e: NumberFormatException =&gt; None\n\nparseAge(\"toto\") // None \nparseAge(\"18\")   // Some(18)\nLorsque parseAge renvoie None, nous savons qu’il y a eu un problème, mais nous n’avons pas de message d’erreur.\nNous pouvons également modifier notre autre méthode checkAge pour utiliser Option au lieu de lancer une exception :\ndef checkAge(age: Int) : Option[Int] =\n  if (age &lt; 18) \n    None \n  else \n    Some(age)  \nPour combiner des méthodes qui renvoient une Option, nous pouvons utiliser le pattern matching :\ncase class Person(name: String, age: Int)\n\ndef checkName(name: String): Option[String] =\n  if (name.isEmpty) None else Some(name)\n\ndef validatePerson(name: String, ageStr: String): Option[Person] =\n  checkName(name) match\n    case Some(checkedName) =&gt;\n      parseAge(ageStr) match\n        case Some(age) =&gt;\n          checkAge(age) match\n            case Some(checkedAge) =&gt; Some(Person(checkedName, checkedAge))\n            case None =&gt; None\n        case None =&gt; None\n    case None =&gt; None",
+    "crumbs": [
+      "Cours",
+      "CM5 - Gestion des erreurs"
+    ]
   },
   {
     "objectID": "cm5.html#option---combiner-avec-map-et-flatmap",
     "href": "cm5.html#option---combiner-avec-map-et-flatmap",
     "title": "CM5 - Gestion des erreurs",
     "section": "3.3 Option - combiner avec map et flatMap",
-    "text": "3.3 Option - combiner avec map et flatMap\nCette approche est peu lisible. Nous pouvons simplifier ce code en utilisant map et flatMap. Le type Option peut en effet être considéré comme une Seq contenant 0 ou 1 élément. Il possède beaucoup de méthodes communes avec Seq.\ndef validatePerson2(name: String, ageStr: String): Option[Person] =\n  checkName(name)\n    .flatMap(checkedName =&gt; \n      parseAge(ageStr)\n        .flatMap(age =&gt; checkAge(age)) \n        .map(checkedAge =&gt; Person(checkedName, checkedAge))\n    )\nC’est un peu plus concis, mais pas encore très lisible !\nDans le CM3, nous avions vu que le for/yield de Scala est un “sucre syntaxique” qui permet de remplacer map et flatMap. Nous pouvons donc l’utiliser pour simplifier encore notre code !\ndef validatePerson3(name: String, ageStr: String): Option[Person] = \n  for \n    checkedName &lt;- checkName(name)\n    age &lt;- parseAge(ageStr)\n    checkedAge &lt;- checkAge(age)\n  yield\n    Person(checkedName, checkedAge)"
+    "text": "3.3 Option - combiner avec map et flatMap\nCette approche est peu lisible. Nous pouvons simplifier ce code en utilisant map et flatMap. Le type Option peut en effet être considéré comme une Seq contenant 0 ou 1 élément. Il possède beaucoup de méthodes communes avec Seq.\ndef validatePerson2(name: String, ageStr: String): Option[Person] =\n  checkName(name)\n    .flatMap(checkedName =&gt; \n      parseAge(ageStr)\n        .flatMap(age =&gt; checkAge(age)) \n        .map(checkedAge =&gt; Person(checkedName, checkedAge))\n    )\nC’est un peu plus concis, mais pas encore très lisible !\nDans le CM3, nous avions vu que le for/yield de Scala est un “sucre syntaxique” qui permet de remplacer map et flatMap. Nous pouvons donc l’utiliser pour simplifier encore notre code !\ndef validatePerson3(name: String, ageStr: String): Option[Person] = \n  for \n    checkedName &lt;- checkName(name)\n    age &lt;- parseAge(ageStr)\n    checkedAge &lt;- checkAge(age)\n  yield\n    Person(checkedName, checkedAge)",
+    "crumbs": [
+      "Cours",
+      "CM5 - Gestion des erreurs"
+    ]
   },
   {
     "objectID": "cm5.html#either---exemple",
     "href": "cm5.html#either---exemple",
     "title": "CM5 - Gestion des erreurs",
     "section": "4.1 Either - Exemple",
-    "text": "4.1 Either - Exemple\nReprenons nos méthodes précédentes pour utiliser Either :\ndef parseAge(ageStr: String): Either[String, Int] =\n  try\n    Right(ageStr.toInt)\n  catch\n    case e: NumberFormatException =&gt; Left(s\"$ageStr is not an int\")\n\n\ndef checkAge(age: Int) : Either[String, Int] =\n  if (age &lt; 18)\n    Left(s\"$age must be &gt;= 18\")\n  else\n    Right(age)\n\n\ndef checkName(name: String): Either[String, String] =\n  if (name.isEmpty) Left(\"name is required\") else Right(name)\nLe type Either est “right-biased”. Cela signifie que lorsqu’on appelle map ou flatMap, cela transforme les instances Right, et laisse les Left inchangés. Comme Either implémente map et flatMap, nous pouvons réutiliser validatePerson quasiment inchangé ! Nous avons juste à changer le type de retour :\ndef validatePerson(name: String, ageStr: String): Either[String, Person] =\n  for\n    checkedName &lt;- checkName(name)\n    age &lt;- parseAge(ageStr)\n    checkedAge &lt;- checkAge(age)\n  yield\n    Person(checkedName, checkedAge)\nExemple d’utilisation :\nvalidatePerson(\"\", \"17\")\n// Left(name is required)\n\nvalidatePerson(\"John\", \"abc\")\n// Left(abc is not an int)\n\nvalidatePerson(\"John\", \"17\")\n// Left(17 must be &gt;= 18)\n\nvalidatePerson(\"John\", \"20\")\n// Right(Person(John,20))"
+    "text": "4.1 Either - Exemple\nReprenons nos méthodes précédentes pour utiliser Either :\ndef parseAge(ageStr: String): Either[String, Int] =\n  try\n    Right(ageStr.toInt)\n  catch\n    case e: NumberFormatException =&gt; Left(s\"$ageStr is not an int\")\n\n\ndef checkAge(age: Int) : Either[String, Int] =\n  if (age &lt; 18)\n    Left(s\"$age must be &gt;= 18\")\n  else\n    Right(age)\n\n\ndef checkName(name: String): Either[String, String] =\n  if (name.isEmpty) Left(\"name is required\") else Right(name)\nLe type Either est “right-biased”. Cela signifie que lorsqu’on appelle map ou flatMap, cela transforme les instances Right, et laisse les Left inchangés. Comme Either implémente map et flatMap, nous pouvons réutiliser validatePerson quasiment inchangé ! Nous avons juste à changer le type de retour :\ndef validatePerson(name: String, ageStr: String): Either[String, Person] =\n  for\n    checkedName &lt;- checkName(name)\n    age &lt;- parseAge(ageStr)\n    checkedAge &lt;- checkAge(age)\n  yield\n    Person(checkedName, checkedAge)\nExemple d’utilisation :\nvalidatePerson(\"\", \"17\")\n// Left(name is required)\n\nvalidatePerson(\"John\", \"abc\")\n// Left(abc is not an int)\n\nvalidatePerson(\"John\", \"17\")\n// Left(17 must be &gt;= 18)\n\nvalidatePerson(\"John\", \"20\")\n// Right(Person(John,20))",
+    "crumbs": [
+      "Cours",
+      "CM5 - Gestion des erreurs"
+    ]
   },
   {
     "objectID": "cm5.html#either---modélisation-des-erreurs",
     "href": "cm5.html#either---modélisation-des-erreurs",
     "title": "CM5 - Gestion des erreurs",
     "section": "4.2 Either - modélisation des erreurs",
-    "text": "4.2 Either - modélisation des erreurs\nDans notre exemple, nous avions utilisé String comme type erreur dans Either[String, A]. Cela permet d’avoir un message sous forme de chaîne de caractères. Cela peut être suffisant pour afficher un message dans un programme simple.\nCependant, cette approche est souvent insuffisante en production :\n\nles messages d’erreurs sont couplés avec le code qui produit l’erreur\n\nles messages sont répartis partout dans le code.\ndifficile d’offrir d’autres langues\n\nles appelants ne peuvent pas traiter une erreur particulière\n\nIl est plus pratique d’avoir des types structurés pour pouvoir réagir différemment en fonction du type d’erreur, et pour pouvoir conserver plus d’informations sur l’erreur. En Java, nous utilisions des exceptions personnalisées. Avec Either, nous pouvons créer nos propres ADT pour modéliser nos erreurs :\nsealed trait PersonError:\n  def message: String\n\ncase class PersonIntFieldParsingError(field: String, value: String) extends PersonError:\n  override def message: String = s\"$field with value: $value is not an integer\"\n\ncase object PersonAgeMinorError extends PersonError:\n  override def message: String = s\"age must be &gt;= 18\"\n\ncase class PersonFieldRequiredError(field: String) extends PersonError:\n  override def message: String = s\"$field is required\"\nNos messages d’erreur sont maintenant centralisés. Nos fonctions de validation peuvent renvoyer un type qui indique clairement à l’appelant le problème qui peut se produire :\ndef parseAge(ageStr: String): Either[PersonIntFieldParsingError, Int] =\n  try\n    Right(ageStr.toInt)\n  catch\n    case e: NumberFormatException =&gt; Left(PersonIntFieldParsingError(\"age\", ageStr))\n\n\ndef checkAge(age: Int) : Either[PersonAgeMinorError.type, Int] =\n  if (age &lt; 18)\n    Left(PersonAgeMinorError)\n  else\n    Right(age)\n\n\ndef checkName(name: String): Either[PersonFieldRequiredError, String] =\n  if (name.isEmpty)\n    Left(PersonFieldRequiredError(\"name\"))\n  else\n    Right(name)\nLorsqu’on combine les fonctions de validations, on peut traiter toutes les erreurs en utilisant le trait PersonError :\ndef validatePerson(name: String, ageStr: String): Either[PersonError, Person] =\n  for\n    checkedName &lt;- checkName(name)\n    age &lt;- parseAge(ageStr)\n    checkedAge &lt;- checkAge(age)\n  yield\n    Person(checkedName, checkedAge)"
+    "text": "4.2 Either - modélisation des erreurs\nDans notre exemple, nous avions utilisé String comme type erreur dans Either[String, A]. Cela permet d’avoir un message sous forme de chaîne de caractères. Cela peut être suffisant pour afficher un message dans un programme simple.\nCependant, cette approche est souvent insuffisante en production :\n\nles messages d’erreurs sont couplés avec le code qui produit l’erreur\n\nles messages sont répartis partout dans le code.\ndifficile d’offrir d’autres langues\n\nles appelants ne peuvent pas traiter une erreur particulière\n\nIl est plus pratique d’avoir des types structurés pour pouvoir réagir différemment en fonction du type d’erreur, et pour pouvoir conserver plus d’informations sur l’erreur. En Java, nous utilisions des exceptions personnalisées. Avec Either, nous pouvons créer nos propres ADT pour modéliser nos erreurs :\nsealed trait PersonError:\n  def message: String\n\ncase class PersonIntFieldParsingError(field: String, value: String) extends PersonError:\n  override def message: String = s\"$field with value: $value is not an integer\"\n\ncase object PersonAgeMinorError extends PersonError:\n  override def message: String = s\"age must be &gt;= 18\"\n\ncase class PersonFieldRequiredError(field: String) extends PersonError:\n  override def message: String = s\"$field is required\"\nNos messages d’erreur sont maintenant centralisés. Nos fonctions de validation peuvent renvoyer un type qui indique clairement à l’appelant le problème qui peut se produire :\ndef parseAge(ageStr: String): Either[PersonIntFieldParsingError, Int] =\n  try\n    Right(ageStr.toInt)\n  catch\n    case e: NumberFormatException =&gt; Left(PersonIntFieldParsingError(\"age\", ageStr))\n\n\ndef checkAge(age: Int) : Either[PersonAgeMinorError.type, Int] =\n  if (age &lt; 18)\n    Left(PersonAgeMinorError)\n  else\n    Right(age)\n\n\ndef checkName(name: String): Either[PersonFieldRequiredError, String] =\n  if (name.isEmpty)\n    Left(PersonFieldRequiredError(\"name\"))\n  else\n    Right(name)\nLorsqu’on combine les fonctions de validations, on peut traiter toutes les erreurs en utilisant le trait PersonError :\ndef validatePerson(name: String, ageStr: String): Either[PersonError, Person] =\n  for\n    checkedName &lt;- checkName(name)\n    age &lt;- parseAge(ageStr)\n    checkedAge &lt;- checkAge(age)\n  yield\n    Person(checkedName, checkedAge)",
+    "crumbs": [
+      "Cours",
+      "CM5 - Gestion des erreurs"
+    ]
   },
   {
     "objectID": "cm5.html#constructeur",
     "href": "cm5.html#constructeur",
     "title": "CM5 - Gestion des erreurs",
     "section": "5.1 Constructeur",
-    "text": "5.1 Constructeur\nLa définition de Try.apply prend une fonction en paramètre “by-name” avec r: =&gt; T. Cela signifie que la fonction r ne sera évaluée que lorsqu’on l’appelle.\nTry:\n  def apply[T](r: =&gt; T): Try[T] =\n    try\n      val r1 = r\n      Success(r1)\n    catch\n      case NonFatal(e) =&gt; Failure(e)"
+    "text": "5.1 Constructeur\nLa définition de Try.apply prend une fonction en paramètre “by-name” avec r: =&gt; T. Cela signifie que la fonction r ne sera évaluée que lorsqu’on l’appelle.\nTry:\n  def apply[T](r: =&gt; T): Try[T] =\n    try\n      val r1 = r\n      Success(r1)\n    catch\n      case NonFatal(e) =&gt; Failure(e)",
+    "crumbs": [
+      "Cours",
+      "CM5 - Gestion des erreurs"
+    ]
   },
   {
     "objectID": "cm5.html#utilisation",
     "href": "cm5.html#utilisation",
     "title": "CM5 - Gestion des erreurs",
     "section": "5.2 Utilisation",
-    "text": "5.2 Utilisation\nimport scala.util.Try \n\ndef parseAgeTry(ageStr: String): Try[Int] =\n  Try(ageStr.toInt)\n\nparseAgeTry(\"abc\")\n// Failure(java.lang.NumberFormatException: For input string: \"abc\")\nparseAgeTry(\"18\")\n// Success(18)\nSi l’on souhaite conserver notre définition qui renvoyait un Either, on peut utiliser .toEither :\ndef parseAge(ageStr: String): Either[PersonIntFieldParsingError, Int] =\n  Try(ageStr.toInt)\n    .toEither\n    .left // on souhaite transformer la partie gauche\n    .map(exception =&gt; PersonIntFieldParsingError(\"age\", ageStr))"
+    "text": "5.2 Utilisation\nimport scala.util.Try \n\ndef parseAgeTry(ageStr: String): Try[Int] =\n  Try(ageStr.toInt)\n\nparseAgeTry(\"abc\")\n// Failure(java.lang.NumberFormatException: For input string: \"abc\")\nparseAgeTry(\"18\")\n// Success(18)\nSi l’on souhaite conserver notre définition qui renvoyait un Either, on peut utiliser .toEither :\ndef parseAge(ageStr: String): Either[PersonIntFieldParsingError, Int] =\n  Try(ageStr.toInt)\n    .toEither\n    .left // on souhaite transformer la partie gauche\n    .map(exception =&gt; PersonIntFieldParsingError(\"age\", ageStr))",
+    "crumbs": [
+      "Cours",
+      "CM5 - Gestion des erreurs"
+    ]
   },
   {
     "objectID": "tp5.html",
     "href": "tp5.html",
     "title": "TP5 - Paramètres de type",
     "section": "",
-    "text": "Reprenons la liste chaînée du TP3. Rendons notre liste générique pour accepter n’importe quel type. Vous pouvez partir du corrigé publié sur GitHub.\nsealed trait MyList[+A]:\n  // TODO méthodes prepend, length, ...\ncase object Empty extends MyList[Nothing]\ncase class Cons[A](head: A, tail: MyList[A]) extends MyList[A]\n\nCorrigez les méthodes précédentes pour utiliser le paramètre de type A au lieu de Int.\nTestez votre MyList avec d’autres types que Int, comme String"
+    "text": "Reprenons la liste chaînée du TP3. Rendons notre liste générique pour accepter n’importe quel type. Vous pouvez partir du corrigé publié sur GitHub.\nsealed trait MyList[+A]:\n  // TODO méthodes prepend, length, ...\ncase object Empty extends MyList[Nothing]\ncase class Cons[A](head: A, tail: MyList[A]) extends MyList[A]\n\nCorrigez les méthodes précédentes pour utiliser le paramètre de type A au lieu de Int.\nTestez votre MyList avec d’autres types que Int, comme String",
+    "crumbs": [
+      "TPs",
+      "TP5 - Paramètres de type"
+    ]
   },
   {
     "objectID": "tp5.html#liste-chaînée",
     "href": "tp5.html#liste-chaînée",
     "title": "TP5 - Paramètres de type",
     "section": "",
-    "text": "Reprenons la liste chaînée du TP3. Rendons notre liste générique pour accepter n’importe quel type. Vous pouvez partir du corrigé publié sur GitHub.\nsealed trait MyList[+A]:\n  // TODO méthodes prepend, length, ...\ncase object Empty extends MyList[Nothing]\ncase class Cons[A](head: A, tail: MyList[A]) extends MyList[A]\n\nCorrigez les méthodes précédentes pour utiliser le paramètre de type A au lieu de Int.\nTestez votre MyList avec d’autres types que Int, comme String"
+    "text": "Reprenons la liste chaînée du TP3. Rendons notre liste générique pour accepter n’importe quel type. Vous pouvez partir du corrigé publié sur GitHub.\nsealed trait MyList[+A]:\n  // TODO méthodes prepend, length, ...\ncase object Empty extends MyList[Nothing]\ncase class Cons[A](head: A, tail: MyList[A]) extends MyList[A]\n\nCorrigez les méthodes précédentes pour utiliser le paramètre de type A au lieu de Int.\nTestez votre MyList avec d’autres types que Int, comme String",
+    "crumbs": [
+      "TPs",
+      "TP5 - Paramètres de type"
+    ]
   },
   {
     "objectID": "tp5.html#foldleft",
     "href": "tp5.html#foldleft",
     "title": "TP5 - Paramètres de type",
     "section": "2 foldLeft",
-    "text": "2 foldLeft\nObservez le corrigé de IntList dans le package tp3_list_tailrec. Toutes les méthodes se ressemblent. Il serait intéressant de refactorer ce code pour éviter la duplication.\n\nImplémentez foldLeft en utilisant @tailrec\n\nsealed trait MyList[+A]:\n  def foldLeft[B](initial: A)(reduceFn: (B, A) =&gt; B): B = ???\n\nRéimplémentez length, contains, filter, mkString, map, sum en utilisant foldLeft.\n\n\n\n\n\n\n\nNote\n\n\n\nfoldLeft est une opération clé, disponible dans toutes les collections. Presque toutes les opérations peuvent être implémentées avec foldLeft. Au lieu d’écrire les fonctions récursives manuellement, foldLeft fournit un pattern réutilisable."
+    "text": "2 foldLeft\nObservez le corrigé de IntList dans le package tp3_list_tailrec. Toutes les méthodes se ressemblent. Il serait intéressant de refactorer ce code pour éviter la duplication.\n\nImplémentez foldLeft en utilisant @tailrec\n\nsealed trait MyList[+A]:\n  def foldLeft[B](initial: A)(reduceFn: (B, A) =&gt; B): B = ???\n\nRéimplémentez length, contains, filter, mkString, map, sum en utilisant foldLeft.\n\n\n\n\n\n\n\nNote\n\n\n\nfoldLeft est une opération clé, disponible dans toutes les collections. Presque toutes les opérations peuvent être implémentées avec foldLeft. Au lieu d’écrire les fonctions récursives manuellement, foldLeft fournit un pattern réutilisable.",
+    "crumbs": [
+      "TPs",
+      "TP5 - Paramètres de type"
+    ]
   },
   {
     "objectID": "cm1.html",
