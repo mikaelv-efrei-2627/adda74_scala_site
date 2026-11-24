@@ -167,63 +167,99 @@
     "href": "cm6.html",
     "title": "CM6 - Classes de Type",
     "section": "",
-    "text": "Scala 3 Given and Using clauses - RockTheJVM\nContext Parameters - scala-lang.org\nExtension Methods - scala-lang.org\nMonad (FP) - Wikipedia"
+    "text": "Scala 3 Given and Using clauses - RockTheJVM\nContext Parameters - scala-lang.org\nExtension Methods - scala-lang.org\nMonad (FP) - Wikipedia",
+    "crumbs": [
+      "Cours",
+      "CM6 - Classes de Type"
+    ]
   },
   {
     "objectID": "cm6.html#effets-de-bords",
     "href": "cm6.html#effets-de-bords",
     "title": "CM6 - Classes de Type",
     "section": "2.1 Effets de bords",
-    "text": "2.1 Effets de bords\nToute fonction qui a des effets de bord (side effect) est impure. Un effet de bord peut être :\n\nModifier une variable se trouvant en dehors de la fonction\nAfficher sur la console\nOuvrir une connection réseau\nLire/Écrire dans un fichier, une base de données\nDe manière générale, toute interaction avec le monde extérieur."
+    "text": "2.1 Effets de bords\nToute fonction qui a des effets de bord (side effect) est impure. Un effet de bord peut être :\n\nModifier une variable se trouvant en dehors de la fonction\nAfficher sur la console\nOuvrir une connection réseau\nLire/Écrire dans un fichier, une base de données\nDe manière générale, toute interaction avec le monde extérieur.",
+    "crumbs": [
+      "Cours",
+      "CM6 - Classes de Type"
+    ]
   },
   {
     "objectID": "cm6.html#exceptions-et-transparence-référentielle",
     "href": "cm6.html#exceptions-et-transparence-référentielle",
     "title": "CM6 - Classes de Type",
     "section": "2.2 Exceptions et transparence référentielle",
-    "text": "2.2 Exceptions et transparence référentielle\nEn programmation fonctionnelle, nous évitons d’utiliser les exceptions, car leur utilisation casse la transparence référentielle :\ndef area(width: Int, height: Int): Double =\n  if (width &gt; 5 || height &gt; 5)\n    throw new IllegalArgumentException(\"too big\")\n  else\n    width * height\nCe code :\nval total =\n  try\n    area(3, 2) + area(6, 2)\n  catch\n    case e: IllegalArgumentException =&gt; 0\n\nN’est pas équivalent à celui-ci :\nvar area1 = area(3, 2)\nval area2 = area(6, 2)\n\nval total2 =\n  try\n    area1 + area2\n  catch\n    case e: IllegalArgumentException =&gt; 0\nSi une fonction lance une exception, on ne peut pas toujours remplacer l’appel d’une fonction par son résultat. Nous n’avons pas ce problème lorsque nous utilisons des structures Either ou Validated."
+    "text": "2.2 Exceptions et transparence référentielle\nEn programmation fonctionnelle, nous évitons d’utiliser les exceptions, car leur utilisation casse la transparence référentielle :\ndef area(width: Int, height: Int): Double =\n  if (width &gt; 5 || height &gt; 5)\n    throw new IllegalArgumentException(\"too big\")\n  else\n    width * height\nCe code :\nval total =\n  try\n    area(3, 2) + area(6, 2)\n  catch\n    case e: IllegalArgumentException =&gt; 0\n\nN’est pas équivalent à celui-ci :\nvar area1 = area(3, 2)\nval area2 = area(6, 2)\n\nval total2 =\n  try\n    area1 + area2\n  catch\n    case e: IllegalArgumentException =&gt; 0\nSi une fonction lance une exception, on ne peut pas toujours remplacer l’appel d’une fonction par son résultat. Nous n’avons pas ce problème lorsque nous utilisons des structures Either ou Validated.",
+    "crumbs": [
+      "Cours",
+      "CM6 - Classes de Type"
+    ]
   },
   {
     "objectID": "cm6.html#avantages-des-fonctions-pures",
     "href": "cm6.html#avantages-des-fonctions-pures",
     "title": "CM6 - Classes de Type",
     "section": "2.3 Avantages des fonctions pures",
-    "text": "2.3 Avantages des fonctions pures\nLa transparence référentielle est un concept clé en programmation fonctionnelle. Si la majorité du code de votre programme est composé de fonctions pures, il devient beaucoup plus facile de :\n\nComprendre ce que fait le programme. Si on voit un appel de fonction, on sait que la valeur de retour dépend uniquement des arguments. Pas besoin de tenir compte de l’état d’un attribut, ou de risquer d’avoir des modifications d’attributs dans les arguments.\nRefactoriser. On peut utiliser le refactoring “introduce variable” sans se soucier de la position de la variable dans le code.\nTester ses fonctions. On a juste à passer différents arguments et tester la valeur de retour.\nÉcrire des programmes multithreads. Plusieurs appels de fonctions pures peuvent être exécutés en parallèle. Pas de risque de modification concurrente de la même variable."
+    "text": "2.3 Avantages des fonctions pures\nLa transparence référentielle est un concept clé en programmation fonctionnelle. Si la majorité du code de votre programme est composé de fonctions pures, il devient beaucoup plus facile de :\n\nComprendre ce que fait le programme. Si on voit un appel de fonction, on sait que la valeur de retour dépend uniquement des arguments. Pas besoin de tenir compte de l’état d’un attribut, ou de risquer d’avoir des modifications d’attributs dans les arguments.\nRefactoriser. On peut utiliser le refactoring “introduce variable” sans se soucier de la position de la variable dans le code.\nTester ses fonctions. On a juste à passer différents arguments et tester la valeur de retour.\nÉcrire des programmes multithreads. Plusieurs appels de fonctions pures peuvent être exécutés en parallèle. Pas de risque de modification concurrente de la même variable.",
+    "crumbs": [
+      "Cours",
+      "CM6 - Classes de Type"
+    ]
   },
   {
     "objectID": "cm6.html#cas-dutilisation-tri",
     "href": "cm6.html#cas-dutilisation-tri",
     "title": "CM6 - Classes de Type",
     "section": "3.1 Cas d’utilisation : Tri",
-    "text": "3.1 Cas d’utilisation : Tri\nNous souhaitons trier une liste d’objets Person en fonction d’un attribut surname. Dans notre programme, nous souhaitons offrir un tri “standard”, mais laisser la possibilité à l’appelant de passer un ordre de tri personnalisé.\ncase class Person(surname: String, name: String, age: Int)\nEn Java, nous aurions créé une classe qui implémente Comparator&lt;Person&gt;. En Scala, nous devons déclarer une instance de Ordering[Person] :\nobject Person:\n  val defaultPersonOrdering: Ordering[Person] = new Ordering[Person] {\n    override def compare(x: Person, y: Person): Int =\n      x.surname.compareTo(y.surname)\n  }\nL’inconvénient est qu’il faut passer cet objet Ordering partout où on a besoin de comparer des Person. :\ndef listPeople(persons: Seq[Person])\n              (ordering: Ordering[Person]) = persons.sorted(ordering)\n\ndef someOtherMethodRequiringOrdering(alice: Person, bob: Person)\n                                    (ordering: Ordering[Person]) = ???\n\ndef yetAnotherMethodRequiringOrdering(persons: List[Person])\n                                     (ordering: Ordering[Person]) = ???\nPour appeler ces méthodes, nous devons retrouver l’instance Ordering “standard” et la passer en argument, ce qui peut rapidement devenir répétitif.\nEn utilisant given et using, nous pouvons déléguer cette tâche ingrate au compilateur :\nobject Person: \n  given defaultPersonOrdering: Ordering[Person] = new Ordering[Person] {\n    override def compare(x: Person, y: Person): Int =\n      x.surname.compareTo(y.surname)\n  }\ndef listPeople(persons: Seq[Person])\n              (using ordering: Ordering[Person]) = persons.sorted(ordering)\nUtilisation :\nval people = List(Person(\"Weasley\", \"Ron\", 15), Person(\"Potter\", \"Harry\", 15)) \nlistPeople(people) // &lt;- le compilateur injecte l'ordering ici"
+    "text": "3.1 Cas d’utilisation : Tri\nNous souhaitons trier une liste d’objets Person en fonction d’un attribut surname. Dans notre programme, nous souhaitons offrir un tri “standard”, mais laisser la possibilité à l’appelant de passer un ordre de tri personnalisé.\ncase class Person(surname: String, name: String, age: Int)\nEn Java, nous aurions créé une classe qui implémente Comparator&lt;Person&gt;. En Scala, nous devons déclarer une instance de Ordering[Person] :\nobject Person:\n  val defaultPersonOrdering: Ordering[Person] = new Ordering[Person] {\n    override def compare(x: Person, y: Person): Int =\n      x.surname.compareTo(y.surname)\n  }\nL’inconvénient est qu’il faut passer cet objet Ordering partout où on a besoin de comparer des Person. :\ndef listPeople(persons: Seq[Person])\n              (ordering: Ordering[Person]) = persons.sorted(ordering)\n\ndef someOtherMethodRequiringOrdering(alice: Person, bob: Person)\n                                    (ordering: Ordering[Person]) = ???\n\ndef yetAnotherMethodRequiringOrdering(persons: List[Person])\n                                     (ordering: Ordering[Person]) = ???\nPour appeler ces méthodes, nous devons retrouver l’instance Ordering “standard” et la passer en argument, ce qui peut rapidement devenir répétitif.\nEn utilisant given et using, nous pouvons déléguer cette tâche ingrate au compilateur :\nobject Person: \n  given defaultPersonOrdering: Ordering[Person] = new Ordering[Person] {\n    override def compare(x: Person, y: Person): Int =\n      x.surname.compareTo(y.surname)\n  }\ndef listPeople(persons: Seq[Person])\n              (using ordering: Ordering[Person]) = persons.sorted(ordering)\nUtilisation :\nval people = List(Person(\"Weasley\", \"Ron\", 15), Person(\"Potter\", \"Harry\", 15)) \nlistPeople(people) // &lt;- le compilateur injecte l'ordering ici",
+    "crumbs": [
+      "Cours",
+      "CM6 - Classes de Type"
+    ]
   },
   {
     "objectID": "cm6.html#implicit-resolution",
     "href": "cm6.html#implicit-resolution",
     "title": "CM6 - Classes de Type",
     "section": "3.2 Implicit resolution",
-    "text": "3.2 Implicit resolution\nLorsque le compilateur voit un appel de méthode où un paramètre using est manquant, comme dans listPeople(people), il va utiliser un algorithme pour rechercher les instances given correspondantes. C’est le mécanisme implicit resolution.\nPour un paramètre using t: T, le compilateur va rechercher un given de type T dans cet ordre :\n\nportée locale : dans le même bloc ou méthode\nimport explicite : import Person.defaultPersonOrdering\nimport avec joker : import Person.*\ncompanion object : l’objet companion de T et les companions de ses paramètres de type\n\npour Ordering[Person], recherche dans l’object Ordering ET dans Person.\n\nles super-classes de T et les classes englobant T (lorsque T est une classe interne).\n\n\n\n\n\n\n\nNote\n\n\n\nLes mots-clé given et using ont été introduits dans Scala 3. Vous pouvez parfois tomber sur des API écrites en Scala 2 qui utilisent le mot-clé implicit. Voici l’équivalence :\n\n\n\n\n\n\n\nScala 3.x\nScala 2.x\n\n\n\n\ngiven ord: Ordering[Person] = ???\nimplicit val ord: Ordering[Person] = ???\n\n\ndef tri[A](seq: Seq[A])(using ord: Ordering[A]) = ???\ndef tri[A](seq: Seq[A])(implicit ord: Ordering[A]) = ???"
+    "text": "3.2 Implicit resolution\nLorsque le compilateur voit un appel de méthode où un paramètre using est manquant, comme dans listPeople(people), il va utiliser un algorithme pour rechercher les instances given correspondantes. C’est le mécanisme implicit resolution.\nPour un paramètre using t: T, le compilateur va rechercher un given de type T dans cet ordre :\n\nportée locale : dans le même bloc ou méthode\nimport explicite : import Person.defaultPersonOrdering\nimport avec joker : import Person.*\ncompanion object : l’objet companion de T et les companions de ses paramètres de type\n\npour Ordering[Person], recherche dans l’object Ordering ET dans Person.\n\nles super-classes de T et les classes englobant T (lorsque T est une classe interne).\n\n\n\n\n\n\n\nNote\n\n\n\nLes mots-clé given et using ont été introduits dans Scala 3. Vous pouvez parfois tomber sur des API écrites en Scala 2 qui utilisent le mot-clé implicit. Voici l’équivalence :\n\n\n\n\n\n\n\nScala 3.x\nScala 2.x\n\n\n\n\ngiven ord: Ordering[Person] = ???\nimplicit val ord: Ordering[Person] = ???\n\n\ndef tri[A](seq: Seq[A])(using ord: Ordering[A]) = ???\ndef tri[A](seq: Seq[A])(implicit ord: Ordering[A]) = ???",
+    "crumbs": [
+      "Cours",
+      "CM6 - Classes de Type"
+    ]
   },
   {
     "objectID": "cm6.html#dérivation-de-given",
     "href": "cm6.html#dérivation-de-given",
     "title": "CM6 - Classes de Type",
     "section": "3.3 Dérivation de given",
-    "text": "3.3 Dérivation de given\nNous pouvons déclarer des méthodes avec given. Cela va permettre au compilateur de construire des instances à la volée.\nPar exemple, supposons que :\n\nnotre code métier a besoin de comparer des Option[Person], puis des Option[Product].\nnous avons défini un given Ordering[Person] et un given Ordering[Product].\n\nCela ne suffit pas ! Il faudrait aussi déclarer :\n\ngiven Ordering[Option[Person]] et\ngiven Ordering[Option[Product]].\n\nNous pouvons déclarer un seul given de la manière suivante :\ngiven optionOrdering[T](using ord: Ordering[T]): Ordering[Option[T]] with\n  def compare(optA: Option[T], optB: Option[T]): Int = \n    (optA, optB) match \n      case (None, None) =&gt; 0\n      case (None, _) =&gt; -1\n      case (_, None) =&gt; 1\n      case (Some(a), Some(b)) =&gt; ord.compare(a, b)\nCette définition indique au compilateur :\n\n“si tu as une instance given Ordering[T],\ntu peux automatiquement créer une instance given Ordering[Option[T]] en appelant la méthode optionOrdering.\n\nCe mécanisme est très puissant, car le compilateur peut enchaîner plusieurs appels en cascade. On peut ainsi obtenir un Ordering[Option[Option[T]] sans code supplémentaire. C’est particulièrement utile pour encoder/décoder des données dans un format.\nAutre exemple : nous souhaitons pouvoir afficher des Double, ou des List[Double], ou des List[List[Double]], ou des Option[List[Option[Double]]] dans un format particulier :\nDéfinitions :\ntrait Show[A]:\n  def show(a: A): String\n\nobject Show:\n  // Show avec 2 chiffres décimaux\n  given Show[Double] with\n    def show(a: Double): String = f\"$a%6.2f\"\n\n  // Si on connaît Show[A], on sait construire Show[List[A]]\n  given [A](using showA: Show[A]): Show[List[A]] with\n    def show(list: List[A]): String =\n      list.map(showA.show).mkString(\"[\", \", \", \"]\")\n\n  // Si on connaît Show[A], on sait construire Show[Option[A]]\n  given [A](using showA: Show[A]): Show[Option[A]] with\n    def show(opt: Option[A]): String = opt match\n      case Some(a) =&gt; showA.show(a)\n      case None =&gt; \"None\"\nUtilisation :\ndef display[A](value: A)(using s: Show[A]): Unit =\n  println(s.show(value))\n\ndisplay(List(1.234, 2000, 3))\n// [  1.23, 2000.00,   3.00]\ndisplay(List(List(1.234, 2), List(3, 4.1), List(5.0)))\n// [[  1.23,   2.00], [  3.00,   4.10], [  5.00]]\ndisplay(Option(List(Some(1.234), Some(3.3), None)))\n// [  1.23,   3.30, None]"
+    "text": "3.3 Dérivation de given\nNous pouvons déclarer des méthodes avec given. Cela va permettre au compilateur de construire des instances à la volée.\nPar exemple, supposons que :\n\nnotre code métier a besoin de comparer des Option[Person], puis des Option[Product].\nnous avons défini un given Ordering[Person] et un given Ordering[Product].\n\nCela ne suffit pas ! Il faudrait aussi déclarer :\n\ngiven Ordering[Option[Person]] et\ngiven Ordering[Option[Product]].\n\nNous pouvons déclarer un seul given de la manière suivante :\ngiven optionOrdering[T](using ord: Ordering[T]): Ordering[Option[T]] with\n  def compare(optA: Option[T], optB: Option[T]): Int = \n    (optA, optB) match \n      case (None, None) =&gt; 0\n      case (None, _) =&gt; -1\n      case (_, None) =&gt; 1\n      case (Some(a), Some(b)) =&gt; ord.compare(a, b)\nCette définition indique au compilateur :\n\n“si tu as une instance given Ordering[T],\ntu peux automatiquement créer une instance given Ordering[Option[T]] en appelant la méthode optionOrdering.\n\nCe mécanisme est très puissant, car le compilateur peut enchaîner plusieurs appels en cascade. On peut ainsi obtenir un Ordering[Option[Option[T]] sans code supplémentaire. C’est particulièrement utile pour encoder/décoder des données dans un format.\nAutre exemple : nous souhaitons pouvoir afficher des Double, ou des List[Double], ou des List[List[Double]], ou des Option[List[Option[Double]]] dans un format particulier :\nDéfinitions :\ntrait Show[A]:\n  def show(a: A): String\n\nobject Show:\n  // Show avec 2 chiffres décimaux\n  given Show[Double] with\n    def show(a: Double): String = f\"$a%6.2f\"\n\n  // Si on connaît Show[A], on sait construire Show[List[A]]\n  given [A](using showA: Show[A]): Show[List[A]] with\n    def show(list: List[A]): String =\n      list.map(showA.show).mkString(\"[\", \", \", \"]\")\n\n  // Si on connaît Show[A], on sait construire Show[Option[A]]\n  given [A](using showA: Show[A]): Show[Option[A]] with\n    def show(opt: Option[A]): String = opt match\n      case Some(a) =&gt; showA.show(a)\n      case None =&gt; \"None\"\nUtilisation :\ndef display[A](value: A)(using s: Show[A]): Unit =\n  println(s.show(value))\n\ndisplay(List(1.234, 2000, 3))\n// [  1.23, 2000.00,   3.00]\ndisplay(List(List(1.234, 2), List(3, 4.1), List(5.0)))\n// [[  1.23,   2.00], [  3.00,   4.10], [  5.00]]\ndisplay(Option(List(Some(1.234), Some(3.3), None)))\n// [  1.23,   3.30, None]",
+    "crumbs": [
+      "Cours",
+      "CM6 - Classes de Type"
+    ]
   },
   {
     "objectID": "cm6.html#classe-de-type-jsonserializer",
     "href": "cm6.html#classe-de-type-jsonserializer",
     "title": "CM6 - Classes de Type",
     "section": "5.1 Classe de type : JsonSerializer",
-    "text": "5.1 Classe de type : JsonSerializer\nVoici un exemple de classe de type qui permet de convertir un objet en Json :\n// 1. Type class definition\ntrait JsonSerializer[A]:\n  def toJson(value: A): String\n\n// 2. Instances for different types\nobject JsonSerializer:\n  \n  given JsonSerializer[Int] with\n    def toJson(value: Int): String = value.toString\n  \n  given JsonSerializer[String] with\n    def toJson(value: String): String = s\"\"\"\"$value\"\"\"\"\n  \n  given JsonSerializer[Boolean] with\n    def toJson(value: Boolean): String = value.toString\n  \n  given [A](using serializer: JsonSerializer[A]): JsonSerializer[List[A]] with\n    def toJson(values: List[A]): String =\n      values.map(serializer.toJson).mkString(\"[\", \", \", \"]\")\n\n// 3. Extension method\nextension [A](value: A)(using s: JsonSerializer[A])\n  def toJson: String = s.toJson(value)\nAvec ces définitions, lorsqu’on appelle .toJson sur un objet de type T, le compilateur va rechercher une instance given de type JsonSerializer[T] dans le scope.\n// Utilisation\n42.toJson             // 42\n\"hello\".toJson        // \"hello\"\ntrue.toJson           // true\nList(1, 2, 3).toJson  // [1, 2, 3]\nList(\"a\", \"b\").toJson // [\"a\", \"b\"]\nLa flexibilité de cette approche est remarquable. Une bibliothèque JSON peut proposer des instances pour les types standards, que vous pouvez étendre facilement pour vos propres types :\ncase class Person(name: String, age: Int)\n\ngiven JsonSerializer[Person] with\n  def toJson(p: Person): String =\n    s\"\"\"{\"name\": \"${p.name}\", \"age\": ${p.age}}\"\"\"\n\nList(Person(\"Alice\", 30), Person(\"Bob\", 20)).toJson  \n// [{\"name\": \"Alice\", \"age\": 30}, {\"name\": \"Bob\", \"age\": 20}]\nTout est validé à la compilation. L’appel à .toJson ne compilera pas si les instances de type class du bon type ne sont pas déclarées."
+    "text": "5.1 Classe de type : JsonSerializer\nVoici un exemple de classe de type qui permet de convertir un objet en Json :\n// 1. Type class definition\ntrait JsonSerializer[A]:\n  def toJson(value: A): String\n\n// 2. Instances for different types\nobject JsonSerializer:\n  \n  given JsonSerializer[Int] with\n    def toJson(value: Int): String = value.toString\n  \n  given JsonSerializer[String] with\n    def toJson(value: String): String = s\"\"\"\"$value\"\"\"\"\n  \n  given JsonSerializer[Boolean] with\n    def toJson(value: Boolean): String = value.toString\n  \n  given [A](using serializer: JsonSerializer[A]): JsonSerializer[List[A]] with\n    def toJson(values: List[A]): String =\n      values.map(serializer.toJson).mkString(\"[\", \", \", \"]\")\n\n// 3. Extension method\nextension [A](value: A)(using s: JsonSerializer[A])\n  def toJson: String = s.toJson(value)\nAvec ces définitions, lorsqu’on appelle .toJson sur un objet de type T, le compilateur va rechercher une instance given de type JsonSerializer[T] dans le scope.\n// Utilisation\n42.toJson             // 42\n\"hello\".toJson        // \"hello\"\ntrue.toJson           // true\nList(1, 2, 3).toJson  // [1, 2, 3]\nList(\"a\", \"b\").toJson // [\"a\", \"b\"]\nLa flexibilité de cette approche est remarquable. Une bibliothèque JSON peut proposer des instances pour les types standards, que vous pouvez étendre facilement pour vos propres types :\ncase class Person(name: String, age: Int)\n\ngiven JsonSerializer[Person] with\n  def toJson(p: Person): String =\n    s\"\"\"{\"name\": \"${p.name}\", \"age\": ${p.age}}\"\"\"\n\nList(Person(\"Alice\", 30), Person(\"Bob\", 20)).toJson  \n// [{\"name\": \"Alice\", \"age\": 30}, {\"name\": \"Bob\", \"age\": 20}]\nTout est validé à la compilation. L’appel à .toJson ne compilera pas si les instances de type class du bon type ne sont pas déclarées.",
+    "crumbs": [
+      "Cours",
+      "CM6 - Classes de Type"
+    ]
   },
   {
     "objectID": "cm6.html#classes-de-types-dans-les-bibliothèques",
     "href": "cm6.html#classes-de-types-dans-les-bibliothèques",
     "title": "CM6 - Classes de Type",
     "section": "5.2 Classes de types dans les bibliothèques",
-    "text": "5.2 Classes de types dans les bibliothèques\nLe SDK Scala propose quelques classes de type :\n\nscala.math.Ordering pour trier et comparer\nscala.math.Numeric pour les opérations arithmétiques +, -, *, …\nscala.CanEqual permet d’avoir une erreur de compilation lorsqu’on compare 2 types différents avec == (voir TP).\n\nLa bibliothèque Cats définit plusieurs classes de types provenant de la théorie des cagégories. Cette théorie mathématique étudie les structures et leurs relations, et a des connexions avec la programmation fonctionnelle. Il n’est heureusement pas nécéssaire de comprendre cette théorie pour utiliser les principales classes de types de Cats.\n\n5.2.1 cats.Functor\nUn Functor est un type sur lequel on a l’opération map :\ntrait Functor[F[_]] {\n  def map[A, B](fa: F[A])(f: A =&gt; B): F[B]\n}\nNous avons vu que plusieurs types du SDK implémentaient map, comme Option, Either, Seq, … L’avantage du type Functor est que nous pouvons définir des méthodes qui s’appliquent à tous ces types.\nCela permet de renforcer le principle of least power : si la seule chose dont j’ai besoin dans mon paramètre est la fonction map, je peux le déclarer comme Functor.\nimport cats._\nimport cats.syntax.all._\nimport cats.instances.all._\n\n// Méthode générique - fonctionne avec TOUT Functor\ndef applyDiscount[F[_]](prices: F[Double], \n                        discount: Double)(using Functor[F]): F[Double] =\n  prices.map(_ * (1 - discount))\n\n// Tous ces exemples fonctionnent sans définir d'instances !\nval optPrice: Option[Double] = Some(100.0)\nval opt = applyDiscount(optPrice, 0.2)\n// Some(80.0)\n\nval listPrices = List(100.0, 200.0, 300.0)\nval lst = applyDiscount(listPrices, 0.2)\n// List(80.0, 160.0, 240.0)\n\nval eitherPrice: Either[String, Double] = Right(100.0)\nval eith = applyDiscount(eitherPrice, 0.2)\n// Right(80.0)\n\nimport scala.concurrent.Future\nimport scala.concurrent.ExecutionContext.Implicits.global\n\nval futurePrice = Future { Thread.sleep(10); 100.0 }\nval fut = applyDiscount(futurePrice, 0.2)\n// Future(80.0)\n\n\n\n\n\n\nNote\n\n\n\nScala offre un sucre syntaxique pour les fonctions qui utilisent une classe de type. Au lieu de déclarer :\ndef applyDiscount[F[_]](prices: F[Double], \n                        discount: Double)(using Functor[F]): F[Double] = ???\nNous pouvons déclarer Functor derrière le paramètre de type :\ndef applyDiscount[F[_] : Functor](prices: F[Double], \n                                  discount: Double): F[Double] = ???\nCette syntaxe reflète bien l’analogie entre objets/classes et types/classes de types :\ndog: Dog      // objet dog, classe Dog\nF[_]: Functor // type F[_], classe de type Functor\n\n\n\n\n5.2.2 cats.Monad\nFrom A Brief, Incomplete, and Mostly Wrong History of Programming Languages “a monad is a monoid in the category of endofunctors, what’s the problem?”\nLa classe de type Monad a des “pouvoirs” en plus par rapport à Functor : elle permet d’aplatir (flatten) des structures, et de construire (pure) une structure à partir d’une valeur. Comme elle dérive de Functor, elle implémente également flatMap, qui est une combinaison de map et flatten.\nUne définition simplifiée de la classe de type Monad ressemblerait à ceci :\ntrait Monad[F[_]] extends Functor[F] {\n  // construit un F avec une valeur\n  def pure[A](x: A): F[A]\n\n  // la méthode clé qui caractérise une structure monadique \n  def flatMap[A, B](fa: F[A])(f: A =&gt; F[B]): F[B]\n\n  // flatten peut être implémenté avec flatMap\n  def flatten[A](ffa: F[F[A]]): F[A] =\n    flatMap(ffa)(fa =&gt; fa)\n}\nLa méthode flatMap est fondamentale : elle permet de chaîner des opérations qui produisent elles-mêmes des Monads. Cela permet d’enchaîner des traitements les uns à la suite des autres dans un contexte donné. Un Monad représente en quelque sorte un contexte de calcul avec des capacités spécifiques :\n\nOption =&gt; contexte “ce calcul peut ne pas renvoyer de valeur”\nEither =&gt; contexte “ce calcul peut échouer avec une erreur typée”\nFuture =&gt; contexte “ce calcul est asynchrone/effectue des effets de bord”\ncats.IO =&gt; contexte “ce calcul a des effets de bord”\nWriter =&gt; contexte “ce calcul produit des logs en plus de sa valeur”\nState =&gt; contexte “ce calcul peut lire/modifier un état”\n\nNous avions vu que for en Scala était du sucre syntaxique permettant d’enchaîner des flatMap et map. Cela signifie que nous pouvons utiliser for sur tous les types monadiques !\nCats fournit :\n\ndes instances de Monad pour les types courants du SDK comme Option, List, Either, …\nd’autres types monadiques, comme IO, State, NonEmptyList, Writer…\ndes “Monad transformers”, qui permettent de combiner plusieurs Monads\n\nExemple utilisant Writer[L, A], qui permet de logger des informations :\nimport cats.data.Writer\nimport cats.syntax.all._\n\n// type alias: évite de répéter Writer[...] partout\ntype Logged[A] = Writer[List[String], A]\n\ndef validateUser(name: String): Logged[Boolean] =\n  if name.isEmpty then\n    Writer(List(\"Validation: Name is empty\"), false)\n  else\n    Writer(List(s\"Validation: Name '$name' is valid\"), true)\n\ndef saveToDatabase(name: String): Logged[Int] =\n  Writer(List(s\"Database: Saved user '$name'\"), name.hashCode)\n\ndef sendEmail(userId: Int): Logged[Unit] =\n  Writer(List(s\"Email: Sent welcome email to user $userId\"), ())\n\n// For-comprehension avec Writer\ndef registerUser(name: String): Logged[Option[Int]] =\n  for {\n    isValid &lt;- validateUser(name)\n    result  &lt;- if isValid then\n                 for {\n                   userId &lt;- saveToDatabase(name)\n                   _      &lt;- sendEmail(userId)  // _ pour ignorer Unit\n                 } yield Some(userId)\n               else\n                 Writer(List[String](), None)\n  } yield result\n\nval (logs, result) = registerUser(\"Alice\").run\nlogs.foreach(println)\n// Validation: Name 'Alice' is valid\n// Database: Saved user 'Alice'\n// Email: Sent welcome email to user 63679911\n\nprintln(s\"Result: User ID = $result\")\n// Result: User ID = Some(63679911)"
+    "text": "5.2 Classes de types dans les bibliothèques\nLe SDK Scala propose quelques classes de type :\n\nscala.math.Ordering pour trier et comparer\nscala.math.Numeric pour les opérations arithmétiques +, -, *, …\nscala.CanEqual permet d’avoir une erreur de compilation lorsqu’on compare 2 types différents avec == (voir TP).\n\nLa bibliothèque Cats définit plusieurs classes de types provenant de la théorie des cagégories. Cette théorie mathématique étudie les structures et leurs relations, et a des connexions avec la programmation fonctionnelle. Il n’est heureusement pas nécéssaire de comprendre cette théorie pour utiliser les principales classes de types de Cats.\n\n5.2.1 cats.Functor\nUn Functor est un type sur lequel on a l’opération map :\ntrait Functor[F[_]] {\n  def map[A, B](fa: F[A])(f: A =&gt; B): F[B]\n}\nNous avons vu que plusieurs types du SDK implémentaient map, comme Option, Either, Seq, … L’avantage du type Functor est que nous pouvons définir des méthodes qui s’appliquent à tous ces types.\nCela permet de renforcer le principle of least power : si la seule chose dont j’ai besoin dans mon paramètre est la fonction map, je peux le déclarer comme Functor.\nimport cats._\nimport cats.syntax.all._\nimport cats.instances.all._\n\n// Méthode générique - fonctionne avec TOUT Functor\ndef applyDiscount[F[_]](prices: F[Double], \n                        discount: Double)(using Functor[F]): F[Double] =\n  prices.map(_ * (1 - discount))\n\n// Tous ces exemples fonctionnent sans définir d'instances !\nval optPrice: Option[Double] = Some(100.0)\nval opt = applyDiscount(optPrice, 0.2)\n// Some(80.0)\n\nval listPrices = List(100.0, 200.0, 300.0)\nval lst = applyDiscount(listPrices, 0.2)\n// List(80.0, 160.0, 240.0)\n\nval eitherPrice: Either[String, Double] = Right(100.0)\nval eith = applyDiscount(eitherPrice, 0.2)\n// Right(80.0)\n\nimport scala.concurrent.Future\nimport scala.concurrent.ExecutionContext.Implicits.global\n\nval futurePrice = Future { Thread.sleep(10); 100.0 }\nval fut = applyDiscount(futurePrice, 0.2)\n// Future(80.0)\n\n\n\n\n\n\nNote\n\n\n\nScala offre un sucre syntaxique pour les fonctions qui utilisent une classe de type. Au lieu de déclarer :\ndef applyDiscount[F[_]](prices: F[Double], \n                        discount: Double)(using Functor[F]): F[Double] = ???\nNous pouvons déclarer Functor derrière le paramètre de type :\ndef applyDiscount[F[_] : Functor](prices: F[Double], \n                                  discount: Double): F[Double] = ???\nCette syntaxe reflète bien l’analogie entre objets/classes et types/classes de types :\ndog: Dog      // objet dog, classe Dog\nF[_]: Functor // type F[_], classe de type Functor\n\n\n\n\n5.2.2 cats.Monad\nFrom A Brief, Incomplete, and Mostly Wrong History of Programming Languages “a monad is a monoid in the category of endofunctors, what’s the problem?”\nLa classe de type Monad a des “pouvoirs” en plus par rapport à Functor : elle permet d’aplatir (flatten) des structures, et de construire (pure) une structure à partir d’une valeur. Comme elle dérive de Functor, elle implémente également flatMap, qui est une combinaison de map et flatten.\nUne définition simplifiée de la classe de type Monad ressemblerait à ceci :\ntrait Monad[F[_]] extends Functor[F] {\n  // construit un F avec une valeur\n  def pure[A](x: A): F[A]\n\n  // la méthode clé qui caractérise une structure monadique \n  def flatMap[A, B](fa: F[A])(f: A =&gt; F[B]): F[B]\n\n  // flatten peut être implémenté avec flatMap\n  def flatten[A](ffa: F[F[A]]): F[A] =\n    flatMap(ffa)(fa =&gt; fa)\n}\nLa méthode flatMap est fondamentale : elle permet de chaîner des opérations qui produisent elles-mêmes des Monads. Cela permet d’enchaîner des traitements les uns à la suite des autres dans un contexte donné. Un Monad représente en quelque sorte un contexte de calcul avec des capacités spécifiques :\n\nOption =&gt; contexte “ce calcul peut ne pas renvoyer de valeur”\nEither =&gt; contexte “ce calcul peut échouer avec une erreur typée”\nFuture =&gt; contexte “ce calcul est asynchrone/effectue des effets de bord”\ncats.IO =&gt; contexte “ce calcul a des effets de bord”\nWriter =&gt; contexte “ce calcul produit des logs en plus de sa valeur”\nState =&gt; contexte “ce calcul peut lire/modifier un état”\n\nNous avions vu que for en Scala était du sucre syntaxique permettant d’enchaîner des flatMap et map. Cela signifie que nous pouvons utiliser for sur tous les types monadiques !\nCats fournit :\n\ndes instances de Monad pour les types courants du SDK comme Option, List, Either, …\nd’autres types monadiques, comme IO, State, NonEmptyList, Writer…\ndes “Monad transformers”, qui permettent de combiner plusieurs Monads\n\nExemple utilisant Writer[L, A], qui permet de logger des informations :\nimport cats.data.Writer\nimport cats.syntax.all._\n\n// type alias: évite de répéter Writer[...] partout\ntype Logged[A] = Writer[List[String], A]\n\ndef validateUser(name: String): Logged[Boolean] =\n  if name.isEmpty then\n    Writer(List(\"Validation: Name is empty\"), false)\n  else\n    Writer(List(s\"Validation: Name '$name' is valid\"), true)\n\ndef saveToDatabase(name: String): Logged[Int] =\n  Writer(List(s\"Database: Saved user '$name'\"), name.hashCode)\n\ndef sendEmail(userId: Int): Logged[Unit] =\n  Writer(List(s\"Email: Sent welcome email to user $userId\"), ())\n\n// For-comprehension avec Writer\ndef registerUser(name: String): Logged[Option[Int]] =\n  for {\n    isValid &lt;- validateUser(name)\n    result  &lt;- if isValid then\n                 for {\n                   userId &lt;- saveToDatabase(name)\n                   _      &lt;- sendEmail(userId)  // _ pour ignorer Unit\n                 } yield Some(userId)\n               else\n                 Writer(List[String](), None)\n  } yield result\n\nval (logs, result) = registerUser(\"Alice\").run\nlogs.foreach(println)\n// Validation: Name 'Alice' is valid\n// Database: Saved user 'Alice'\n// Email: Sent welcome email to user 63679911\n\nprintln(s\"Result: User ID = $result\")\n// Result: User ID = Some(63679911)",
+    "crumbs": [
+      "Cours",
+      "CM6 - Classes de Type"
+    ]
   },
   {
     "objectID": "tp6.html",
@@ -403,235 +439,418 @@
     "text": "1 Quelle variance choisir pour A ?\ntrait Serializer[A]:\n  def serialize(a: A): String\n\n\n2 Quelle variance choisir pour A ?\nclass Buffer[A]:\n  var elements: Seq[A] = Seq.empty\n\n\n3 Quelle variance choisir pour A ?\nsealed trait Option[A]\ncase object Empty extends Option[Nothing]\ncase class Some[A](a: A) extends Option[A]"
   },
   {
-    "objectID": "~BROMIUM/exercices-scala-option.html",
-    "href": "~BROMIUM/exercices-scala-option.html",
+    "objectID": "projet_dq.html",
+    "href": "projet_dq.html",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "",
+    "text": "Un modèle de machine learning n’est jamais meilleur que les données sur lesquelles il est entraîné (garbage in, garbage out). Une seule valeur aberrante, par exemple une température de 999.9 °C issue d’un code d’erreur de capteur, suffit à fausser une moyenne, une régression ou une normalisation.\nEn entreprise, on évite ce problème comme on traite les bugs dans le code : avec des tests. Amazon a publié pour cela Deequ, une bibliothèque Scala/Spark qui permet d’écrire des « tests unitaires pour les données », pour mesurer la qualité des données dans des grands datasets. Il existe d’autres outils de data engineering comme DBT qui implémentent ce concept de tests sur les données.\n\n\n\nQualidon est un moteur de règles de qualité de données, inspiré de Deequ. Il prend en entrée une liste de règles, un fichier à analyser, et produit un rapport.\nLes règles que les données doivent vérifier s’écrivent en Scala, avec un DSL.\n\nUn DSL (Domain Specific Language) est un mini-langage spécialisé dans un domaine.\n\nVous allez construire ce DSL avec des fonctions et des opérateurs Scala :\nval rules = List(\n  size &gt; 10000,\n  uniqueness(NUM_POSTE, DATE) === 1,\n  completeness(TX) &gt;= 0.99 where NUM_POSTE === 33281001,\n  max(TX) &lt;= 46,\n  compliance(TN &lt;= TX || TN.isNull || TX.isNull) === 1\n)\nLe programme ValidateApp vérifie les règles avec Spark et produit un rapport Markdown :\n\n\n\n\n\n\n\n\nStatus\nRule\nObserved\n\n\n\n\nFAIL\nuniqueness(NUM_POSTE, AAAAMMJJ) === 1\n0.9958\n\n\nPASS\ncompleteness(TX) &gt;= 0.99 where (NUM_POSTE === 33281001)\n1.0000\n\n\nFAIL\nmax(TX) &lt;= 46\n999.9000\n\n\n\n\n\n\nPour tester notre moteur de règles, nous utiliserons les données climatologiques quotidiennes de Météo-France pour la Gironde. Une ligne = une station, un jour.\n\n\n\n\n\n\n\nFichier\nContenu\n\n\n\n\ndata/meteo_gironde_1950-2024.csv.gz\n1,3 million de lignes, validées par Météo-France\n\n\ndata/meteo_gironde_2025-2026.csv.gz\nle « nouveau lot », avec des problèmes de qualité\n\n\nsrc/test/resources/sample.csv\n10 lignes avec des erreurs volontaires, pour les tests\n\n\n\nLes colonnes ont une constante dans meteo/Columns.scala :\n\n\n\n\n\n\n\nConstante\nSignification\n\n\n\n\nNUM_POSTE, NOM_USUEL\nidentifiant et nom de la station. Bordeaux-Mérignac = 33281001\n\n\nDATE\ndate sous forme de nombre : 20240715. Dans le fichier, la colonne s’appelle AAAAMMJJ\n\n\nTN, TX, TM\ntempératures minimale, maximale, moyenne du jour (°C)\n\n\nRR\nprécipitations (mm)\n\n\nQTN, QTX, QRR…\ncode qualité : 0 ou 1 validée, 9 pas encore validée, 2 douteuse\n\n\n\nUne cellule vide est une valeur absente (null) : beaucoup de stations ne mesurent que la pluie.\n\n\n\n\nJDK &gt;= 21, IntelliJ avec le plugin Scala. Utilisez le lien Classroom50 pour créer votre repository.\nLe premier import télécharge Spark (~300 Mo) : soyez patients.\nLa classe ValidateApp contient des méthodes annotées @main pour pouvoir lancer le moteur de règles sur les différents datasets.\nLancez les tests (clic-droit sur src/test/scala). Ils échouent avec NotImplementedError, provenant des ??? à implémenter.\n\nVous pouvez aussi lancer les tests ou les méthodes @main avec sbt, depuis la racine du projet :\nsbt test                                 # tous les tests\nsbt \"testOnly dq.Step1DslSuite\"          # les tests d'une étape\nsbt \"runMain dq.validateExample\"         # un programme (une méthode @main) : validateHistorical, climate...",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#pourquoi-la-qualité-des-données",
+    "href": "projet_dq.html#pourquoi-la-qualité-des-données",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "",
+    "text": "Un modèle de machine learning n’est jamais meilleur que les données sur lesquelles il est entraîné (garbage in, garbage out). Une seule valeur aberrante, par exemple une température de 999.9 °C issue d’un code d’erreur de capteur, suffit à fausser une moyenne, une régression ou une normalisation.\nEn entreprise, on évite ce problème comme on traite les bugs dans le code : avec des tests. Amazon a publié pour cela Deequ, une bibliothèque Scala/Spark qui permet d’écrire des « tests unitaires pour les données », pour mesurer la qualité des données dans des grands datasets. Il existe d’autres outils de data engineering comme DBT qui implémentent ce concept de tests sur les données.",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#qualidon",
+    "href": "projet_dq.html#qualidon",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "",
+    "text": "Qualidon est un moteur de règles de qualité de données, inspiré de Deequ. Il prend en entrée une liste de règles, un fichier à analyser, et produit un rapport.\nLes règles que les données doivent vérifier s’écrivent en Scala, avec un DSL.\n\nUn DSL (Domain Specific Language) est un mini-langage spécialisé dans un domaine.\n\nVous allez construire ce DSL avec des fonctions et des opérateurs Scala :\nval rules = List(\n  size &gt; 10000,\n  uniqueness(NUM_POSTE, DATE) === 1,\n  completeness(TX) &gt;= 0.99 where NUM_POSTE === 33281001,\n  max(TX) &lt;= 46,\n  compliance(TN &lt;= TX || TN.isNull || TX.isNull) === 1\n)\nLe programme ValidateApp vérifie les règles avec Spark et produit un rapport Markdown :\n\n\n\n\n\n\n\n\nStatus\nRule\nObserved\n\n\n\n\nFAIL\nuniqueness(NUM_POSTE, AAAAMMJJ) === 1\n0.9958\n\n\nPASS\ncompleteness(TX) &gt;= 0.99 where (NUM_POSTE === 33281001)\n1.0000\n\n\nFAIL\nmax(TX) &lt;= 46\n999.9000",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#données-à-analyser",
+    "href": "projet_dq.html#données-à-analyser",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "",
+    "text": "Pour tester notre moteur de règles, nous utiliserons les données climatologiques quotidiennes de Météo-France pour la Gironde. Une ligne = une station, un jour.\n\n\n\n\n\n\n\nFichier\nContenu\n\n\n\n\ndata/meteo_gironde_1950-2024.csv.gz\n1,3 million de lignes, validées par Météo-France\n\n\ndata/meteo_gironde_2025-2026.csv.gz\nle « nouveau lot », avec des problèmes de qualité\n\n\nsrc/test/resources/sample.csv\n10 lignes avec des erreurs volontaires, pour les tests\n\n\n\nLes colonnes ont une constante dans meteo/Columns.scala :\n\n\n\n\n\n\n\nConstante\nSignification\n\n\n\n\nNUM_POSTE, NOM_USUEL\nidentifiant et nom de la station. Bordeaux-Mérignac = 33281001\n\n\nDATE\ndate sous forme de nombre : 20240715. Dans le fichier, la colonne s’appelle AAAAMMJJ\n\n\nTN, TX, TM\ntempératures minimale, maximale, moyenne du jour (°C)\n\n\nRR\nprécipitations (mm)\n\n\nQTN, QTX, QRR…\ncode qualité : 0 ou 1 validée, 9 pas encore validée, 2 douteuse\n\n\n\nUne cellule vide est une valeur absente (null) : beaucoup de stations ne mesurent que la pluie.",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#démarrage",
+    "href": "projet_dq.html#démarrage",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "",
+    "text": "JDK &gt;= 21, IntelliJ avec le plugin Scala. Utilisez le lien Classroom50 pour créer votre repository.\nLe premier import télécharge Spark (~300 Mo) : soyez patients.\nLa classe ValidateApp contient des méthodes annotées @main pour pouvoir lancer le moteur de règles sur les différents datasets.\nLancez les tests (clic-droit sur src/test/scala). Ils échouent avec NotImplementedError, provenant des ??? à implémenter.\n\nVous pouvez aussi lancer les tests ou les méthodes @main avec sbt, depuis la racine du projet :\nsbt test                                 # tous les tests\nsbt \"testOnly dq.Step1DslSuite\"          # les tests d'une étape\nsbt \"runMain dq.validateExample\"         # un programme (une méthode @main) : validateHistorical, climate...",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#packages",
+    "href": "projet_dq.html#packages",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "2.1 Packages",
+    "text": "2.1 Packages\nsrc/main/scala/dq/\n├── ast/            Ast.scala                       l'AST (à lire en premier !)\n├── dsl/            Dsl.scala                       le DSL, qui construit l'AST\n├── interpreter/    Show, RowEval, SparkCompiler    les interpréteurs de l'AST\n├── verification/   Metrics, Verifier, Report, SinglePass\n├── meteo/          Columns, ExampleRules, MeteoRules, DataFiles\n├── util/           SparkUtils\n└── ValidateApp.scala, ClimateApp.scala             les programmes",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#le-dsl-et-last",
+    "href": "projet_dq.html#le-dsl-et-last",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "2.2 Le DSL et l’AST",
+    "text": "2.2 Le DSL et l’AST\nChaque règle est un arbre (Abstract Syntax Tree ou AST). Vous écrirez les fonctions qui parcourent cet arbre pour l’afficher, l’évaluer en Scala, et le traduire en Spark : le même AST, plusieurs interpréteurs.\n\n\n\n\n\nflowchart LR\n  DSL[\"DSL (Scala)&lt;br/&gt;TN &lt;= TX\"] --&gt; AST[\"AST&lt;br/&gt;Compare(Le, Col(TN), Col(TX))\"]\n  AST --&gt; Show[\"Show&lt;br/&gt;→ texte\"]\n  AST --&gt; RowEval[\"RowEval&lt;br/&gt;→ Value, sur une ligne\"]\n  AST --&gt; Spark[\"SparkCompiler&lt;br/&gt;→ Column Spark\"]\n  AST --&gt; SP[\"SinglePass (bonus)&lt;br/&gt;→ agrégation Spark\"]\n\n\n\n\n\n\nUne règle = une métrique + une assertion (+ un filtre optionnel where). Par exemple, la règle completeness(TX) &gt;= 0.99 where NUM_POSTE === 33281001 contient :\n\nla métrique completeness(TX)\nl’assertion &gt;= 0.99\nun filtre where NUM_POSTE === 33281001\n\n\n\n\n\n\n\n\nMétrique\nValeur\n\n\n\n\nsize\nnombre de lignes\n\n\ncompleteness(C)\nproportion de lignes où C n’est pas null\n\n\nuniqueness(C1, C2…)\nproportion de lignes dont la clé (C1, C2…) est unique\n\n\nmin(C), max(C), mean(C)\nsur les valeurs non null\n\n\ncompliance(expr)\nproportion de lignes où expr est vraie\n\n\n\n\nAssertions : === 1, =!= 0, &lt; 50, &lt;= 50, &gt; 0, &gt;= 0.95, .between(10, 25).\nOpérateurs pour les expressions : ||, &&, !, ===, =!=, &lt;, &lt;=, &gt;, &gt;=, +, -, *, /, .isNull, .isNotNull, .isIn(0, 1), .matches(\"regex\").\nOn écrit === et non ==, car == renvoie toujours un Boolean en Scala (Spark fait pareil).\n\nL’AST est défini dans ast/Ast.scala par cinq types, chacun un sealed trait dont les cas sont des case class, comme Shape au CM2 :\n\n\n\n\n\n\n\n\nType\nCas\nRôle\n\n\n\n\nValue\nVNum, VStr, VBool, VNull\nune valeur dans une ligne (VNull = valeur manquante)\n\n\nExpr\nCol, Lit, Arith, Compare, And, Or, Not, IsNull, In, Matches\nune expression, évaluée sur une ligne, donne une Value\n\n\nMetric\nSize, Completeness, Uniqueness, Min, Max, Mean, Compliance\nune mesure sur tout le jeu de données, donne un Double\n\n\nAssertion\nThreshold, Between\nune condition sur la valeur d’une métrique\n\n\nRule\nRule(metric, assertion, where)\nune règle complète, avec son filtre optionnel\n\n\n\nLe DSL construit cet AST. Par exemple, compliance(TN &lt;= TX && RR &gt;= 0) &gt; 0.9 construit :\nRule(\n  Metric.Compliance(\n    And(Compare(CmpOp.Le, \n                Col(\"TN\"), \n                Col(\"TX\")), \n        Compare(CmpOp.Ge, \n                Col(\"RR\"), \n                Lit(VNum(0)))\n    )\n  ),\n  Assertion.Threshold(CmpOp.Gt, 0.9)\n)",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#sec-dsl",
+    "href": "projet_dq.html#sec-dsl",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "5.1 DSL et affichage des règles",
+    "text": "5.1 DSL et affichage des règles\nDsl.scala : Le DSL est presque entièrement fourni : chaque opérateur est une méthode d’extension qui construit un morceau d’AST. Complétez :\n\nles instances de la classe de type ToValue pour Double, String, Boolean (celle pour Int est donnée). C’est le même principe que JsonSerializer au CM6 : grâce à elles, on peut écrire TX &lt;= 46 ou NOM_USUEL === \"CAZAUX\" ;\nles comparaisons =!=, &lt;, &lt;=, &gt;, &gt;=, sur le modèle de ===.\n\nShow.scala : Permet de transformer un AST en texte. Toute expression qui n’est ni une colonne ni une valeur est entourée de parenthèses :\n\n\n\n\n\n\n\n\nDSL\nAST\nTexte\n\n\n\n\nTN &lt;= TX\nCompare(CmpOp.Le, Col(\"TN\"), Col(\"TX\"))\n(TN &lt;= TX)\n\n\nTX.isNull && QTX.isNotNull\nAnd(IsNull(Col(\"TX\")), Not(IsNull(Col(\"QTX\"))))\n((TX.isNull) && (!(QTX.isNull)))\n\n\nQTX.isIn(0, 1)\nIn(Col(\"QTX\"), List(VNum(0), VNum(1)))\n(QTX.isIn(0, 1))",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#sec-roweval",
+    "href": "projet_dq.html#sec-roweval",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "5.2 Évaluer une expression sur une ligne de données",
+    "text": "5.2 Évaluer une expression sur une ligne de données\nRowEval.scala est un interpréteur en Scala (sans Spark). Il permet d’évaluer une règle sur une ligne de données (row). Une ligne est représentée par une Map, chaque clé correspondant à un nom de colonne :\nval row = Map(\"TN\" -&gt; VNum(15.2), \"TX\" -&gt; VNum(28.4), \"RR\" -&gt; VNull)\nRowEval.eval(TN &lt;= TX, row)           // Validation.succeed(VBool(true))\nRowEval.eval(RR &gt;= 0, row)            // Validation.succeed(VNull)\nRowEval.eval(column(\"FOO\") + 1, row)  // Validation.fail(EvalError.UnknownColumn(\"FOO\"))\nUne colonne inconnue ou des opérandes du mauvais type (\"abc\" + 1) ne lancent pas d’exception : eval renvoie une Validation[EvalError, Value] (CM5), où EvalError est un ADT. Pour les opérateurs binaires, evalBoth (donné) évalue les deux côtés et accumule leurs erreurs ; .flatMap examine ensuite les valeurs obtenues.\n\n\n\n\n\n\nNoteLa logique du null\n\n\n\nComme en SQL, null veut dire « inconnu » : null + 1 et null &gt; 0 valent null. Pour && et ||, lisez null comme « je ne sais pas » :\n\n\n\na\nb\na && b\na || b\n\n\n\n\ntrue\nnull\nnull\ntrue\n\n\nfalse\nnull\nfalse\nnull\n\n\nnull\nnull\nnull\nnull\n\n\n\n!null vaut null, et x.isNull ne vaut jamais null. Les cas Arith et And sont donnés en exemple.\nPourquoi cette logique ? Parce que c’est celle de SQL et de Spark : notre interpréteur doit donner les mêmes résultats que Spark (test 3.7). Et c’est ce que l’on veut en qualité des données : si TN manque, TN &lt;= TX est inconnu, et la ligne ne doit pas passer pour conforme.\n\n\n\n5.2.1 RowCheckApp\nComplétez RowCheck.check dans RowCheckApp.scala : la fonction trie les lignes d’un fichier selon la valeur d’un prédicat (tests 2.15 et 2.16).\nLancez ensuite ▶ RowCheckApp.checkSampleRows :\n\nil lit sample.csv (sans Spark) et évalue quelques prédicats sur chaque ligne ;\npour chacun, il affiche les lignes qui le violent (VIOLATION), celles où une valeur manque (UNKNOWN) et les erreurs d’évaluation (ERROR, pas d’exception) ;\nvous devez obtenir 6/10 rows OK pour TN &lt;= TX.\n\nLes données réelles (75 ans de relevés) ne tiendraient pas dans une List. Il nous faut un framework BigData : nous allons utiliser Spark.",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#sec-spark",
+    "href": "projet_dq.html#sec-spark",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "5.3 Traduire une expression en Spark",
+    "text": "5.3 Traduire une expression en Spark\nSparkCompiler.scala : Le même AST, un deuxième interpréteur : au lieu de calculer une valeur, on construit une Column Spark, que Spark évaluera sur des millions de lignes.\nSparkCompiler.toColumn(TX - TN &gt; 10)   // col(\"TX\") - col(\"TN\") &gt; lit(10.0)\nLe test 3.7 vérifie que vos deux interpréteurs donnent les mêmes résultats.\n\n5.3.1 SparkCheckApp\nLancez ▶ SparkCheckApp.checkSampleRowsSpark.\nC’est checkSampleRows réécrit avec Spark (partition), sur les mêmes prédicats. Le résultat doit être identique à celui de l’étape 2, sauf pour les deux derniers prédicats :\n\nSpark lance une exception pour une colonne inconnue, et ne signale que la première ;\nSpark ne se plaint pas de NOM_USUEL + 1 : il convertit silencieusement la chaîne en nombre, et obtient null.",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#sec-metrics",
+    "href": "projet_dq.html#sec-metrics",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "5.4 Calculer les métriques",
+    "text": "5.4 Calculer les métriques\nMetrics.scala : première étape qui calcule sur tout le jeu de données, et non ligne par ligne. compliance(p) est la version Spark de RowCheck.check : la proportion de lignes où p est vrai.",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#sec-verifier",
+    "href": "projet_dq.html#sec-verifier",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "5.5 Vérifier les règles",
+    "text": "5.5 Vérifier les règles\nVerifier.scala, Report.scala : assemblage des étapes précédentes. Le where est filtré par le SparkCompiler (étape 3), la métrique vient de Metrics (étape 4), holds réutilise RowEval.compare (étape 2), et Report affiche les règles avec Show (étape 1).\nDans Verifier.verify, on peut recevoir des exceptions venant de Spark. Utilisez Try pour les convertir en valeur (Outcome.Error), comme le recommande le CM5. Comparez avec RowEval, notre code, qui renvoie une Validation et ne lance rien.\nLancez ▶ ValidateApp.validateExample.\nVous devez obtenir 9 rules: 2 passed, 7 failed, 0 error. Le rapport est aussi dans output/. Comprenez-vous pourquoi certaines règles de ExampleRules.scala échouent ?",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#sec-meteo",
+    "href": "projet_dq.html#sec-meteo",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "5.6 Données réelles et climat",
+    "text": "5.6 Données réelles et climat\nRépondez aux questions dans RAPPORT.md.\n\n5.6.1 Vos règles\nÉcrivez au moins 15 règles dans MeteoRules.scala : volume et clés, dates, valeurs physiquement plausibles (record de France : 46 °C), cohérence (TN ≤ TX), codes qualité, station de Mérignac.\nLancez ▶ ValidateApp.validateHistorical.\nCes données sont validées : toutes vos règles doivent passer. Attention, TN &lt;= TX vaut null quand une valeur manque.\n\n\n5.6.2 Valider le nouveau batch\nLancez ▶ ValidateApp.validateNewBatch.\nIl contient au moins 6 types d’erreurs : pour chacune, donnez la règle qui la détecte, la valeur observée et la cause probable.\n\n\n5.6.3 Cache\nChaque règle lance un calcul Spark qui relit les données. Comparez le temps de ▶ ValidateApp.validateHistorical (avec .cache()) et de ▶ ValidateApp.validateHistoricalNoCache. Expliquez.\n\n\n5.6.4 Le climat de Mérignac\nComplétez ClimateApp.scala (▶ ClimateApp.climate) en suivant les commentaires : garder les mesures fiables, puis calculer par décennie la température moyenne, les jours chauds et les jours de gel. Le climat a-t-il changé depuis 1950 ?\n\n\n5.6.5 Synthèse\nLe projet est organisé en trois couches : le DSL construit l’AST, et trois interpréteurs le parcourent, Show, RowEval et SparkCompiler (quatre avec SinglePass).\n\nQu’apporte cette séparation ? Donnez un exemple d’évolution que chaque couche permet.\nQu’aurait-il fallu modifier pour ajouter un opérateur au DSL ?\nQu’est-ce qui changerait si RowEval.eval lançait des exceptions au lieu de renvoyer une Validation ?\nDonnez un exemple où le compilateur Scala vous a évité un bug.",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#sec-singlepass",
+    "href": "projet_dq.html#sec-singlepass",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "5.7 (BONUS) : une seule passe",
+    "text": "5.7 (BONUS) : une seule passe\nSinglePass.scala : Le cache évite de relire le fichier, mais chaque règle parcourt encore toutes les données. Calculez toutes les métriques dans un seul df.agg(...) :\n\nwhen(w, x) vaut x si w est vrai, null sinon, et count, min, avg ignorent les null. Donc size where w devient count(when(w, lit(1))) ;\nuniqueness a besoin d’un groupBy : elle reste calculée à part ;\nvérifiez d’abord que les colonnes utilisées existent (df.columns), sinon tout l’agg échoue.\n\nComparez les temps de ▶ ValidateApp.validateHistoricalSinglePass et ▶ ValidateApp.validateHistoricalSinglePassNoCache.\nAutres idées : écrire les lignes invalides du nouveau lot dans un fichier ; ajouter une métrique stddev(C).",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "projet_dq.html#erreurs-fréquentes",
+    "href": "projet_dq.html#erreurs-fréquentes",
+    "title": "Projet Qualidon: un moteur de qualité de données pour Spark",
+    "section": "6.1 Erreurs fréquentes",
+    "text": "6.1 Erreurs fréquentes\n\n\n\n\n\n\n\nErreur\nCause\n\n\n\n\nNotImplementedError\nun ??? n’est pas encore remplacé\n\n\nFound: Boolean, Required: dq.ast.Expr\n== au lieu de ===\n\n\nFound: dq.ast.Value, Required: Validation[…]\nil manque Validation.succeed(...) autour de la valeur\n\n\nReference to min is ambiguous\nmin, max… existent dans le DSL et dans Spark : n’importez de Spark que ce qui est utile\n\n\nun test attend 0.8, obtient 0.0\ndivision entière : .toDouble avant de diviser\n\n\nUnsupportedClassVersionError\nJDK trop ancien : il faut un JDK 17, 21 ou 25",
+    "crumbs": [
+      "Projet",
+      "Projet Qualidon: un moteur de qualité de données pour Spark"
+    ]
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html",
+    "href": "zio_cheatsheet_2627.html",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "",
+    "text": "Ce document présente les éléments clés pour lire et modifier le code du projet Conduit. Il ne remplace pas la documentation de ZIO : il montre seulement les patterns que vous rencontrerez dans le projet, avec des exemples tirés du code."
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#hiérarchie-des-erreurs",
+    "href": "zio_cheatsheet_2627.html#hiérarchie-des-erreurs",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "3.1 Hiérarchie des erreurs",
+    "text": "3.1 Hiérarchie des erreurs\nToutes les erreurs métier étendent ApplicationError (domain/model/error). Ce ne sont pas des exceptions : on ne les lance pas avec throw, on les renvoie avec ZIO.fail.\ntrait ApplicationError:\n  def message: String\n\nobject ApplicationError:\n  trait NotFoundError     extends ApplicationError\n  trait UnauthorisedError extends ApplicationError\n  trait ValidationError   extends DomainError\n  ...\nLe type E peut être une union d’erreurs : ZIO[R, PersistenceError | NotFound, A].\nDans la couche HTTP, ErrorMiddleware transforme chaque catégorie d’erreur en code HTTP : NotFoundError → 404, UnauthorisedError → 403, InvalidInput (validation) → 400, le reste → 500."
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#opérateurs-sur-les-erreurs",
+    "href": "zio_cheatsheet_2627.html#opérateurs-sur-les-erreurs",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "3.2 Opérateurs sur les erreurs",
+    "text": "3.2 Opérateurs sur les erreurs\neffect.mapError(e =&gt; OtherError(e))      // transforme l'erreur\neffect.someOrFail(NotFound.user(id))     // ZIO[R, E, Option[A]] =&gt; ZIO[R, E | NotFound, A]\neffect.orDie                             // erreur \"impossible\" : transforme l'erreur en défaut (crash)\neffect.flip                              // inverse succès et erreur (utile dans les tests)\nLe projet définit l’opérateur ?! comme raccourci de someOrFail (voir EntrypointDsl) :\narticleId &lt;- permalinks.resolve(slug) ?! NotFound.article(slug)\n// si resolve renvoie None, le programme échoue avec NotFound.article(slug)"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#subtype",
+    "href": "zio_cheatsheet_2627.html#subtype",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "4.1 Subtype",
+    "text": "4.1 Subtype\nPlutôt que des Long et des String partout, le domaine utilise des types dédiés, définis avec Subtype de ZIO Prelude :\ntype CommentId = CommentId.Type\nobject CommentId extends Subtype[Long]\n\nval id: CommentId = CommentId(42L)   // construction\nval n: Long       = id               // un CommentId EST un Long (Subtype)\nLe compilateur empêche alors de passer un ArticleId là où on attend un CommentId. À l’exécution, il n’y a aucun surcoût : un CommentId est un simple Long."
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#validation",
+    "href": "zio_cheatsheet_2627.html#validation",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "4.2 Validation",
+    "text": "4.2 Validation\nValidation[E, A] (ZIO Prelude) ressemble à Either[E, A], mais accumule les erreurs au lieu de s’arrêter à la première. Voir le cours : CM5 - Le type Validation.\nExemple du projet :\nobject CommentBody extends Subtype[String] {\n  def validated(body: String): Validation[Error, CommentBody] =\n    Validation\n      .validate(validateIsNotTooShort(body), validateIsNotTooLong(body))\n      .map(_ =&gt; CommentBody(body))\n}\nLes services de validation (domain/service/validation) transforment une requête brute en données typées. Dans les entrypoints, validOrFail convertit une Validation en ZIO qui échoue avec InvalidInput (la liste de toutes les erreurs) :\nvalidated &lt;- validation.parse(request).validOrFail"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#un-service",
+    "href": "zio_cheatsheet_2627.html#un-service",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "5.1 Un service",
+    "text": "5.1 Un service\nUn service est un trait (l’interface, dans domain/logic) et une classe qui l’implémente (dans domain/service ou infrastructure). Les dépendances sont passées au constructeur. Par exemple, CommentEntrypointService a besoin de plusieurs autres services :\nclass CommentEntrypointService(\n  unitOfWork: UnitOfWork,\n  authorisation: CommentAuthorisation,\n  validation: CommentValidator,\n  comments: CommentRepository,\n  ...\n) extends CommentEntrypoint"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#un-zlayer",
+    "href": "zio_cheatsheet_2627.html#un-zlayer",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "5.2 Un ZLayer",
+    "text": "5.2 Un ZLayer\nUn ZLayer[RIn, E, ROut] est une recette pour construire le service ROut à partir des services RIn. Chaque service a un layer dans son objet compagnon, qui récupère ses dépendances avec ZIO.service puis appelle le constructeur :\nobject CommentEntrypointService:\n  val layer: ZLayer[UnitOfWork & CommentAuthorisation & CommentValidator & CommentRepository & ...,\n                    Nothing,\n                    CommentEntrypointService] =\n    ZLayer {\n      for {\n        unitOfWork    &lt;- ZIO.service[UnitOfWork]            // récupère un service de l'environnement\n        authorisation &lt;- ZIO.service[CommentAuthorisation]\n        validator     &lt;- ZIO.service[CommentValidator]\n        comments      &lt;- ZIO.service[CommentRepository]\n        ...\n      } yield CommentEntrypointService(unitOfWork, authorisation, validator, comments, ...)\n    }\nLe type RIn (UnitOfWork & CommentAuthorisation & ...) liste les dépendances : le layer ne peut être construit que si on lui fournit tous ces services.\nCes dépendances ont elles-mêmes des dépendances. Pour une requête sur les commentaires :\nCommentRoutes ──► CommentEntrypoint ──► CommentAuthorisation ──► CommentRepository\n                        │                                              ▲\n                        ├──► CommentValidator (aucune dépendance)      │\n                        └──► CommentRepository ────────────────────────┘\nUn service sans dépendance utilise ZLayer.succeed :\nobject CommentValidationService:\n  val layer: ZLayer[Any, Nothing, CommentValidator] = ZLayer.succeed(CommentValidationService())"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#assembler-les-layers",
+    "href": "zio_cheatsheet_2627.html#assembler-les-layers",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "5.3 Assembler les layers",
+    "text": "5.3 Assembler les layers\nlayerA ++ layerB     // fournit les services de layerA et de layerB\nlayerA &gt;&gt;&gt; layerB    // layerA fournit les dépendances de layerB\nExemple dans PostgresModule :\nobject PostgresModule {\n  // ZLayer[DatabaseSourceConfig, Nothing, HikariDataSource] : pool de connexions, construit à partir de la configuration,\n  // et fermé automatiquement à l'arrêt de l'application (withFinalizerAuto)\n  val datasource = ZLayer.scoped:\n    ZIO.service[DatabaseSourceConfig].map(config =&gt; new HikariDataSource(config.toHikariConfig)).withFinalizerAuto\n\n  // &gt;&gt;&gt; : le pool de connexions est fourni à PostgresUnitOfWork, qui en a besoin pour ouvrir les transactions\n  val unitOfWork = datasource &gt;&gt;&gt; PostgresUnitOfWork.layer\n\n  // ++ : le module fournit tous les repositories, le UnitOfWork et le pool de connexions\n  val layer      = PostgresRepositoryModule.layer ++ unitOfWork ++ datasource\n}\nEt InMemoryRepositoryModule regroupe tous les repositories en mémoire avec ++ :\nval layer =\n  InMemoryUnitOfWork.layer ++\n    InMemoryUserRepository.layer ++\n    InMemoryCommentRepository.layer ++\n    ...\nEn pratique, on donne simplement la liste des layers à .provide(...) : ZIO trouve tout seul dans quel ordre les construire, et construit une seule instance de chaque service, partagée par tous ceux qui en dépendent (ici, le même CommentRepository pour l’entrypoint et l’autorisation).\nExemple dans CommentEntrypointServiceSpec, où l’ordre des layers n’a pas d’importance :\nspec.provide(\n  CommentEntrypointService.layer,       // a besoin de CommentAuthorisation, CommentValidator, repositories...\n  CommentValidationService.layer,       // aucune dépendance\n  CommentAuthorisationService.layer,    // a besoin de CommentRepository\n  InMemoryRepositoryModule.layer,       // fournit les repositories et UnitOfWork (en mémoire)\n)\nLes modules (DomainServiceModule, PostgresModule, InMemoryModule…) regroupent les layers d’une couche. Les modes de lancement (HttpApplication.dev, inmemory…) les assemblent de la même façon. Pour passer de PostgreSQL à la mémoire, il suffit de remplacer PostgresModule.layer par InMemoryModule.layer : les services du domaine ne changent pas.\nprovide vérifie à la compilation que toutes les dépendances sont fournies. Si vous ajoutez une dépendance à un service, le message d’erreur indique le layer manquant.\nC’est l’équivalent de l’injection de dépendances de Spring, mais vérifié par le compilateur, sans annotations ni réflexion."
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#structure-dun-test",
+    "href": "zio_cheatsheet_2627.html#structure-dun-test",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "10.1 Structure d’un test",
+    "text": "10.1 Structure d’un test\nobject CommentEntrypointServiceSpec extends ZIOSpecDefault {\n\n  def spec = suite(\"CommentEntrypointService\")(\n    test(\"adds a comment to an article\") {\n      for {\n        fixture  &lt;- givenArticle\n        service  &lt;- ZIO.service[CommentEntrypointService]\n        response &lt;- service.addComment(addComment(fixture.profile.id, fixture.slug, \"Nice article!\"))\n      } yield assertTrue(\n        response.comment.body == \"Nice article!\",\n        !response.comment.author.following,\n      )\n    },\n  ).provide(                             // layers fournis aux tests\n    CommentEntrypointService.layer,\n    CommentValidationService.layer,\n    CommentAuthorisationService.layer,\n    InMemoryRepositoryModule.layer,      // repositories en mémoire : rapide, pas de Docker\n  )\n}\n\nUn test est lui-même un ZIO : on utilise une for-comprehension et on termine par assertTrue(...).\nassertTrue accepte plusieurs conditions et affiche clairement celle qui échoue.\nPour tester un cas d’erreur, .flip transforme l’erreur en succès :\n\ntest(\"fails with NotFound when the article does not exist\") {\n  for {\n    service &lt;- ZIO.service[CommentEntrypointService]\n    unknown  = ArticleSlug(\"unknown-article\")\n    error   &lt;- service.addComment(addComment(userId, unknown, \"Nice article!\")).flip\n  } yield assertTrue(error == NotFound.article(unknown))\n}"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#générateurs",
+    "href": "zio_cheatsheet_2627.html#générateurs",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "10.2 Générateurs",
+    "text": "10.2 Générateurs\nGenerator (src/test/scala/.../entity/Generator.scala) produit des données de test aléatoires avec Gen :\ndef userName: Gen[Any, UserName] = Gen.stringBounded(3, 20)(Gen.alphaChar).map(UserName(_))\n\nuserId &lt;- Generator.userId.runHead.someOrFailException   // une seule valeur aléatoire\nOn peut aussi vérifier une propriété sur beaucoup de valeurs générées avec check (tests par propriétés) :\ntest(\"a valid body is accepted\") {\n  check(Gen.stringBounded(3, 500)(Gen.alphaChar)) { body =&gt;\n    assertTrue(CommentBody.fromString(body).toEither.isRight)\n  }\n}"
+  },
+  {
+    "objectID": "zio_cheatsheet_2627.html#tests-des-repositories-postgresql",
+    "href": "zio_cheatsheet_2627.html#tests-des-repositories-postgresql",
+    "title": "ZIO Cheat Sheet - Projet Conduit",
+    "section": "10.3 Tests des repositories PostgreSQL",
+    "text": "10.3 Tests des repositories PostgreSQL\nLes specs de infrastructure/postgres/repository utilisent une vraie base PostgreSQL dans Docker. Chaque test s’exécute dans une transaction (transaction:) sur une base recréée (@@ withMigration) :\ntest(\"Adds a comment and retrieves it\") {\n  transaction:\n    for {\n      ...\n      created &lt;- comments.save(comment)\n      fetched &lt;- comments.find(created.id)\n    } yield assertTrue(fetched.contains(created))\n} @@ withMigration"
+  },
+  {
+    "objectID": "tp2.html",
+    "href": "tp2.html",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "",
+    "text": "Cet exercice vous permettra de découvrir et pratiquer les concepts fondamentaux de Scala :\n\nTypes de base (Int, Double, String)\ncase class et types algébriques (ADT)\nTraits avec méthodes abstraites\nMixin de traits\nPattern matching\n\n\n\n\n\nInstallez IntelliJ Idea (dernière version)\nInstallez le plugin Scala\nUtilisez le lien Moodle pour créer un repository GitHub classroom\nClonez le repo\nOuvrez le projet dans IntelliJ\n\n\n\n\nVous allez développer un calculateur d’impôt sur le revenu en modélisant les foyers fiscaux. Un foyer fiscal est l’entité qui déclare et paie l’impôt (célibataire, couple, famille, etc.).",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#objectifs-pédagogiques",
+    "href": "tp2.html#objectifs-pédagogiques",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "",
+    "text": "Cet exercice vous permettra de découvrir et pratiquer les concepts fondamentaux de Scala :\n\nTypes de base (Int, Double, String)\ncase class et types algébriques (ADT)\nTraits avec méthodes abstraites\nMixin de traits\nPattern matching",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#installation",
+    "href": "tp2.html#installation",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "",
+    "text": "Installez IntelliJ Idea (dernière version)\nInstallez le plugin Scala\nUtilisez le lien Moodle pour créer un repository GitHub classroom\nClonez le repo\nOuvrez le projet dans IntelliJ",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#contexte",
+    "href": "tp2.html#contexte",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "",
+    "text": "Vous allez développer un calculateur d’impôt sur le revenu en modélisant les foyers fiscaux. Un foyer fiscal est l’entité qui déclare et paie l’impôt (célibataire, couple, famille, etc.).",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#trait-de-base",
+    "href": "tp2.html#trait-de-base",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "2.1 Trait de base",
+    "text": "2.1 Trait de base\nCréez le trait de base pour tous les foyers fiscaux.\nsealed trait FoyerFiscal {\n  def revenuTotal: Double\n  def nombreParts: Double  // Pour le quotient familial\n}",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#première-implémentation-célibataire",
+    "href": "tp2.html#première-implémentation-célibataire",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "2.2 Première implémentation : Célibataire",
+    "text": "2.2 Première implémentation : Célibataire\nCréez une case class pour un foyer célibataire. Elle doit contenir son nom, son revenu, et doit hériter de FoyerFiscal.",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#test-de-la-partie-1",
+    "href": "tp2.html#test-de-la-partie-1",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "2.3 Test de la Partie 1",
+    "text": "2.3 Test de la Partie 1\nAjoutez ce code dans un object contenant une méthode annotée @main, et exécutez-le.\nval pierre = Celibataire(\"Pierre Dupont\", 35000.0)\nprintln(s\"${pierre.nom}: ${pierre.revenuTotal}€, ${pierre.nombreParts} parts\")\n// Sortie attendue: Pierre Dupont: 35000.0€, 1.0 parts",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#trait-calculateurimpot",
+    "href": "tp2.html#trait-calculateurimpot",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "3.1 Trait CalculateurImpot",
+    "text": "3.1 Trait CalculateurImpot\nCréez un trait qui définit les calculs d’impôt. Ce trait nécessite l’accès au revenu et au nombre de parts :\ntrait CalculateurImpot {\n  // Méthodes abstraites que les classes doivent fournir\n  def revenuTotal: Double\n  def nombreParts: Double\n  \n  // Méthodes concrètes qui utilisent les méthodes abstraites\n  def calculerQuotientFamilial(): Double = {\n    if (nombreParts &gt; 0) revenuTotal / nombreParts else 0.0\n  }\n  \n  def calculerTauxEffectif(impot: Double): Double = {\n    if (revenuTotal &gt; 0) (impot / revenuTotal) * 100 else 0.0\n  }\n}",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#mixin-avec-célibataire",
+    "href": "tp2.html#mixin-avec-célibataire",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "3.2 Mixin avec Célibataire",
+    "text": "3.2 Mixin avec Célibataire\nModifiez votre classe Celibataire pour qu’elle utilise aussi le trait CalculateurImpot.",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#test",
+    "href": "tp2.html#test",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "3.3 Test",
+    "text": "3.3 Test\nAjoutez une méthode de test contenant le code suivant :\nval marie = Celibataire(\"Marie Martin\", 40000.0)\nprintln(f\"${marie.nom}:\")\nprintln(f\"  Quotient familial: ${marie.calculerQuotientFamilial()}%.2f€\")\nprintln(f\"  Taux effectif: ${marie.calculerTauxEffectif(6000)}%.2f%%\")\n\n// Sortie attendue:\n// Marie Martin:\n//   Quotient familial: 40000.00€\n//   Taux effectif: 15.00%",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#barème-progressif-dans-le-trait",
+    "href": "tp2.html#barème-progressif-dans-le-trait",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "4.1 Barème progressif dans le trait",
+    "text": "4.1 Barème progressif dans le trait\nAjoutez une méthode calculerImpotProgressif() à votre trait CalculateurImpot. Utilisez le pattern matching pour effectuer le calcul. Vous pouvez utiliser ce site pour comprendre le calcul : Simulateur Impot\nBarème français simplifié :\n\n0€ à 11 497€ : 0% (exonéré)\n11 498€ à 29 315€ : 11% sur la tranche\n29 316€ à 83 823€ : 30% sur la tranche\n83 824€ à 180 294 : 41% sur la tranche\nPlus de 180 295 : 45% sur la tranche\n\nOn commence par calculer le revenu par part, puis on applique le barème pour chaque tranche de revenu. Ensuite, on multiplie l’impôt calculé par le nombre de parts.\ntrait CalculateurImpot:\n  def revenuTotal: Double\n  def nombreParts: Double\n  \n  // Méthodes existantes...\n  \n  def calculerImpotProgressif(): Double = ???\n}",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#test-1",
+    "href": "tp2.html#test-1",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "4.2 Test",
+    "text": "4.2 Test\nval testeurs = List(\n  Celibataire(\"Paul\", 8000.0),    // Exonéré\n  Celibataire(\"Sophie\", 20000.0), // Tranche 11%\n  Celibataire(\"Jean\", 50000.0),   // Tranche 30%\n  Celibataire(\"Claire\", 100000.0) // Tranche 41%\n)\n\nprintln(\"=== Calcul progressif ===\")\ntesteurs.foreach { foyer =&gt;\n  val impot = foyer.calculerImpotProgressif()\n  val taux = foyer.calculerTauxEffectif(impot)\n  println(f\"${foyer.nom}: ${impot}%.2f€ (${taux}%.2f%%)\")\n}\nRésultats attendus :\n\nPaul: 0.00€ (0.00%)\nSophie: 935.22€ (4.68%)\nJean: 8165.18€ (16.33%)\nClaire: 24944.54€ (24.94%)",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#foyer-couple",
+    "href": "tp2.html#foyer-couple",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "5.1 Foyer Couple",
+    "text": "5.1 Foyer Couple\nCréez une case class pour un couple. Elle doit posséder les deux noms et deux revenus, et hériter de FoyerFiscal ainsi que de CalculateurImpot. Un couple possède 2 parts fiscales.",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#foyer-avec-enfants",
+    "href": "tp2.html#foyer-avec-enfants",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "5.2 Foyer avec enfants",
+    "text": "5.2 Foyer avec enfants\nCréez une case class FoyerAvecEnfants. Elle doit posséder un attribut foyerParent et un attribut nombreEnfants.\n\nLes deux premiers enfants comptent pour une 1/2 part chacun.\nA partir du 3ème enfant, chaque enfant compte pour une part complète.\nUn parent célibataire a une 1/2 part supplémentaire.",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "tp2.html#test-2",
+    "href": "tp2.html#test-2",
+    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
+    "section": "5.3 Test",
+    "text": "5.3 Test\nAjoutez une méthode de test contenant le code suivant :\nval celibataireSeul = Celibataire(\"Alice\", 45000.0)\nval couple = Couple(\"Bob\", \"Emma\", 25000.0, 20000.0)\nval celibataireAvecEnfants = FoyerAvecEnfants(Celibataire(\"Carol\", 45000.0), 2)\nval coupleAvecEnfants = FoyerAvecEnfants(couple, 1)\nval coupleAvec4Enfants = FoyerAvecEnfants(couple, 4)\n\nval foyers = List(celibataireSeul, couple, celibataireAvecEnfants, coupleAvecEnfants)\n\nprintln(\"=== Comparaison des foyers ===\")\nfoyers.foreach { foyer =&gt;\n  val impot = foyer.calculerImpotProgressif()\n  val quotient = foyer.calculerQuotientFamilial()\n  val taux = foyer.calculerTauxEffectif(impot)\n  \n  val nom = foyer.toString\n  println(f\"$nom:\")\n  println(f\"  Revenu total: ${foyer.revenuTotal}%.2f€\")\n  println(f\"  Nombre de parts: ${foyer.nombreParts}%.1f\")\n  println(f\"  Quotient familial: ${quotient}%.2f€\")\n  println(f\"  Impôt: ${impot}%.2f€\")\n  println(f\"  Taux effectif: ${taux}%.2f%%\")\n  println()\n}",
+    "crumbs": [
+      "TPs",
+      "TP2 - Calculateur d'Impôt sur le Revenu"
+    ]
+  },
+  {
+    "objectID": "seance3.html",
+    "href": "seance3.html",
     "title": "ADDA74 Functional Programming with Scala",
     "section": "",
-    "text": "LavaStatus=0 XM\u0002\u0004�\u0002\u0001\u0001\u0001\f�\u0002e \u0001�\u0002e\u0001T^\u0002\u0001(z�8-6W�\u0001\u0002\u001f\u0004\u0004\u001b�\u0006&lt;2\u00014G\u0015\u0003[2\u00014\u0016,\u00012\u0001J�\u0001.\u00012\u0001�\u0001vexercices-scala-option.qmdfirefox.exehttps://claude.ai/api/organizations/2aa66844-452f-4abd-8afa-a5d4fba443b9/conversations/5ac4aab2-b56c-4658-837f-ae9912e7dfb4/wiggle/download-file?path=%2Fmnt%2Fuser-data%2Foutputs%2Fexercices-scala-option.qmdhttps://claude.ai/chat/5ac4aab2-b56c-4658-837f-ae9912e7dfb4ܩ\u0018�"
-  },
-  {
-    "objectID": "projet_lsi_2627.html",
-    "href": "projet_lsi_2627.html",
-    "title": "Projet Conduit",
-    "section": "",
-    "text": "Le site RealWorld propose différentes implémentations du même logiciel de blogging, Conduit, qui est similaire à Medium. Cela permet de comparer différentes stacks technologiques sur un projet réaliste.\nVous pouvez tester le frontend ici sans installation : Demo Conduit Vue3\nNotre projet consiste à améliorer ce logiciel avec des corrections de bugs et des nouvelles fonctionnalités. Nous utiliserons :\n\nun frontend Vue.js, dérivé de Vue.js + Vite. C’est le même frontend que pour le projet Java Spring Boot (ALTN72).\nun backend Scala 3 / ZIO, dérivé de zio-conduit-doobie\n\nLe backend utilise les bibliothèques suivantes :\n\nZIO : système d’effets fonctionnel, injection de dépendances avec ZLayer\nZIO HTTP : serveur HTTP et routes de l’API REST\nDoobie : accès fonctionnel à la base de données en SQL\nFlyway : migrations du schéma de la base PostgreSQL\nCirce : sérialisation JSON\nZIO Test : tests unitaires et tests par propriétés (générateurs)"
-  },
-  {
-    "objectID": "projet_lsi_2627.html#validation-règles-sur-les-tags",
-    "href": "projet_lsi_2627.html#validation-règles-sur-les-tags",
-    "title": "Projet Conduit",
-    "section": "7.1 VALIDATION : règles sur les tags",
-    "text": "7.1 VALIDATION : règles sur les tags\nCréez un article avec des tags. Aujourd’hui, seul un tag vide est refusé : on peut créer des tags comme Hello World!!! ou scala et Scala, qui sont deux tags différents.\nAjoutez deux règles de validation :\n\nun tag ne contient que des lettres minuscules, des chiffres et des tirets (par exemple cats-effect, scala3)\nun article a au plus 5 tags\n\nCes deux règles ne se placent pas au même endroit dans le code. Cherchez où est faite la vérification du tag vide, puis demandez-vous si la deuxième règle porte sur un tag ou sur un article.\n\nToutes les erreurs doivent être renvoyées en une seule fois : un article avec 6 tags dont un invalide renvoie deux erreurs. Voir Validation.\nTestez vos règles avec des tests unitaires\nVérifiez dans le navigateur que le frontend affiche bien les erreurs.\n\nBONUS : Testez les règles avec des Générateurs : générez des tags valides, vérifiez qu’ils sont acceptés. Générez des tags invalides, vérifiez qu’ils sont rejetés."
-  },
-  {
-    "objectID": "projet_lsi_2627.html#bug-tagrepository",
-    "href": "projet_lsi_2627.html#bug-tagrepository",
-    "title": "Projet Conduit",
-    "section": "7.2 BUG : TagRepository",
-    "text": "7.2 BUG : TagRepository\nDans TagRepositorySpec, le test « Add tags and retrieve them » appelle addTagsAndRetrieveThem avec une liste fixe de deux tags. Modifiez-le avec check pour qu’il vérifie la même chose avec n’importe quelle liste de tags générée. Il vous faudra écrire un générateur de tags.\n\nLancez le test. ZIO Test trouve un contre-exemple qui fait échouer le test : lequel ?\nCorrigez le bug\nRépondez dans le README.md :\n\npourquoi les tests de CommentEntrypointServiceSpec, qui utilisent les repositories en mémoire, n’auraient pas trouvé ce bug ?\nest-ce qu’on peut reproduire ce bug avec l’interface ?\nqu’apporte check par rapport à un test écrit avec quelques exemples choisis à la main ?"
-  },
-  {
-    "objectID": "projet_lsi_2627.html#feature-modifier-un-commentaire",
-    "href": "projet_lsi_2627.html#feature-modifier-un-commentaire",
-    "title": "Projet Conduit",
-    "section": "7.3 FEATURE : Modifier un commentaire",
-    "text": "7.3 FEATURE : Modifier un commentaire\nOn peut créer ou supprimer ses commentaires, mais on ne peut pas les éditer. Modifiez le backend et le frontend pour le permettre. Si vous avez déjà réalisé cette fonctionnalité dans le projet ALTN72, vous pouvez réutiliser votre frontend.\n\nLa route est PUT /api/articles/:slug/comments/:id, avec le même corps JSON que la création\n⚠️ Attention aux droits : seul l’auteur d’un commentaire peut le modifier\nSuivez le parcours d’une requête : chaque couche a quelque chose à ajouter. N’oubliez pas l’implémentation en mémoire du repository.\nAjoutez les tests correspondants\nRépondez dans le README.md : le slug de l’article présent dans l’URL est-il vérifié lors de la suppression d’un commentaire ? Que se passe-t-il si on appelle DELETE /api/articles/un-autre-article/comments/:id ? Faites en sorte que la modification ne présente pas ce problème.\n\nBONUS\nL’utilisateur essaie de modifier le même commentaire en ayant deux navigateurs ouverts.\n\nDécrivez dans le README.md le problème que cela peut poser\nCorrigez le problème"
-  },
-  {
-    "objectID": "projet_lsi_2627.html#feature-rôles",
-    "href": "projet_lsi_2627.html#feature-rôles",
-    "title": "Projet Conduit",
-    "section": "7.4 FEATURE : Rôles",
-    "text": "7.4 FEATURE : Rôles\n\nAjoutez un rôle aux utilisateurs. Ils peuvent avoir l’un de ces rôles :\n\nwriter : rôle par défaut, mêmes droits que maintenant.\nmoderator : writer + peut modifier/supprimer les articles et commentaires de tout le monde.\nadmin : moderator + peut changer les rôles des utilisateurs\n\nModifiez le schéma de la base avec une nouvelle migration Flyway (V2__...sql), et mettez des rôles aux utilisateurs des données d’exemple (R__seed_data.sql)\nAffichez le rôle dans l’écran Settings\nAjoutez un écran de gestion des utilisateurs pour l’admin\n\nl’écran liste tous les utilisateurs\non peut cliquer sur un utilisateur pour aller sur l’écran des settings\ndans Settings, l’admin peut modifier le rôle\n\nLe rôle est enregistré en base de données. Au moment de vérifier les droits d’un utilisateur, faut-il relire son rôle en base, ou le copier dans le token JWT au moment du login (voir TokenAuthenticationService) ?\n\nÉcrivez vos réflexions dans le README.md.\nQue se passe-t-il dans chaque cas quand un admin retire le rôle moderator à un utilisateur connecté ?\n\nModifiez l’UI et les services d’autorisation (domain/service/authorisation) pour autoriser/interdire les opérations correspondant à chaque rôle"
-  },
-  {
-    "objectID": "projet_lsi_2627.html#ressources",
-    "href": "projet_lsi_2627.html#ressources",
-    "title": "Projet Conduit",
-    "section": "8.1 Ressources",
-    "text": "8.1 Ressources\n\nZIO Cheat Sheet : les éléments clés pour comprendre le code du projet\nDocumentation ZIO : en particulier ZIO, ZLayer et ZIO Test\nBook of Doobie\nSpécification de l’API RealWorld"
-  },
-  {
-    "objectID": "projet_lsi_2627.html#faq",
-    "href": "projet_lsi_2627.html#faq",
-    "title": "Projet Conduit",
-    "section": "8.2 FAQ",
-    "text": "8.2 FAQ"
-  },
-  {
-    "objectID": "zio_cheatsheet.html",
-    "href": "zio_cheatsheet.html",
-    "title": "ZIO Cheat Sheet",
-    "section": "",
-    "text": "ZIO est un système d’effets fonctionnel pour Scala. Ce document couvre les patterns dont vous aurez besoin pour ce projet."
-  },
-  {
-    "objectID": "zio_cheatsheet.html#concept-principal",
-    "href": "zio_cheatsheet.html#concept-principal",
-    "title": "ZIO Cheat Sheet",
-    "section": "1 Concept principal",
-    "text": "1 Concept principal\nZIO[R, E, A] représente un programme qui :\n\nNécessite un environnement R\nPeut échouer avec une erreur E\nPeut réussir avec une valeur A\n\nDans ce projet, nous utilisons ZIO[Any, Throwable, A] (pas d’environnement, peut lever des exceptions)."
-  },
-  {
-    "objectID": "zio_cheatsheet.html#séquencement-avec-for-comprehension",
-    "href": "zio_cheatsheet.html#séquencement-avec-for-comprehension",
-    "title": "ZIO Cheat Sheet",
-    "section": "2 1. Séquencement avec for-comprehension",
-    "text": "2 1. Séquencement avec for-comprehension\nfor\n  a &lt;- doSomething()        // Execute first effect, bind result to 'a'\n  b &lt;- doSomethingElse(a)   // Execute second effect using 'a'\n  c &lt;- anotherEffect()      // Execute third effect\nyield (a, b, c)             // Return tuple of results\nC’est similaire à async/await dans d’autres langages."
-  },
-  {
-    "objectID": "zio_cheatsheet.html#wrapper-du-code-bloquant",
-    "href": "zio_cheatsheet.html#wrapper-du-code-bloquant",
-    "title": "ZIO Cheat Sheet",
-    "section": "3 2. Wrapper du code bloquant",
-    "text": "3 2. Wrapper du code bloquant\nZIO.attemptBlocking {\n  // Code that blocks (e.g., socket I/O, file reads)\n  socket.getInputStream.read()\n}\nUtilisez ceci pour tout code qui bloque le thread (I/O réseau, lecture de fichiers, etc.)."
-  },
-  {
-    "objectID": "zio_cheatsheet.html#logging",
-    "href": "zio_cheatsheet.html#logging",
-    "title": "ZIO Cheat Sheet",
-    "section": "4 3. Logging",
-    "text": "4 3. Logging\nZIO.logInfo(s\"Processing ${items.size} items\")\nZIO.logWarning(\"Something unexpected happened\")\nZIO.logError(\"Failed to connect\")"
-  },
-  {
-    "objectID": "zio_cheatsheet.html#itération-avec-effets",
-    "href": "zio_cheatsheet.html#itération-avec-effets",
-    "title": "ZIO Cheat Sheet",
-    "section": "5 4. Itération avec effets",
-    "text": "5 4. Itération avec effets\n// Séquentiel : un après l'autre\nZIO.foreach(workers) { worker =&gt;\n  sendMessage(worker)\n}\n\n// Parallèle : tous en même temps\nZIO.foreachPar(workers) { worker =&gt;\n  sendMessage(worker)\n}\n\n// Ignorer les résultats (retourne Unit)\nZIO.foreachDiscard(workers) { worker =&gt;\n  sendMessage(worker)\n}"
-  },
-  {
-    "objectID": "zio_cheatsheet.html#créer-des-effets-simples",
-    "href": "zio_cheatsheet.html#créer-des-effets-simples",
-    "title": "ZIO Cheat Sheet",
-    "section": "6 5. Créer des effets simples",
-    "text": "6 5. Créer des effets simples\nZIO.succeed(42)              // Always succeeds with 42\nZIO.fail(new Exception(...)) // Always fails\nZIO.unit                     // Succeeds with ()"
-  },
-  {
-    "objectID": "zio_cheatsheet.html#état-mutable-avec-ref",
-    "href": "zio_cheatsheet.html#état-mutable-avec-ref",
-    "title": "ZIO Cheat Sheet",
-    "section": "7 6. État mutable avec Ref",
-    "text": "7 6. État mutable avec Ref\nfor\n  ref &lt;- Ref.make(0)         // Create a Ref holding 0\n  _   &lt;- ref.set(42)         // Set value to 42\n  v   &lt;- ref.get             // Get current value\n  _   &lt;- ref.update(_ + 1)   // Update value\nyield v\nRef est une référence thread-safe. Utilisez-la pour stocker l’état du worker."
-  },
-  {
-    "objectID": "zio_cheatsheet.html#combiner-des-effets",
-    "href": "zio_cheatsheet.html#combiner-des-effets",
-    "title": "ZIO Cheat Sheet",
-    "section": "8 7. Combiner des effets",
-    "text": "8 7. Combiner des effets\neffect1 *&gt; effect2    // Run effect1, discard result, run effect2\neffect1 &lt;* effect2    // Run both, keep result of effect1\neffect1.zip(effect2)  // Run both, return tuple of results"
-  },
-  {
-    "objectID": "zio_cheatsheet.html#pattern-matching-dans-les-for-comprehensions",
-    "href": "zio_cheatsheet.html#pattern-matching-dans-les-for-comprehensions",
-    "title": "ZIO Cheat Sheet",
-    "section": "9 8. Pattern matching dans les for-comprehensions",
-    "text": "9 8. Pattern matching dans les for-comprehensions\nfor\n  msg &lt;- SocketUtils.read[Message](socket)\n  _ &lt;- msg match\n    case Message.Hello(name) =&gt; ZIO.logInfo(s\"Hello $name\")\n    case Message.Goodbye     =&gt; ZIO.logInfo(\"Goodbye\")\nyield ()"
-  },
-  {
-    "objectID": "zio_cheatsheet.html#exemples-de-ce-projet",
-    "href": "zio_cheatsheet.html#exemples-de-ce-projet",
-    "title": "ZIO Cheat Sheet",
-    "section": "10 Exemples de ce projet",
-    "text": "10 Exemples de ce projet\n\n10.1 Lire depuis un socket\nfor\n  msg &lt;- SocketUtils.read[WorkerMessage](driverSocket)\n  _ &lt;- ZIO.logInfo(s\"Received: $msg\")\nyield ()\n\n\n10.2 Diffuser à plusieurs sockets\nval sockets = workers.map(_.socket)\nSocketUtils.broadcast(WorkerMessage.StartShuffle(stageId, n), sockets)\n\n\n10.3 Collecter les réponses de tous les workers\nSocketUtils.readAll[DriverMessage, Map[Int, List[Any]]](sockets) {\n  case DriverMessage.ShuffleData(_, _, partitions) =&gt; ZIO.succeed(partitions)\n}"
-  },
-  {
-    "objectID": "tp7.html",
-    "href": "tp7.html",
-    "title": "TP7 - Classes de type",
-    "section": "",
-    "text": "Avant de démarrer, cliquez sur le lien GitHub Classroom pour créer votre repository."
-  },
-  {
-    "objectID": "tp7.html#objectif",
-    "href": "tp7.html#objectif",
-    "title": "TP7 - Classes de type",
-    "section": "1.1 Objectif",
-    "text": "1.1 Objectif\nCréer un système de gestion de notifications qui utilise given/using pour injecter la configuration de différents environnements (dev, staging, prod)."
-  },
-  {
-    "objectID": "tp7.html#contexte",
-    "href": "tp7.html#contexte",
-    "title": "TP7 - Classes de type",
-    "section": "1.2 Contexte",
-    "text": "1.2 Contexte\nVous développez un système de notifications pour une application. Selon l’environnement, les notifications doivent se comporter différemment :\n\nDev : logs en console uniquement\nStaging : logs + email de test\nProduction : email réel + SMS"
-  },
-  {
-    "objectID": "tp7.html#définir-les-structures",
-    "href": "tp7.html#définir-les-structures",
-    "title": "TP7 - Classes de type",
-    "section": "1.3 Définir les structures",
-    "text": "1.3 Définir les structures\nLes structures suivantes sont fournies dans un package exo1_notification :\n// 1. Configuration d'environnement\ncase class AppConfig(\n  environment: String,\n  enableEmail: Boolean,\n  enableSMS: Boolean,\n  emailEndpoint: String,\n  smsEndpoint: String,\n  debugMode: Boolean\n)\n\n// 2. Service email \nobject EmailService:\n  def sendEmail(to: String, message: String)(using config: AppConfig): Unit =\n    if config.enableEmail then\n      println(s\"[${config.environment}] Email envoyé à $to via ${config.emailEndpoint}: $message\")\n    else\n      println(s\"[${config.environment}] Email désactivé\")\n\n// 3. Service SMS \nobject SmsService:\n  def sendSMS(to: String, message: String)(using config: AppConfig): Unit =\n    if config.enableSMS then\n      println(s\"[${config.environment}] SMS envoyé à $to via ${config.smsEndpoint}: $message\")\n    else\n      println(s\"[${config.environment}] SMS désactivé\")"
-  },
-  {
-    "objectID": "tp7.html#créer-les-configurations-given",
-    "href": "tp7.html#créer-les-configurations-given",
-    "title": "TP7 - Classes de type",
-    "section": "1.4 Créer les configurations given",
-    "text": "1.4 Créer les configurations given\nDéfinissez trois configurations implicites différentes :\nobject Environments:\n  // TODO: Créer given devConfig: AppConfig pour dev\n  // environment = \"DEV\", email + SMS désactivés, debugMode = true\n  \n  // TODO: Créer given stagingConfig: AppConfig pour staging  \n  // environment = \"STAGING\", email activé, SMS désactivé, debugMode = true\n  \n  // TODO: Créer given prodConfig: AppConfig pour production\n  // environment = \"PROD\", email + SMS activés, debugMode = false"
-  },
-  {
-    "objectID": "tp7.html#implémenter-notificationservice",
-    "href": "tp7.html#implémenter-notificationservice",
-    "title": "TP7 - Classes de type",
-    "section": "1.5 Implémenter NotificationService",
-    "text": "1.5 Implémenter NotificationService\nCréez un object NotificationManager avec une méthode send qui :\n\nAccepte une configuration implicite via using\nUtilise EmailService et SmsService\nImplémente la logique d’envoi selon la config :\n\nsi config.debugMode est true, logger l’action\nEnvoyer email si activé (EmailService.sendEmail)\nEnvoyer SMS si activé (SmsService.sendSMS)"
-  },
-  {
-    "objectID": "tp7.html#tester-le-système",
-    "href": "tp7.html#tester-le-système",
-    "title": "TP7 - Classes de type",
-    "section": "1.6 Tester le système",
-    "text": "1.6 Tester le système\nCréez un object Main qui teste les trois environnements :\nobject Main:\n  @main def testNotifications(): Unit =\n    println(\"=== Test DEV ===\")\n    // TODO: Importer devConfig et créer NotificationManager\n  \n    println(\"\\n=== Test STAGING ===\")\n    // TODO: Importer stagingConfig et créer NotificationManager\n  \n    println(\"\\n=== Test PROD ===\")\n    // TODO: Importer prodConfig et créer NotificationManager\nQuand vous exécutez le programme, vous devriez voir :\n=== Test DEV ===\n[DEV] DEBUG: Envoi notification à user@example.com\n[DEV] Email désactivé\n[DEV] SMS désactivé\n\n=== Test STAGING ===\n[STAGING] DEBUG: Envoi notification à user@example.com\n[STAGING] Email envoyé à user@example.com via smtp.staging.com: Alerte importante\n[STAGING] SMS désactivé\n\n=== Test PROD ===\n[PROD] Email envoyé à user@example.com via smtp.prod.com: Alerte importante\n[PROD] SMS envoyé à user@example.com via api.sms.com: Alerte importante\nRemarque : Dans vrai système, il serait préférable de charger la configuration depuis un fichier. Mais le principe d’injecter AppConfig avec using serait conservé."
-  },
-  {
-    "objectID": "tp7.html#points-clés-à-retenir",
-    "href": "tp7.html#points-clés-à-retenir",
-    "title": "TP7 - Classes de type",
-    "section": "1.7 Points clés à retenir",
-    "text": "1.7 Points clés à retenir\n\ngiven déclare des valeurs implicites disponibles dans un scope\nusing demande l’injection d’une valeur implicite\nLes given peuvent être importés sélectivement\nParfait pour l’injection de dépendances sans framework\nAlternative moderne aux implicit de Scala 2"
-  },
-  {
-    "objectID": "tp7.html#code-fourni",
-    "href": "tp7.html#code-fourni",
-    "title": "TP7 - Classes de type",
-    "section": "3.1 Code fourni",
-    "text": "3.1 Code fourni\n\n3.1.1 Structure YamlValue\nenum YamlValue:\n  case YString(value: String)\n  case YNumber(value: Double)\n  case YBoolean(value: Boolean)\n  case YNull\n  case YArray(values: List[YamlValue])\n  case YObject(fields: Map[String, YamlValue])\n\n\n3.1.2 Classe de type YamlEncoder\ntrait YamlEncoder[A]:\n  def encode(value: A): YamlValue\n\n\n3.1.3 Renderer YAML\nobject YamlRenderer:\n  def render(yaml: YamlValue, indent: Int = 0): String =\n    val spaces = \"  \" * indent\n    yaml match\n      case YamlValue.YString(s) =&gt; \n        if s.contains('\\n') || s.contains(':') then\n          s\"|\\n${s.linesIterator.map(l =&gt; s\"$spaces  $l\").mkString(\"\\n\")}\"\n        else if s.matches(\".*[:#\\\\[\\\\]{}].*\") then s\"'$s'\"\n        else s\n      \n      case YamlValue.YNumber(n) =&gt; \n        if n.isWhole then n.toLong.toString else n.toString\n      \n      case YamlValue.YBoolean(b) =&gt; b.toString\n      \n      case YamlValue.YNull =&gt; \"null\"\n      \n      case YamlValue.YArray(values) if values.isEmpty =&gt; \"[]\"\n      \n      case YamlValue.YArray(values) =&gt;\n        values.map(v =&gt; s\"\\n$spaces- ${render(v, indent + 1).trim}\")\n              .mkString(\"\")\n      \n      case YamlValue.YObject(fields) if fields.isEmpty =&gt; \"{}\"\n      \n      case YamlValue.YObject(fields) =&gt;\n        fields.map { (key, value) =&gt;\n          value match\n            case YamlValue.YObject(_) | YamlValue.YArray(_) =&gt;\n              s\"\\n$spaces$key:${render(value, indent + 1)}\"\n            case _ =&gt;\n              s\"\\n$spaces$key: ${render(value, indent + 1)}\"\n        }.mkString(\"\")\n\n\n3.1.4 Code de test\nVoir YamlEncoderSpec dans le code fourni."
-  },
-  {
-    "objectID": "tp7.html#travail-à-réaliser",
-    "href": "tp7.html#travail-à-réaliser",
-    "title": "TP7 - Classes de type",
-    "section": "3.2 Travail à réaliser",
-    "text": "3.2 Travail à réaliser\n\n3.2.1 Instances pour les types primitifs\nImplémentez les instances given de YamlEncoder pour les types suivants : - String - Int - Double - Boolean - Long\n// TODO: Implémentez les instances ici\ngiven YamlEncoder[String] = ???\ngiven YamlEncoder[Int] = ???\ngiven YamlEncoder[Double] = ???\ngiven YamlEncoder[Boolean] = ???\ngiven YamlEncoder[Long] = ???\n\n\n3.2.2 Instances pour les classes Person, Address, Employee\n\n\n3.2.3 Combinateurs pour collections\nImplémentez les instances pour les types génériques :\n\nList[A] (si A a un encoder)\nOption[A] (si A a un encoder)\n\n// TODO: Implémentez les combinateurs\ngiven [A](using enc: YamlEncoder[A]): YamlEncoder[List[A]] = ???\n\ngiven [A](using enc: YamlEncoder[A]): YamlEncoder[Option[A]] = ???\n\n\n\n3.2.4 Extension method\nCréez une extension method toYaml qui permet d’appeler .toYaml sur n’importe quelle valeur ayant un YamlEncoder.\n// TODO: Implémentez l'extension method\nextension [A](value: A)\n  def toYaml(using enc: YamlEncoder[A]): YamlValue = ???"
-  },
-  {
-    "objectID": "tp7.html#résultat-attendu",
-    "href": "tp7.html#résultat-attendu",
-    "title": "TP7 - Classes de type",
-    "section": "3.3 Résultat attendu",
-    "text": "3.3 Résultat attendu\nExécutez les tests YamlEncoderSpec, tous les tests doivent passer."
-  },
-  {
-    "objectID": "tp7.html#bonus-support-pour-mapstring-a",
-    "href": "tp7.html#bonus-support-pour-mapstring-a",
-    "title": "TP7 - Classes de type",
-    "section": "3.4 (Bonus) Support pour Map[String, A]",
-    "text": "3.4 (Bonus) Support pour Map[String, A]\nImplémentez le support pour Map[String, A] :\ngiven [A](using enc: YamlEncoder[A]): YamlEncoder[Map[String, A]] = ???\nPuis testez avec :\ntest(\"encoder Map[String, A]\") {\n   case class Config(host: String, port: Int, ssl: Boolean) derives YamlEncoder\n\n   val configMap = Map(\n      \"database\" -&gt; Config(\"localhost\", 5432, true),\n      \"cache\" -&gt; Config(\"redis.local\", 6379, false)\n   )\n\n   val yaml = YamlRenderer.render(configMap.toYaml)\n\n   yaml shouldBe \"\"\"\ndatabase:\n  host: localhost\n  port: 5432\n  ssl: true\ncache:\n  host: redis.local\n  port: 6379\n  ssl: false\"\"\".trim\n}"
-  },
-  {
-    "objectID": "tp7.html#bonus-dérivation-automatique-pour-case-classes",
-    "href": "tp7.html#bonus-dérivation-automatique-pour-case-classes",
-    "title": "TP7 - Classes de type",
-    "section": "3.5 (Bonus) Dérivation automatique pour case classes",
-    "text": "3.5 (Bonus) Dérivation automatique pour case classes\nImplémentez la dérivation automatique en utilisant les méthodes de Product. Ce trait est implémenté par toutes les case classes.\nimport scala.deriving.*\n\n// TODO: Fonction helper pour encoder n'importe quel type\nprivate def encodeAny(value: Any): YamlValue = ???\n\n// TODO: Instance dérivée automatiquement\ngiven derivedProduct[T &lt;: Product]: YamlEncoder[T] = ???"
-  },
-  {
-    "objectID": "tp7.html#bonus---difficile-dérivation-automatique-pour-case-classes-avec-macros",
-    "href": "tp7.html#bonus---difficile-dérivation-automatique-pour-case-classes-avec-macros",
-    "title": "TP7 - Classes de type",
-    "section": "3.6 (Bonus - Difficile) Dérivation automatique pour case classes avec macros",
-    "text": "3.6 (Bonus - Difficile) Dérivation automatique pour case classes avec macros\nL’approche précédente avec Product n’est pas satisfaisante. En effet, si notre case class possède des attributs d’un type que nous ne savons pas encoder, le programme compilera quand même.\nIl serait préférable de tout valider à la compilation. Scala 3 offre un mécanisme permettant de séparer les composants d’un ADT avec la classe Mirror. Lisez cet article et implémentez la dérivation automatique de case class pour YamlEncoder :\nType Class Derivation in Scala 3"
+    "text": "correction liste chaînée\nfin CM3 sucre\nTP4 collections 1h30\nCM4 30’\nTP5 30’"
   },
   {
     "objectID": "cm3.html",
@@ -810,253 +1029,291 @@
     ]
   },
   {
-    "objectID": "seance3.html",
-    "href": "seance3.html",
+    "objectID": "tp7.html",
+    "href": "tp7.html",
+    "title": "TP7 - Classes de type",
+    "section": "",
+    "text": "Avant de démarrer, cliquez sur le lien GitHub Classroom pour créer votre repository.",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#objectif",
+    "href": "tp7.html#objectif",
+    "title": "TP7 - Classes de type",
+    "section": "1.1 Objectif",
+    "text": "1.1 Objectif\nCréer un système de gestion de notifications qui utilise given/using pour injecter la configuration de différents environnements (dev, staging, prod).",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#contexte",
+    "href": "tp7.html#contexte",
+    "title": "TP7 - Classes de type",
+    "section": "1.2 Contexte",
+    "text": "1.2 Contexte\nVous développez un système de notifications pour une application. Selon l’environnement, les notifications doivent se comporter différemment :\n\nDev : logs en console uniquement\nStaging : logs + email de test\nProduction : email réel + SMS",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#définir-les-structures",
+    "href": "tp7.html#définir-les-structures",
+    "title": "TP7 - Classes de type",
+    "section": "1.3 Définir les structures",
+    "text": "1.3 Définir les structures\nLes structures suivantes sont fournies dans un package exo1_notification :\n// 1. Configuration d'environnement\ncase class AppConfig(\n  environment: String,\n  enableEmail: Boolean,\n  enableSMS: Boolean,\n  emailEndpoint: String,\n  smsEndpoint: String,\n  debugMode: Boolean\n)\n\n// 2. Service email \nobject EmailService:\n  def sendEmail(to: String, message: String)(using config: AppConfig): Unit =\n    if config.enableEmail then\n      println(s\"[${config.environment}] Email envoyé à $to via ${config.emailEndpoint}: $message\")\n    else\n      println(s\"[${config.environment}] Email désactivé\")\n\n// 3. Service SMS \nobject SmsService:\n  def sendSMS(to: String, message: String)(using config: AppConfig): Unit =\n    if config.enableSMS then\n      println(s\"[${config.environment}] SMS envoyé à $to via ${config.smsEndpoint}: $message\")\n    else\n      println(s\"[${config.environment}] SMS désactivé\")",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#créer-les-configurations-given",
+    "href": "tp7.html#créer-les-configurations-given",
+    "title": "TP7 - Classes de type",
+    "section": "1.4 Créer les configurations given",
+    "text": "1.4 Créer les configurations given\nDéfinissez trois configurations implicites différentes :\nobject Environments:\n  // TODO: Créer given devConfig: AppConfig pour dev\n  // environment = \"DEV\", email + SMS désactivés, debugMode = true\n  \n  // TODO: Créer given stagingConfig: AppConfig pour staging  \n  // environment = \"STAGING\", email activé, SMS désactivé, debugMode = true\n  \n  // TODO: Créer given prodConfig: AppConfig pour production\n  // environment = \"PROD\", email + SMS activés, debugMode = false",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#implémenter-notificationservice",
+    "href": "tp7.html#implémenter-notificationservice",
+    "title": "TP7 - Classes de type",
+    "section": "1.5 Implémenter NotificationService",
+    "text": "1.5 Implémenter NotificationService\nCréez un object NotificationManager avec une méthode send qui :\n\nAccepte une configuration implicite via using\nUtilise EmailService et SmsService\nImplémente la logique d’envoi selon la config :\n\nsi config.debugMode est true, logger l’action\nEnvoyer email si activé (EmailService.sendEmail)\nEnvoyer SMS si activé (SmsService.sendSMS)",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#tester-le-système",
+    "href": "tp7.html#tester-le-système",
+    "title": "TP7 - Classes de type",
+    "section": "1.6 Tester le système",
+    "text": "1.6 Tester le système\nCréez un object Main qui teste les trois environnements :\nobject Main:\n  @main def testNotifications(): Unit =\n    println(\"=== Test DEV ===\")\n    // TODO: Importer devConfig et créer NotificationManager\n  \n    println(\"\\n=== Test STAGING ===\")\n    // TODO: Importer stagingConfig et créer NotificationManager\n  \n    println(\"\\n=== Test PROD ===\")\n    // TODO: Importer prodConfig et créer NotificationManager\nQuand vous exécutez le programme, vous devriez voir :\n=== Test DEV ===\n[DEV] DEBUG: Envoi notification à user@example.com\n[DEV] Email désactivé\n[DEV] SMS désactivé\n\n=== Test STAGING ===\n[STAGING] DEBUG: Envoi notification à user@example.com\n[STAGING] Email envoyé à user@example.com via smtp.staging.com: Alerte importante\n[STAGING] SMS désactivé\n\n=== Test PROD ===\n[PROD] Email envoyé à user@example.com via smtp.prod.com: Alerte importante\n[PROD] SMS envoyé à user@example.com via api.sms.com: Alerte importante\nRemarque : Dans vrai système, il serait préférable de charger la configuration depuis un fichier. Mais le principe d’injecter AppConfig avec using serait conservé.",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#points-clés-à-retenir",
+    "href": "tp7.html#points-clés-à-retenir",
+    "title": "TP7 - Classes de type",
+    "section": "1.7 Points clés à retenir",
+    "text": "1.7 Points clés à retenir\n\ngiven déclare des valeurs implicites disponibles dans un scope\nusing demande l’injection d’une valeur implicite\nLes given peuvent être importés sélectivement\nParfait pour l’injection de dépendances sans framework\nAlternative moderne aux implicit de Scala 2",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#code-fourni",
+    "href": "tp7.html#code-fourni",
+    "title": "TP7 - Classes de type",
+    "section": "3.1 Code fourni",
+    "text": "3.1 Code fourni\n\n3.1.1 Structure YamlValue\nenum YamlValue:\n  case YString(value: String)\n  case YNumber(value: Double)\n  case YBoolean(value: Boolean)\n  case YNull\n  case YArray(values: List[YamlValue])\n  case YObject(fields: Map[String, YamlValue])\n\n\n3.1.2 Classe de type YamlEncoder\ntrait YamlEncoder[A]:\n  def encode(value: A): YamlValue\n\n\n3.1.3 Renderer YAML\nobject YamlRenderer:\n  def render(yaml: YamlValue, indent: Int = 0): String =\n    val spaces = \"  \" * indent\n    yaml match\n      case YamlValue.YString(s) =&gt; \n        if s.contains('\\n') || s.contains(':') then\n          s\"|\\n${s.linesIterator.map(l =&gt; s\"$spaces  $l\").mkString(\"\\n\")}\"\n        else if s.matches(\".*[:#\\\\[\\\\]{}].*\") then s\"'$s'\"\n        else s\n      \n      case YamlValue.YNumber(n) =&gt; \n        if n.isWhole then n.toLong.toString else n.toString\n      \n      case YamlValue.YBoolean(b) =&gt; b.toString\n      \n      case YamlValue.YNull =&gt; \"null\"\n      \n      case YamlValue.YArray(values) if values.isEmpty =&gt; \"[]\"\n      \n      case YamlValue.YArray(values) =&gt;\n        values.map(v =&gt; s\"\\n$spaces- ${render(v, indent + 1).trim}\")\n              .mkString(\"\")\n      \n      case YamlValue.YObject(fields) if fields.isEmpty =&gt; \"{}\"\n      \n      case YamlValue.YObject(fields) =&gt;\n        fields.map { (key, value) =&gt;\n          value match\n            case YamlValue.YObject(_) | YamlValue.YArray(_) =&gt;\n              s\"\\n$spaces$key:${render(value, indent + 1)}\"\n            case _ =&gt;\n              s\"\\n$spaces$key: ${render(value, indent + 1)}\"\n        }.mkString(\"\")\n\n\n3.1.4 Code de test\nVoir YamlEncoderSpec dans le code fourni.",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#travail-à-réaliser",
+    "href": "tp7.html#travail-à-réaliser",
+    "title": "TP7 - Classes de type",
+    "section": "3.2 Travail à réaliser",
+    "text": "3.2 Travail à réaliser\n\n3.2.1 Instances pour les types primitifs\nImplémentez les instances given de YamlEncoder pour les types suivants : - String - Int - Double - Boolean - Long\n// TODO: Implémentez les instances ici\ngiven YamlEncoder[String] = ???\ngiven YamlEncoder[Int] = ???\ngiven YamlEncoder[Double] = ???\ngiven YamlEncoder[Boolean] = ???\ngiven YamlEncoder[Long] = ???\n\n\n3.2.2 Instances pour les classes Person, Address, Employee\n\n\n3.2.3 Combinateurs pour collections\nImplémentez les instances pour les types génériques :\n\nList[A] (si A a un encoder)\nOption[A] (si A a un encoder)\n\n// TODO: Implémentez les combinateurs\ngiven [A](using enc: YamlEncoder[A]): YamlEncoder[List[A]] = ???\n\ngiven [A](using enc: YamlEncoder[A]): YamlEncoder[Option[A]] = ???\n\n\n\n3.2.4 Extension method\nCréez une extension method toYaml qui permet d’appeler .toYaml sur n’importe quelle valeur ayant un YamlEncoder.\n// TODO: Implémentez l'extension method\nextension [A](value: A)\n  def toYaml(using enc: YamlEncoder[A]): YamlValue = ???",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#résultat-attendu",
+    "href": "tp7.html#résultat-attendu",
+    "title": "TP7 - Classes de type",
+    "section": "3.3 Résultat attendu",
+    "text": "3.3 Résultat attendu\nExécutez les tests YamlEncoderSpec, tous les tests doivent passer.",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#bonus-support-pour-mapstring-a",
+    "href": "tp7.html#bonus-support-pour-mapstring-a",
+    "title": "TP7 - Classes de type",
+    "section": "3.4 (Bonus) Support pour Map[String, A]",
+    "text": "3.4 (Bonus) Support pour Map[String, A]\nImplémentez le support pour Map[String, A] :\ngiven [A](using enc: YamlEncoder[A]): YamlEncoder[Map[String, A]] = ???\nPuis testez avec :\ntest(\"encoder Map[String, A]\") {\n   case class Config(host: String, port: Int, ssl: Boolean) derives YamlEncoder\n\n   val configMap = Map(\n      \"database\" -&gt; Config(\"localhost\", 5432, true),\n      \"cache\" -&gt; Config(\"redis.local\", 6379, false)\n   )\n\n   val yaml = YamlRenderer.render(configMap.toYaml)\n\n   yaml shouldBe \"\"\"\ndatabase:\n  host: localhost\n  port: 5432\n  ssl: true\ncache:\n  host: redis.local\n  port: 6379\n  ssl: false\"\"\".trim\n}",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#bonus-dérivation-automatique-pour-case-classes",
+    "href": "tp7.html#bonus-dérivation-automatique-pour-case-classes",
+    "title": "TP7 - Classes de type",
+    "section": "3.5 (Bonus) Dérivation automatique pour case classes",
+    "text": "3.5 (Bonus) Dérivation automatique pour case classes\nImplémentez la dérivation automatique en utilisant les méthodes de Product. Ce trait est implémenté par toutes les case classes.\nimport scala.deriving.*\n\n// TODO: Fonction helper pour encoder n'importe quel type\nprivate def encodeAny(value: Any): YamlValue = ???\n\n// TODO: Instance dérivée automatiquement\ngiven derivedProduct[T &lt;: Product]: YamlEncoder[T] = ???",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "tp7.html#bonus---difficile-dérivation-automatique-pour-case-classes-avec-macros",
+    "href": "tp7.html#bonus---difficile-dérivation-automatique-pour-case-classes-avec-macros",
+    "title": "TP7 - Classes de type",
+    "section": "3.6 (Bonus - Difficile) Dérivation automatique pour case classes avec macros",
+    "text": "3.6 (Bonus - Difficile) Dérivation automatique pour case classes avec macros\nL’approche précédente avec Product n’est pas satisfaisante. En effet, si notre case class possède des attributs d’un type que nous ne savons pas encoder, le programme compilera quand même.\nIl serait préférable de tout valider à la compilation. Scala 3 offre un mécanisme permettant de séparer les composants d’un ADT avec la classe Mirror. Lisez cet article et implémentez la dérivation automatique de case class pour YamlEncoder :\nType Class Derivation in Scala 3",
+    "crumbs": [
+      "TPs",
+      "TP7 - Classes de type"
+    ]
+  },
+  {
+    "objectID": "zio_cheatsheet.html",
+    "href": "zio_cheatsheet.html",
+    "title": "ZIO Cheat Sheet",
+    "section": "",
+    "text": "ZIO est un système d’effets fonctionnel pour Scala. Ce document couvre les patterns dont vous aurez besoin pour ce projet."
+  },
+  {
+    "objectID": "zio_cheatsheet.html#concept-principal",
+    "href": "zio_cheatsheet.html#concept-principal",
+    "title": "ZIO Cheat Sheet",
+    "section": "1 Concept principal",
+    "text": "1 Concept principal\nZIO[R, E, A] représente un programme qui :\n\nNécessite un environnement R\nPeut échouer avec une erreur E\nPeut réussir avec une valeur A\n\nDans ce projet, nous utilisons ZIO[Any, Throwable, A] (pas d’environnement, peut lever des exceptions)."
+  },
+  {
+    "objectID": "zio_cheatsheet.html#séquencement-avec-for-comprehension",
+    "href": "zio_cheatsheet.html#séquencement-avec-for-comprehension",
+    "title": "ZIO Cheat Sheet",
+    "section": "2 1. Séquencement avec for-comprehension",
+    "text": "2 1. Séquencement avec for-comprehension\nfor\n  a &lt;- doSomething()        // Execute first effect, bind result to 'a'\n  b &lt;- doSomethingElse(a)   // Execute second effect using 'a'\n  c &lt;- anotherEffect()      // Execute third effect\nyield (a, b, c)             // Return tuple of results\nC’est similaire à async/await dans d’autres langages."
+  },
+  {
+    "objectID": "zio_cheatsheet.html#wrapper-du-code-bloquant",
+    "href": "zio_cheatsheet.html#wrapper-du-code-bloquant",
+    "title": "ZIO Cheat Sheet",
+    "section": "3 2. Wrapper du code bloquant",
+    "text": "3 2. Wrapper du code bloquant\nZIO.attemptBlocking {\n  // Code that blocks (e.g., socket I/O, file reads)\n  socket.getInputStream.read()\n}\nUtilisez ceci pour tout code qui bloque le thread (I/O réseau, lecture de fichiers, etc.)."
+  },
+  {
+    "objectID": "zio_cheatsheet.html#logging",
+    "href": "zio_cheatsheet.html#logging",
+    "title": "ZIO Cheat Sheet",
+    "section": "4 3. Logging",
+    "text": "4 3. Logging\nZIO.logInfo(s\"Processing ${items.size} items\")\nZIO.logWarning(\"Something unexpected happened\")\nZIO.logError(\"Failed to connect\")"
+  },
+  {
+    "objectID": "zio_cheatsheet.html#itération-avec-effets",
+    "href": "zio_cheatsheet.html#itération-avec-effets",
+    "title": "ZIO Cheat Sheet",
+    "section": "5 4. Itération avec effets",
+    "text": "5 4. Itération avec effets\n// Séquentiel : un après l'autre\nZIO.foreach(workers) { worker =&gt;\n  sendMessage(worker)\n}\n\n// Parallèle : tous en même temps\nZIO.foreachPar(workers) { worker =&gt;\n  sendMessage(worker)\n}\n\n// Ignorer les résultats (retourne Unit)\nZIO.foreachDiscard(workers) { worker =&gt;\n  sendMessage(worker)\n}"
+  },
+  {
+    "objectID": "zio_cheatsheet.html#créer-des-effets-simples",
+    "href": "zio_cheatsheet.html#créer-des-effets-simples",
+    "title": "ZIO Cheat Sheet",
+    "section": "6 5. Créer des effets simples",
+    "text": "6 5. Créer des effets simples\nZIO.succeed(42)              // Always succeeds with 42\nZIO.fail(new Exception(...)) // Always fails\nZIO.unit                     // Succeeds with ()"
+  },
+  {
+    "objectID": "zio_cheatsheet.html#état-mutable-avec-ref",
+    "href": "zio_cheatsheet.html#état-mutable-avec-ref",
+    "title": "ZIO Cheat Sheet",
+    "section": "7 6. État mutable avec Ref",
+    "text": "7 6. État mutable avec Ref\nfor\n  ref &lt;- Ref.make(0)         // Create a Ref holding 0\n  _   &lt;- ref.set(42)         // Set value to 42\n  v   &lt;- ref.get             // Get current value\n  _   &lt;- ref.update(_ + 1)   // Update value\nyield v\nRef est une référence thread-safe. Utilisez-la pour stocker l’état du worker."
+  },
+  {
+    "objectID": "zio_cheatsheet.html#combiner-des-effets",
+    "href": "zio_cheatsheet.html#combiner-des-effets",
+    "title": "ZIO Cheat Sheet",
+    "section": "8 7. Combiner des effets",
+    "text": "8 7. Combiner des effets\neffect1 *&gt; effect2    // Run effect1, discard result, run effect2\neffect1 &lt;* effect2    // Run both, keep result of effect1\neffect1.zip(effect2)  // Run both, return tuple of results"
+  },
+  {
+    "objectID": "zio_cheatsheet.html#pattern-matching-dans-les-for-comprehensions",
+    "href": "zio_cheatsheet.html#pattern-matching-dans-les-for-comprehensions",
+    "title": "ZIO Cheat Sheet",
+    "section": "9 8. Pattern matching dans les for-comprehensions",
+    "text": "9 8. Pattern matching dans les for-comprehensions\nfor\n  msg &lt;- SocketUtils.read[Message](socket)\n  _ &lt;- msg match\n    case Message.Hello(name) =&gt; ZIO.logInfo(s\"Hello $name\")\n    case Message.Goodbye     =&gt; ZIO.logInfo(\"Goodbye\")\nyield ()"
+  },
+  {
+    "objectID": "zio_cheatsheet.html#exemples-de-ce-projet",
+    "href": "zio_cheatsheet.html#exemples-de-ce-projet",
+    "title": "ZIO Cheat Sheet",
+    "section": "10 Exemples de ce projet",
+    "text": "10 Exemples de ce projet\n\n10.1 Lire depuis un socket\nfor\n  msg &lt;- SocketUtils.read[WorkerMessage](driverSocket)\n  _ &lt;- ZIO.logInfo(s\"Received: $msg\")\nyield ()\n\n\n10.2 Diffuser à plusieurs sockets\nval sockets = workers.map(_.socket)\nSocketUtils.broadcast(WorkerMessage.StartShuffle(stageId, n), sockets)\n\n\n10.3 Collecter les réponses de tous les workers\nSocketUtils.readAll[DriverMessage, Map[Int, List[Any]]](sockets) {\n  case DriverMessage.ShuffleData(_, _, partitions) =&gt; ZIO.succeed(partitions)\n}"
+  },
+  {
+    "objectID": "projet_lsi_2627.html",
+    "href": "projet_lsi_2627.html",
+    "title": "Projet Conduit",
+    "section": "",
+    "text": "Le site RealWorld propose différentes implémentations du même logiciel de blogging, Conduit, qui est similaire à Medium. Cela permet de comparer différentes stacks technologiques sur un projet réaliste.\nVous pouvez tester le frontend ici sans installation : Demo Conduit Vue3\nNotre projet consiste à améliorer ce logiciel avec des corrections de bugs et des nouvelles fonctionnalités. Nous utiliserons :\n\nun frontend Vue.js, dérivé de Vue.js + Vite. C’est le même frontend que pour le projet Java Spring Boot (ALTN72).\nun backend Scala 3 / ZIO, dérivé de zio-conduit-doobie\n\nLe backend utilise les bibliothèques suivantes :\n\nZIO : système d’effets fonctionnel, injection de dépendances avec ZLayer\nZIO HTTP : serveur HTTP et routes de l’API REST\nDoobie : accès fonctionnel à la base de données en SQL\nFlyway : migrations du schéma de la base PostgreSQL\nCirce : sérialisation JSON\nZIO Test : tests unitaires et tests par propriétés (générateurs)"
+  },
+  {
+    "objectID": "projet_lsi_2627.html#validation-règles-sur-les-tags",
+    "href": "projet_lsi_2627.html#validation-règles-sur-les-tags",
+    "title": "Projet Conduit",
+    "section": "7.1 VALIDATION : règles sur les tags",
+    "text": "7.1 VALIDATION : règles sur les tags\nCréez un article avec des tags. Aujourd’hui, seul un tag vide est refusé : on peut créer des tags comme Hello World!!! ou scala et Scala, qui sont deux tags différents.\nAjoutez deux règles de validation :\n\nun tag ne contient que des lettres minuscules, des chiffres et des tirets (par exemple cats-effect, scala3)\nun article a au plus 5 tags\n\nCes deux règles ne se placent pas au même endroit dans le code. Cherchez où est faite la vérification du tag vide, puis demandez-vous si la deuxième règle porte sur un tag ou sur un article.\n\nToutes les erreurs doivent être renvoyées en une seule fois : un article avec 6 tags dont un invalide renvoie deux erreurs. Voir Validation.\nTestez vos règles avec des tests unitaires\nVérifiez dans le navigateur que le frontend affiche bien les erreurs.\n\nBONUS : Testez les règles avec des Générateurs : générez des tags valides, vérifiez qu’ils sont acceptés. Générez des tags invalides, vérifiez qu’ils sont rejetés."
+  },
+  {
+    "objectID": "projet_lsi_2627.html#bug-tagrepository",
+    "href": "projet_lsi_2627.html#bug-tagrepository",
+    "title": "Projet Conduit",
+    "section": "7.2 BUG : TagRepository",
+    "text": "7.2 BUG : TagRepository\nDans TagRepositorySpec, le test « Add tags and retrieve them » appelle addTagsAndRetrieveThem avec une liste fixe de deux tags. Modifiez-le avec check pour qu’il vérifie la même chose avec n’importe quelle liste de tags générée. Il vous faudra écrire un générateur de tags.\n\nLancez le test. ZIO Test trouve un contre-exemple qui fait échouer le test : lequel ?\nCorrigez le bug\nRépondez dans le README.md :\n\npourquoi les tests de CommentEntrypointServiceSpec, qui utilisent les repositories en mémoire, n’auraient pas trouvé ce bug ?\nest-ce qu’on peut reproduire ce bug avec l’interface ?\nqu’apporte check par rapport à un test écrit avec quelques exemples choisis à la main ?"
+  },
+  {
+    "objectID": "projet_lsi_2627.html#feature-modifier-un-commentaire",
+    "href": "projet_lsi_2627.html#feature-modifier-un-commentaire",
+    "title": "Projet Conduit",
+    "section": "7.3 FEATURE : Modifier un commentaire",
+    "text": "7.3 FEATURE : Modifier un commentaire\nOn peut créer ou supprimer ses commentaires, mais on ne peut pas les éditer. Modifiez le backend et le frontend pour le permettre. Si vous avez déjà réalisé cette fonctionnalité dans le projet ALTN72, vous pouvez réutiliser votre frontend.\n\nLa route est PUT /api/articles/:slug/comments/:id, avec le même corps JSON que la création\n⚠️ Attention aux droits : seul l’auteur d’un commentaire peut le modifier\nSuivez le parcours d’une requête : chaque couche a quelque chose à ajouter. N’oubliez pas l’implémentation en mémoire du repository.\nAjoutez les tests correspondants\nRépondez dans le README.md : le slug de l’article présent dans l’URL est-il vérifié lors de la suppression d’un commentaire ? Que se passe-t-il si on appelle DELETE /api/articles/un-autre-article/comments/:id ? Faites en sorte que la modification ne présente pas ce problème.\n\nBONUS\nL’utilisateur essaie de modifier le même commentaire en ayant deux navigateurs ouverts.\n\nDécrivez dans le README.md le problème que cela peut poser\nCorrigez le problème"
+  },
+  {
+    "objectID": "projet_lsi_2627.html#feature-rôles",
+    "href": "projet_lsi_2627.html#feature-rôles",
+    "title": "Projet Conduit",
+    "section": "7.4 FEATURE : Rôles",
+    "text": "7.4 FEATURE : Rôles\n\nAjoutez un rôle aux utilisateurs. Ils peuvent avoir l’un de ces rôles :\n\nwriter : rôle par défaut, mêmes droits que maintenant.\nmoderator : writer + peut modifier/supprimer les articles et commentaires de tout le monde.\nadmin : moderator + peut changer les rôles des utilisateurs\n\nModifiez le schéma de la base avec une nouvelle migration Flyway (V2__...sql), et mettez des rôles aux utilisateurs des données d’exemple (R__seed_data.sql)\nAffichez le rôle dans l’écran Settings\nAjoutez un écran de gestion des utilisateurs pour l’admin\n\nl’écran liste tous les utilisateurs\non peut cliquer sur un utilisateur pour aller sur l’écran des settings\ndans Settings, l’admin peut modifier le rôle\n\nLe rôle est enregistré en base de données. Au moment de vérifier les droits d’un utilisateur, faut-il relire son rôle en base, ou le copier dans le token JWT au moment du login (voir TokenAuthenticationService) ?\n\nÉcrivez vos réflexions dans le README.md.\nQue se passe-t-il dans chaque cas quand un admin retire le rôle moderator à un utilisateur connecté ?\n\nModifiez l’UI et les services d’autorisation (domain/service/authorisation) pour autoriser/interdire les opérations correspondant à chaque rôle"
+  },
+  {
+    "objectID": "projet_lsi_2627.html#ressources",
+    "href": "projet_lsi_2627.html#ressources",
+    "title": "Projet Conduit",
+    "section": "8.1 Ressources",
+    "text": "8.1 Ressources\n\nZIO Cheat Sheet : les éléments clés pour comprendre le code du projet\nDocumentation ZIO : en particulier ZIO, ZLayer et ZIO Test\nBook of Doobie\nSpécification de l’API RealWorld"
+  },
+  {
+    "objectID": "projet_lsi_2627.html#faq",
+    "href": "projet_lsi_2627.html#faq",
+    "title": "Projet Conduit",
+    "section": "8.2 FAQ",
+    "text": "8.2 FAQ"
+  },
+  {
+    "objectID": "~BROMIUM/exercices-scala-option.html",
+    "href": "~BROMIUM/exercices-scala-option.html",
     "title": "ADDA74 Functional Programming with Scala",
     "section": "",
-    "text": "correction liste chaînée\nfin CM3 sucre\nTP4 collections 1h30\nCM4 30’\nTP5 30’"
-  },
-  {
-    "objectID": "tp2.html",
-    "href": "tp2.html",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "",
-    "text": "Cet exercice vous permettra de découvrir et pratiquer les concepts fondamentaux de Scala :\n\nTypes de base (Int, Double, String)\ncase class et types algébriques (ADT)\nTraits avec méthodes abstraites\nMixin de traits\nPattern matching\n\n\n\n\n\nInstallez IntelliJ Idea (dernière version)\nInstallez le plugin Scala\nUtilisez le lien Moodle pour créer un repository GitHub classroom\nClonez le repo\nOuvrez le projet dans IntelliJ\n\n\n\n\nVous allez développer un calculateur d’impôt sur le revenu en modélisant les foyers fiscaux. Un foyer fiscal est l’entité qui déclare et paie l’impôt (célibataire, couple, famille, etc.).",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#objectifs-pédagogiques",
-    "href": "tp2.html#objectifs-pédagogiques",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "",
-    "text": "Cet exercice vous permettra de découvrir et pratiquer les concepts fondamentaux de Scala :\n\nTypes de base (Int, Double, String)\ncase class et types algébriques (ADT)\nTraits avec méthodes abstraites\nMixin de traits\nPattern matching",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#installation",
-    "href": "tp2.html#installation",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "",
-    "text": "Installez IntelliJ Idea (dernière version)\nInstallez le plugin Scala\nUtilisez le lien Moodle pour créer un repository GitHub classroom\nClonez le repo\nOuvrez le projet dans IntelliJ",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#contexte",
-    "href": "tp2.html#contexte",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "",
-    "text": "Vous allez développer un calculateur d’impôt sur le revenu en modélisant les foyers fiscaux. Un foyer fiscal est l’entité qui déclare et paie l’impôt (célibataire, couple, famille, etc.).",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#trait-de-base",
-    "href": "tp2.html#trait-de-base",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "2.1 Trait de base",
-    "text": "2.1 Trait de base\nCréez le trait de base pour tous les foyers fiscaux.\nsealed trait FoyerFiscal {\n  def revenuTotal: Double\n  def nombreParts: Double  // Pour le quotient familial\n}",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#première-implémentation-célibataire",
-    "href": "tp2.html#première-implémentation-célibataire",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "2.2 Première implémentation : Célibataire",
-    "text": "2.2 Première implémentation : Célibataire\nCréez une case class pour un foyer célibataire. Elle doit contenir son nom, son revenu, et doit hériter de FoyerFiscal.",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#test-de-la-partie-1",
-    "href": "tp2.html#test-de-la-partie-1",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "2.3 Test de la Partie 1",
-    "text": "2.3 Test de la Partie 1\nAjoutez ce code dans un object contenant une méthode annotée @main, et exécutez-le.\nval pierre = Celibataire(\"Pierre Dupont\", 35000.0)\nprintln(s\"${pierre.nom}: ${pierre.revenuTotal}€, ${pierre.nombreParts} parts\")\n// Sortie attendue: Pierre Dupont: 35000.0€, 1.0 parts",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#trait-calculateurimpot",
-    "href": "tp2.html#trait-calculateurimpot",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "3.1 Trait CalculateurImpot",
-    "text": "3.1 Trait CalculateurImpot\nCréez un trait qui définit les calculs d’impôt. Ce trait nécessite l’accès au revenu et au nombre de parts :\ntrait CalculateurImpot {\n  // Méthodes abstraites que les classes doivent fournir\n  def revenuTotal: Double\n  def nombreParts: Double\n  \n  // Méthodes concrètes qui utilisent les méthodes abstraites\n  def calculerQuotientFamilial(): Double = {\n    if (nombreParts &gt; 0) revenuTotal / nombreParts else 0.0\n  }\n  \n  def calculerTauxEffectif(impot: Double): Double = {\n    if (revenuTotal &gt; 0) (impot / revenuTotal) * 100 else 0.0\n  }\n}",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#mixin-avec-célibataire",
-    "href": "tp2.html#mixin-avec-célibataire",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "3.2 Mixin avec Célibataire",
-    "text": "3.2 Mixin avec Célibataire\nModifiez votre classe Celibataire pour qu’elle utilise aussi le trait CalculateurImpot.",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#test",
-    "href": "tp2.html#test",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "3.3 Test",
-    "text": "3.3 Test\nAjoutez une méthode de test contenant le code suivant :\nval marie = Celibataire(\"Marie Martin\", 40000.0)\nprintln(f\"${marie.nom}:\")\nprintln(f\"  Quotient familial: ${marie.calculerQuotientFamilial()}%.2f€\")\nprintln(f\"  Taux effectif: ${marie.calculerTauxEffectif(6000)}%.2f%%\")\n\n// Sortie attendue:\n// Marie Martin:\n//   Quotient familial: 40000.00€\n//   Taux effectif: 15.00%",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#barème-progressif-dans-le-trait",
-    "href": "tp2.html#barème-progressif-dans-le-trait",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "4.1 Barème progressif dans le trait",
-    "text": "4.1 Barème progressif dans le trait\nAjoutez une méthode calculerImpotProgressif() à votre trait CalculateurImpot. Utilisez le pattern matching pour effectuer le calcul. Vous pouvez utiliser ce site pour comprendre le calcul : Simulateur Impot\nBarème français simplifié :\n\n0€ à 11 497€ : 0% (exonéré)\n11 498€ à 29 315€ : 11% sur la tranche\n29 316€ à 83 823€ : 30% sur la tranche\n83 824€ à 180 294 : 41% sur la tranche\nPlus de 180 295 : 45% sur la tranche\n\nOn commence par calculer le revenu par part, puis on applique le barème pour chaque tranche de revenu. Ensuite, on multiplie l’impôt calculé par le nombre de parts.\ntrait CalculateurImpot:\n  def revenuTotal: Double\n  def nombreParts: Double\n  \n  // Méthodes existantes...\n  \n  def calculerImpotProgressif(): Double = ???\n}",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#test-1",
-    "href": "tp2.html#test-1",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "4.2 Test",
-    "text": "4.2 Test\nval testeurs = List(\n  Celibataire(\"Paul\", 8000.0),    // Exonéré\n  Celibataire(\"Sophie\", 20000.0), // Tranche 11%\n  Celibataire(\"Jean\", 50000.0),   // Tranche 30%\n  Celibataire(\"Claire\", 100000.0) // Tranche 41%\n)\n\nprintln(\"=== Calcul progressif ===\")\ntesteurs.foreach { foyer =&gt;\n  val impot = foyer.calculerImpotProgressif()\n  val taux = foyer.calculerTauxEffectif(impot)\n  println(f\"${foyer.nom}: ${impot}%.2f€ (${taux}%.2f%%)\")\n}\nRésultats attendus :\n\nPaul: 0.00€ (0.00%)\nSophie: 935.22€ (4.68%)\nJean: 8165.18€ (16.33%)\nClaire: 24944.54€ (24.94%)",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#foyer-couple",
-    "href": "tp2.html#foyer-couple",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "5.1 Foyer Couple",
-    "text": "5.1 Foyer Couple\nCréez une case class pour un couple. Elle doit posséder les deux noms et deux revenus, et hériter de FoyerFiscal ainsi que de CalculateurImpot. Un couple possède 2 parts fiscales.",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#foyer-avec-enfants",
-    "href": "tp2.html#foyer-avec-enfants",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "5.2 Foyer avec enfants",
-    "text": "5.2 Foyer avec enfants\nCréez une case class FoyerAvecEnfants. Elle doit posséder un attribut foyerParent et un attribut nombreEnfants.\n\nLes deux premiers enfants comptent pour une 1/2 part chacun.\nA partir du 3ème enfant, chaque enfant compte pour une part complète.\nUn parent célibataire a une 1/2 part supplémentaire.",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "tp2.html#test-2",
-    "href": "tp2.html#test-2",
-    "title": "TP2 - Calculateur d’Impôt sur le Revenu",
-    "section": "5.3 Test",
-    "text": "5.3 Test\nAjoutez une méthode de test contenant le code suivant :\nval celibataireSeul = Celibataire(\"Alice\", 45000.0)\nval couple = Couple(\"Bob\", \"Emma\", 25000.0, 20000.0)\nval celibataireAvecEnfants = FoyerAvecEnfants(Celibataire(\"Carol\", 45000.0), 2)\nval coupleAvecEnfants = FoyerAvecEnfants(couple, 1)\nval coupleAvec4Enfants = FoyerAvecEnfants(couple, 4)\n\nval foyers = List(celibataireSeul, couple, celibataireAvecEnfants, coupleAvecEnfants)\n\nprintln(\"=== Comparaison des foyers ===\")\nfoyers.foreach { foyer =&gt;\n  val impot = foyer.calculerImpotProgressif()\n  val quotient = foyer.calculerQuotientFamilial()\n  val taux = foyer.calculerTauxEffectif(impot)\n  \n  val nom = foyer.toString\n  println(f\"$nom:\")\n  println(f\"  Revenu total: ${foyer.revenuTotal}%.2f€\")\n  println(f\"  Nombre de parts: ${foyer.nombreParts}%.1f\")\n  println(f\"  Quotient familial: ${quotient}%.2f€\")\n  println(f\"  Impôt: ${impot}%.2f€\")\n  println(f\"  Taux effectif: ${taux}%.2f%%\")\n  println()\n}",
-    "crumbs": [
-      "TPs",
-      "TP2 - Calculateur d'Impôt sur le Revenu"
-    ]
-  },
-  {
-    "objectID": "zio_cheatsheet_2627.html",
-    "href": "zio_cheatsheet_2627.html",
-    "title": "ZIO Cheat Sheet - Projet Conduit",
-    "section": "",
-    "text": "Ce document présente les éléments clés pour lire et modifier le code du projet Conduit. Il ne remplace pas la documentation de ZIO : il montre seulement les patterns que vous rencontrerez dans le projet, avec des exemples tirés du code."
-  },
-  {
-    "objectID": "zio_cheatsheet_2627.html#hiérarchie-des-erreurs",
-    "href": "zio_cheatsheet_2627.html#hiérarchie-des-erreurs",
-    "title": "ZIO Cheat Sheet - Projet Conduit",
-    "section": "3.1 Hiérarchie des erreurs",
-    "text": "3.1 Hiérarchie des erreurs\nToutes les erreurs métier étendent ApplicationError (domain/model/error). Ce ne sont pas des exceptions : on ne les lance pas avec throw, on les renvoie avec ZIO.fail.\ntrait ApplicationError:\n  def message: String\n\nobject ApplicationError:\n  trait NotFoundError     extends ApplicationError\n  trait UnauthorisedError extends ApplicationError\n  trait ValidationError   extends DomainError\n  ...\nLe type E peut être une union d’erreurs : ZIO[R, PersistenceError | NotFound, A].\nDans la couche HTTP, ErrorMiddleware transforme chaque catégorie d’erreur en code HTTP : NotFoundError → 404, UnauthorisedError → 403, InvalidInput (validation) → 400, le reste → 500."
-  },
-  {
-    "objectID": "zio_cheatsheet_2627.html#opérateurs-sur-les-erreurs",
-    "href": "zio_cheatsheet_2627.html#opérateurs-sur-les-erreurs",
-    "title": "ZIO Cheat Sheet - Projet Conduit",
-    "section": "3.2 Opérateurs sur les erreurs",
-    "text": "3.2 Opérateurs sur les erreurs\neffect.mapError(e =&gt; OtherError(e))      // transforme l'erreur\neffect.someOrFail(NotFound.user(id))     // ZIO[R, E, Option[A]] =&gt; ZIO[R, E | NotFound, A]\neffect.orDie                             // erreur \"impossible\" : transforme l'erreur en défaut (crash)\neffect.flip                              // inverse succès et erreur (utile dans les tests)\nLe projet définit l’opérateur ?! comme raccourci de someOrFail (voir EntrypointDsl) :\narticleId &lt;- permalinks.resolve(slug) ?! NotFound.article(slug)\n// si resolve renvoie None, le programme échoue avec NotFound.article(slug)"
-  },
-  {
-    "objectID": "zio_cheatsheet_2627.html#subtype",
-    "href": "zio_cheatsheet_2627.html#subtype",
-    "title": "ZIO Cheat Sheet - Projet Conduit",
-    "section": "4.1 Subtype",
-    "text": "4.1 Subtype\nPlutôt que des Long et des String partout, le domaine utilise des types dédiés, définis avec Subtype de ZIO Prelude :\ntype CommentId = CommentId.Type\nobject CommentId extends Subtype[Long]\n\nval id: CommentId = CommentId(42L)   // construction\nval n: Long       = id               // un CommentId EST un Long (Subtype)\nLe compilateur empêche alors de passer un ArticleId là où on attend un CommentId. À l’exécution, il n’y a aucun surcoût : un CommentId est un simple Long."
-  },
-  {
-    "objectID": "zio_cheatsheet_2627.html#validation",
-    "href": "zio_cheatsheet_2627.html#validation",
-    "title": "ZIO Cheat Sheet - Projet Conduit",
-    "section": "4.2 Validation",
-    "text": "4.2 Validation\nValidation[E, A] (ZIO Prelude) ressemble à Either[E, A], mais accumule les erreurs au lieu de s’arrêter à la première. Voir le cours : CM5 - Le type Validation.\nExemple du projet :\nobject CommentBody extends Subtype[String] {\n  def validated(body: String): Validation[Error, CommentBody] =\n    Validation\n      .validate(validateIsNotTooShort(body), validateIsNotTooLong(body))\n      .map(_ =&gt; CommentBody(body))\n}\nLes services de validation (domain/service/validation) transforment une requête brute en données typées. Dans les entrypoints, validOrFail convertit une Validation en ZIO qui échoue avec InvalidInput (la liste de toutes les erreurs) :\nvalidated &lt;- validation.parse(request).validOrFail"
-  },
-  {
-    "objectID": "zio_cheatsheet_2627.html#un-service",
-    "href": "zio_cheatsheet_2627.html#un-service",
-    "title": "ZIO Cheat Sheet - Projet Conduit",
-    "section": "5.1 Un service",
-    "text": "5.1 Un service\nUn service est un trait (l’interface, dans domain/logic) et une classe qui l’implémente (dans domain/service ou infrastructure). Les dépendances sont passées au constructeur. Par exemple, CommentEntrypointService a besoin de plusieurs autres services :\nclass CommentEntrypointService(\n  unitOfWork: UnitOfWork,\n  authorisation: CommentAuthorisation,\n  validation: CommentValidator,\n  comments: CommentRepository,\n  ...\n) extends CommentEntrypoint"
-  },
-  {
-    "objectID": "zio_cheatsheet_2627.html#un-zlayer",
-    "href": "zio_cheatsheet_2627.html#un-zlayer",
-    "title": "ZIO Cheat Sheet - Projet Conduit",
-    "section": "5.2 Un ZLayer",
-    "text": "5.2 Un ZLayer\nUn ZLayer[RIn, E, ROut] est une recette pour construire le service ROut à partir des services RIn. Chaque service a un layer dans son objet compagnon, qui récupère ses dépendances avec ZIO.service puis appelle le constructeur :\nobject CommentEntrypointService:\n  val layer: ZLayer[UnitOfWork & CommentAuthorisation & CommentValidator & CommentRepository & ...,\n                    Nothing,\n                    CommentEntrypointService] =\n    ZLayer {\n      for {\n        unitOfWork    &lt;- ZIO.service[UnitOfWork]            // récupère un service de l'environnement\n        authorisation &lt;- ZIO.service[CommentAuthorisation]\n        validator     &lt;- ZIO.service[CommentValidator]\n        comments      &lt;- ZIO.service[CommentRepository]\n        ...\n      } yield CommentEntrypointService(unitOfWork, authorisation, validator, comments, ...)\n    }\nLe type RIn (UnitOfWork & CommentAuthorisation & ...) liste les dépendances : le layer ne peut être construit que si on lui fournit tous ces services.\nCes dépendances ont elles-mêmes des dépendances. Pour une requête sur les commentaires :\nCommentRoutes ──► CommentEntrypoint ──► CommentAuthorisation ──► CommentRepository\n                        │                                              ▲\n                        ├──► CommentValidator (aucune dépendance)      │\n                        └──► CommentRepository ────────────────────────┘\nUn service sans dépendance utilise ZLayer.succeed :\nobject CommentValidationService:\n  val layer: ZLayer[Any, Nothing, CommentValidator] = ZLayer.succeed(CommentValidationService())"
-  },
-  {
-    "objectID": "zio_cheatsheet_2627.html#assembler-les-layers",
-    "href": "zio_cheatsheet_2627.html#assembler-les-layers",
-    "title": "ZIO Cheat Sheet - Projet Conduit",
-    "section": "5.3 Assembler les layers",
-    "text": "5.3 Assembler les layers\nlayerA ++ layerB     // fournit les services de layerA et de layerB\nlayerA &gt;&gt;&gt; layerB    // layerA fournit les dépendances de layerB\nExemple dans PostgresModule :\nobject PostgresModule {\n  // ZLayer[DatabaseSourceConfig, Nothing, HikariDataSource] : pool de connexions, construit à partir de la configuration,\n  // et fermé automatiquement à l'arrêt de l'application (withFinalizerAuto)\n  val datasource = ZLayer.scoped:\n    ZIO.service[DatabaseSourceConfig].map(config =&gt; new HikariDataSource(config.toHikariConfig)).withFinalizerAuto\n\n  // &gt;&gt;&gt; : le pool de connexions est fourni à PostgresUnitOfWork, qui en a besoin pour ouvrir les transactions\n  val unitOfWork = datasource &gt;&gt;&gt; PostgresUnitOfWork.layer\n\n  // ++ : le module fournit tous les repositories, le UnitOfWork et le pool de connexions\n  val layer      = PostgresRepositoryModule.layer ++ unitOfWork ++ datasource\n}\nEt InMemoryRepositoryModule regroupe tous les repositories en mémoire avec ++ :\nval layer =\n  InMemoryUnitOfWork.layer ++\n    InMemoryUserRepository.layer ++\n    InMemoryCommentRepository.layer ++\n    ...\nEn pratique, on donne simplement la liste des layers à .provide(...) : ZIO trouve tout seul dans quel ordre les construire, et construit une seule instance de chaque service, partagée par tous ceux qui en dépendent (ici, le même CommentRepository pour l’entrypoint et l’autorisation).\nExemple dans CommentEntrypointServiceSpec, où l’ordre des layers n’a pas d’importance :\nspec.provide(\n  CommentEntrypointService.layer,       // a besoin de CommentAuthorisation, CommentValidator, repositories...\n  CommentValidationService.layer,       // aucune dépendance\n  CommentAuthorisationService.layer,    // a besoin de CommentRepository\n  InMemoryRepositoryModule.layer,       // fournit les repositories et UnitOfWork (en mémoire)\n)\nLes modules (DomainServiceModule, PostgresModule, InMemoryModule…) regroupent les layers d’une couche. Les modes de lancement (HttpApplication.dev, inmemory…) les assemblent de la même façon. Pour passer de PostgreSQL à la mémoire, il suffit de remplacer PostgresModule.layer par InMemoryModule.layer : les services du domaine ne changent pas.\nprovide vérifie à la compilation que toutes les dépendances sont fournies. Si vous ajoutez une dépendance à un service, le message d’erreur indique le layer manquant.\nC’est l’équivalent de l’injection de dépendances de Spring, mais vérifié par le compilateur, sans annotations ni réflexion."
-  },
-  {
-    "objectID": "zio_cheatsheet_2627.html#structure-dun-test",
-    "href": "zio_cheatsheet_2627.html#structure-dun-test",
-    "title": "ZIO Cheat Sheet - Projet Conduit",
-    "section": "10.1 Structure d’un test",
-    "text": "10.1 Structure d’un test\nobject CommentEntrypointServiceSpec extends ZIOSpecDefault {\n\n  def spec = suite(\"CommentEntrypointService\")(\n    test(\"adds a comment to an article\") {\n      for {\n        fixture  &lt;- givenArticle\n        service  &lt;- ZIO.service[CommentEntrypointService]\n        response &lt;- service.addComment(addComment(fixture.profile.id, fixture.slug, \"Nice article!\"))\n      } yield assertTrue(\n        response.comment.body == \"Nice article!\",\n        !response.comment.author.following,\n      )\n    },\n  ).provide(                             // layers fournis aux tests\n    CommentEntrypointService.layer,\n    CommentValidationService.layer,\n    CommentAuthorisationService.layer,\n    InMemoryRepositoryModule.layer,      // repositories en mémoire : rapide, pas de Docker\n  )\n}\n\nUn test est lui-même un ZIO : on utilise une for-comprehension et on termine par assertTrue(...).\nassertTrue accepte plusieurs conditions et affiche clairement celle qui échoue.\nPour tester un cas d’erreur, .flip transforme l’erreur en succès :\n\ntest(\"fails with NotFound when the article does not exist\") {\n  for {\n    service &lt;- ZIO.service[CommentEntrypointService]\n    unknown  = ArticleSlug(\"unknown-article\")\n    error   &lt;- service.addComment(addComment(userId, unknown, \"Nice article!\")).flip\n  } yield assertTrue(error == NotFound.article(unknown))\n}"
-  },
-  {
-    "objectID": "zio_cheatsheet_2627.html#générateurs",
-    "href": "zio_cheatsheet_2627.html#générateurs",
-    "title": "ZIO Cheat Sheet - Projet Conduit",
-    "section": "10.2 Générateurs",
-    "text": "10.2 Générateurs\nGenerator (src/test/scala/.../entity/Generator.scala) produit des données de test aléatoires avec Gen :\ndef userName: Gen[Any, UserName] = Gen.stringBounded(3, 20)(Gen.alphaChar).map(UserName(_))\n\nuserId &lt;- Generator.userId.runHead.someOrFailException   // une seule valeur aléatoire\nOn peut aussi vérifier une propriété sur beaucoup de valeurs générées avec check (tests par propriétés) :\ntest(\"a valid body is accepted\") {\n  check(Gen.stringBounded(3, 500)(Gen.alphaChar)) { body =&gt;\n    assertTrue(CommentBody.fromString(body).toEither.isRight)\n  }\n}"
-  },
-  {
-    "objectID": "zio_cheatsheet_2627.html#tests-des-repositories-postgresql",
-    "href": "zio_cheatsheet_2627.html#tests-des-repositories-postgresql",
-    "title": "ZIO Cheat Sheet - Projet Conduit",
-    "section": "10.3 Tests des repositories PostgreSQL",
-    "text": "10.3 Tests des repositories PostgreSQL\nLes specs de infrastructure/postgres/repository utilisent une vraie base PostgreSQL dans Docker. Chaque test s’exécute dans une transaction (transaction:) sur une base recréée (@@ withMigration) :\ntest(\"Adds a comment and retrieves it\") {\n  transaction:\n    for {\n      ...\n      created &lt;- comments.save(comment)\n      fetched &lt;- comments.find(created.id)\n    } yield assertTrue(fetched.contains(created))\n} @@ withMigration"
+    "text": "LavaStatus=0 XM\u0002\u0004�\u0002\u0001\u0001\u0001\f�\u0002e \u0001�\u0002e\u0001T^\u0002\u0001(z�8-6W�\u0001\u0002\u001f\u0004\u0004\u001b�\u0006&lt;2\u00014G\u0015\u0003[2\u00014\u0016,\u00012\u0001J�\u0001.\u00012\u0001�\u0001vexercices-scala-option.qmdfirefox.exehttps://claude.ai/api/organizations/2aa66844-452f-4abd-8afa-a5d4fba443b9/conversations/5ac4aab2-b56c-4658-837f-ae9912e7dfb4/wiggle/download-file?path=%2Fmnt%2Fuser-data%2Foutputs%2Fexercices-scala-option.qmdhttps://claude.ai/chat/5ac4aab2-b56c-4658-837f-ae9912e7dfb4ܩ\u0018�"
   },
   {
     "objectID": "syllabus.html",
