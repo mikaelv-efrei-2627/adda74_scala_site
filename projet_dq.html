@@ -7641,7 +7641,7 @@ sbt &quot;runMain dq.validateExample&quot;         # un programme (une méthode 
 <h2 data-number="2.3" class="anchored" data-anchor-id="diagrammes-de-classes-de-last"><span class="header-section-number">2.3</span> Diagrammes de classes de l’AST</h2>
 <p>Les <code>sealed trait</code> sont représentés comme des <code>&lt;&lt;interface&gt;&gt;</code>. Ce sont des hiérarchies fermées : le compilateur connaît tous les cas et vérifie que le pattern matching est exhaustif.</p>
 <section id="structure-dune-règle" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="structure-dune-règle"><span class="header-section-number">2.3.1</span> 1. Structure d’une règle</h3>
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="structure-dune-règle"><span class="header-section-number">2.3.1</span> Structure d’une règle</h3>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -7720,7 +7720,7 @@ sbt &quot;runMain dq.validateExample&quot;         # un programme (une méthode 
 <p>Omis : les métriques <code>Uniqueness</code>, <code>Min</code>, <code>Max</code>, <code>Mean</code>, et les comparateurs <code>Neq</code>, <code>Le</code>, <code>Gt</code>, <code>Ge</code>.</p>
 </section>
 <section id="expressions-et-valeurs" class="level3" data-number="2.3.2">
-<h3 data-number="2.3.2" class="anchored" data-anchor-id="expressions-et-valeurs"><span class="header-section-number">2.3.2</span> 2. Expressions et valeurs</h3>
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="expressions-et-valeurs"><span class="header-section-number">2.3.2</span> Expressions et valeurs</h3>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -7823,7 +7823,7 @@ sbt &quot;runMain dq.validateExample&quot;         # un programme (une méthode 
 <p>Omis : les expressions <code>Or</code>, <code>IsNull</code>, <code>In</code>, <code>Matches</code>, les opérateurs <code>Sub</code>, <code>Div</code>, et les comparateurs <code>Neq</code>, <code>Le</code>, <code>Gt</code>, <code>Ge</code>. La récursion des expressions est détaillée dans le diagramme 3.</p>
 </section>
 <section id="récursion-des-expressions" class="level3" data-number="2.3.3">
-<h3 data-number="2.3.3" class="anchored" data-anchor-id="récursion-des-expressions"><span class="header-section-number">2.3.3</span> 3. Récursion des expressions</h3>
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="récursion-des-expressions"><span class="header-section-number">2.3.3</span> Récursion des expressions</h3>
 <p>Ce diagramme montre seulement les compositions : quels cas de <code>Expr</code> contiennent d’autres <code>Expr</code>. Les flèches d’héritage sont dans le diagramme 2. <code>Col</code> et <code>Lit</code> ne contiennent aucune sous-expression : ce sont les feuilles de l’arbre.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
